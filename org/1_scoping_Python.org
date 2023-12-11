@@ -1,0 +1,165 @@
+#+TITLE: CALLING FUNCTIONS - SCOPING
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: DSC 205 - Advanced introduction to data science
+#+STARTUP: overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:python :session *Python* :results output :exports both :noweb yes
+
+* README
+
+- [[https://github.com/birkenkrahe/ds2/tree/main/org][Download the practice files from GitHub]]
+- Save them as ~1_scoping_practice_Python_1.org~ and
+  ~1_scoping_practice_Python_2.org~.
+
+* Scoping in Python
+
+- Scoping rules determine how Python stores and retrieves objects
+
+- Python uses a LEGB rule: "Local, Enclosing, Global, Built-in"
+
+- Example: Create a list and use it in a function
+  #+begin_src python
+    # create a list
+    my_list = [1, 2, 3]
+
+    # create a function
+    def sum_list():
+        '''Return sum of list values
+        '''
+        return sum(my_list)
+
+    print(sum_list())
+  #+end_src
+
+  #+RESULTS:
+  : 6
+
+* Global and Local Scopes
+
+- Global scope: Variables defined at the top-level of a script
+
+- Local scope: Variables defined within a function
+
+- Python does not allow direct modification of global variables inside
+  a function unless specified using the =global= keyword
+
+- Example: Modify a =global= variable inside a function
+  #+begin_src python
+    count = 0
+
+    def increment_count():
+        global count
+        count += 1
+
+    increment_count()
+    print(count)
+  #+end_src
+
+* Namespaces
+
+- Namespace in Python is a mapping from names to objects
+
+- Different namespaces can co-exist without interference
+
+- Example: Using a built-in function and a user-defined function with the same name
+  #+begin_src python
+    def max(a, b):
+        return a if a > b else b
+
+    print(max(1, 2))  # User-defined function
+    print(__builtins__.max([1, 2]))  # Built-in function
+  #+end_src
+
+* Local Environments in Python
+
+- Each function call creates a new local namespace
+
+- Local variables are created and manipulated within this namespace
+
+- Example: Local variables in a function
+  #+begin_src python
+    def greet(name):
+        greeting = f"Hello, {name}"
+        return greeting
+
+    print(greet("Alice"))
+  #+end_src
+
+* Listing User-defined objects (like R's =ls=)
+
+In Python, you can use the dir() function to list the names in the
+current scope. However, this will also show built-in objects and
+imported modules. To get a list closer to what ls() provides in R, you
+can filter out names that start with an underscore, which are usually
+built-in names.
+
+Example:
+#+begin_src python :results output :session *Python* :exports both :noweb yes
+  import math  # Importing a module for demonstration
+
+  x = 10
+  y = "hello"
+
+  # Function to mimic R's ls()
+  def ls():
+      return [name for name in globals() if not name.startswith("_")]
+
+  print(ls())  # This will print ['ls', 'math', 'x', 'y']
+
+#+end_src
+
+* Python Modules as Namespaces
+
+- Each Python module has its own global namespace
+
+- Functions and variables defined in a module are accessed using the module's namespace
+
+- Example: Accessing variables and functions from a Python module
+  #+begin_src python
+    import math
+
+    print(math.pi)  # Accessing the pi variable from the math module
+    print(math.sqrt(4))  # Accessing the sqrt function from the math module
+  #+end_src
+
+* Identifying Loaded Modules (like R's =search=)
+
+Python doesn't have a direct equivalent of R's search()
+function. However, you can use the sys module to list loaded
+modules. It's not as straightforward as in R, but it can be useful to
+see what modules are currently loaded.
+
+Example:
+#+begin_src python :results output :session *Python* :exports both :noweb yes
+  import sys
+
+  # Function to list loaded modules, similar to R's search()
+  def loaded_modules():
+      return list(sys.modules.keys())
+
+  print(loaded_modules())
+#+end_src
+
+* Reserved Keywords in Python
+
+- Certain words are reserved in Python and cannot be used as identifiers
+
+- Examples: =if=, =else=, =for=, =while=, =class=, =def=, =True=, =False=, =None=
+
+- Attempting to use these as variable names will result in a =SyntaxError=
+
+* Clearing Python Environments
+
+- Clearing variables in Python can be done by deleting them using the
+  'del' keyword
+
+- Example: Clearing variables from the global namespace
+  #+begin_src python
+    x = 10
+    y = 20
+    del x, y
+  #+end_src
+
+* References
+
+- Python official documentation on Scoping and Namespaces: [[https://docs.python.org/3/tutorial/classes.html#python-scopes-and-namespaces]]
