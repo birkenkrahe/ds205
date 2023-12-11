@@ -81,6 +81,9 @@ Notes:
 - Tests: weekly online quizzes, which are previewed and reviewed in
   class.
 - Final exam: selection of the most challenging weekly quiz questions.
+- You only have to write the final exam if you want to improve your
+  grade at the end of the course. If the final exam result is below
+  your final grade average up to this point, it will be ignored.
 
 * Grading table
 
