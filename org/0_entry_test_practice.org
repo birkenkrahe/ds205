@@ -1,0 +1,157 @@
+#+title: ds205 - entry test practice
+#+STARTUP: overview hideblocks indent :
+#+PROPERTY: header-args:python :results output :session *Python*
+#+PROPERTY: header-args:R :results output :session *R*
+* Entry Test Review - R and Python
+
+** Creating and subsetting a data frame
+
+1) R: Explain every line in this code block! Write comments in
+   front or next to the commands. Running the code might help.
+   #+begin_src R 
+     name <- c("Python","R","SQL")
+     type <- c("Practice","Project","Lecture")
+     number <- c(100,430,200)
+     courses_df <- data.frame(name,type,number)
+     subset(courses_df,number < 200 )
+     courses_df[courses_df$number < 200,]
+   #+end_src
+
+2) Python:
+   #+begin_src python 
+
+   #+end_src
+
+** Looking at data
+
+1) R: Show three ways to look at your data, e.g. ~courses_df~.
+   #+begin_src R
+
+   #+end_src
+
+2) Python:
+   - print the =DataFrame= as a whole.
+   - =pd.items= iterates over =DataFrame= items (used for loops).
+   - =pd.describe()= is the equivalent of R's =summary= function.
+   #+begin_src python 
+
+   #+end_src
+
+** What is vectorisation?
+
+1) What is vectorization? Can you think of an example?
+   #+begin_src R 
+
+   #+end_src
+
+2) Python:
+   #+begin_src python 
+
+   #+end_src
+
+** Multiplying vectors of different lengths
+
+1) R: What happens when you multiply two vectors of differing length?
+
+   Multiply a 4- with a 2-element vector:
+   #+begin_src R 
+
+   #+end_src
+
+   Multiply a 4- with a 3-element vector:
+   #+begin_src R 
+
+   #+end_src
+
+2) Python:
+   #+begin_src python
+
+   #+end_src
+
+** Pattern matching and replacement
+
+1) R: Change the first letter of your first name to lower case using
+   R's pattern matching and replacement function =sub=:
+   #+begin_src R 
+
+   #+end_src
+
+2) Python:
+   #+begin_src python
+  
+   #+end_src
+
+** Factor levels
+
+1) R: How many levels does ~factor(c("a","b","a","a","b"))~ have?
+   #+begin_src R 
+     
+   #+end_src
+
+2) Python: 
+   #+begin_src python
+
+   #+end_src
+
+** Matrix to factor
+
+1) R: What is ~factor(matrix("small","medium","large"))~?
+   #+begin_example
+
+   #+end_example
+
+   #+begin_src R
+
+   #+end_src
+
+2) Python:
+   #+begin_src python 
+
+   #+end_src
+
+** Extracting matrix elements
+
+1) R: Extract "bar" from ~M <- matrix(c(a="foo",b="bar"))~ in two ways:
+   #+begin_src R 
+ 
+   #+end_src
+
+
+2) Python: 
+   #+begin_src python 
+     m = np.array([["foo"],["bar"]])
+     print(m)
+     print(m.shape)
+   #+end_src
+
+   #+begin_src python
+
+   #+end_src
+
+** Concatenating data frames
+
+1) R: Explain every line in this code and in the output:
+   #+begin_src R 
+     temp <- data.frame(jan=39)
+     c(temp, sep=57)
+   #+end_src
+
+
+2) Python:
+   #+begin_src python 
+
+   #+end_src
+
+** Rownames and column names
+
+1) R: What are the =rownames= of ~list(A="a", B=c(1,2,3), C=lst)~?
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+
+   #+end_src
+
+
+2) Python: 
+   #+begin_src python
+
+   #+end_src
+

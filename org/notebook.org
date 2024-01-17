@@ -1,0 +1,277 @@
+#+TITLE: Agenda - Introduction to advanced data science
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Lyon College, Spring 2024
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+property: header-args:python :results output :noweb yes :session *Python* :exports both
+#+property: header-args:R :results output :noweb yes :session *R* :exports both
+* Week 1: R basics and calling functions
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/cover.png]]
+
+- Course details: see [[https://lyon.instructure.com/courses/2111/assignments/syllabus][syllabus]] and [[https://lyon.instructure.com/courses/2111/discussion_topics/8683][Jan 13 announcement]].
+- Course materials: [[https://github.com/birkenkrahe/ds205][GitHub]]. See also [[https://lyon.instructure.com/courses/2111/pages/course-links][course links]] in Canvas.
+- *Test:* Review R basics (cp. DataCamp introduction).
+- *Test*: Review Python basics (cp. DataCamp Python for R Users).
+- *Practice*: Getting back to GNU Emacs & Org-mode (tutorial).
+
+** Individual term projects
+
+- Identify a Python or R package that you explore during the term.
+- 1st sprint: Identify research questions for the package.
+- 2nd sprint: Develop an exploration and testing methodology.
+- 3rd sprint: Summarize results with an abstract.
+- 4th sprint: Present with interactive exercises.
+- Submit Emacs Org-mode file and any other materials.
+- Turn the project in an item for your resume portfolio!
+
+** Announcement: Journal club!
+
+Data science enthusiasts: there will be a "journal club" on Wednesday
+12-12:45 pm in Derby room 209. We'll put the papers in a GDrive.
+
+For the first journal club on Januar 31, I'd like to submit my last
+non-technical paper, "The role of AI coding assistants: revisiting the
+need for literate programming in computer and data science education."
+([[https://drive.google.com/file/d/1OonJ1pesK2iRP3JDf4MoBRgg4NKk91yU/view?usp=sharing][Link]]) This paper will be presented at INTED'24, the 18th annual
+International Technology, Education and Development Conference in
+Valencia (Spain), March 4-6.
+
+You can get some background on this topic from the wall poster in
+front of my office, about the paper that I wrote before this one.
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/MDPI_2023_BIRKENKRAHE_poster.pptx.png]]
+
+*Caveat:* in a journal club, you discuss other people's papers and not
+your own - I will try to simulate that by discussing my paper as if
+someone else had written it, and also using AI to deliver a critique.
+
+** 10 top tips: How to study programming languages
+
+...when using DataCamp and/or when reviewing a test:
+
+1) Read the texts and the instructions carefully.
+2) Take notes if you can.
+3) Recreate all code in your IDE before submitting it.
+4) This will take at least twice as long as you expect.
+5) You will learn a lot of extras along the way.
+6) Your programmer's muscle memory will be improved.
+7) Look at the classroom material to identify overlaps.
+8) Look stuff up in books or in online documentation.
+9) Review DataCamp lessons daily using practice questions.
+10) Review tests monthly by completing them again.
+
+** Test review - base R & conversion to R
+
+We're going to look at translating this code to Python later.
+
+1) Explain every line in this code block!
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     name <- c("Python","R","SQL")
+     type <- c("Practice","Project","Lecture")
+     number <- c(100,430,200)
+     courses_df <- data.frame(name,type,number)
+     subset(courses_df,number < 200 )
+   #+end_src
+
+   #+RESULTS:
+   :     name     type number
+   : 1 Python Practice    100
+
+   Solution:
+   #+begin_example R
+     name <- c("Python","R","SQL") # create character vector `name`
+     type <- c("Practice","Project","Lecture") # create character vector `type`
+     number <- c(100,430,200) # create numeric vector `number`
+     courses_df <- data.frame(name,type,number) # create data frame from vectors
+     subset(courses_df, number < 200 ) # select rows/records whose number < 200
+   #+end_example
+
+2) Name three ways to look at your data, e.g. ~courses_df~.
+
+   Solution:
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     courses_df  # print the data frame
+     str(courses_df) # show the data frame structure
+     summary(courses_df) # show statistical summary
+   #+end_src
+
+3) What is vectorization? Can you think of an example?
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+                                             # Vectorization = converting scalar into vector operations
+     foo <- c(1,2,3,4) # create numeric vector of four elements
+     100 * foo # element-wise multiplication of vector with scalar
+   #+end_src
+
+   #+RESULTS:
+   : [1] 100 200 300 400
+
+4) What happens when you multiply two vectors of differing length?
+
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     bar = c(100,200)
+     foo * bar # multiply 4- with 2-element vector
+   #+end_src
+
+   #+RESULTS:
+   : [1] 100 400 300 800
+
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     baz = c(100,200,300)
+     foo * baz  # multiply 4- with 3-element vector
+   #+end_src
+
+   #+RESULTS:
+   : [1] 100 400 900 400
+   : Warning message:
+   : In foo * baz :
+   :   longer object length is not a multiple of shorter object length
+
+5) Change the first letter of your first name to lower case using R's
+   pattern matching and replacement function =sub=:
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     my_name <- "Marcus"
+     sub(pattern = "M",
+         replacement = "m",
+         x = my_name)
+   #+end_src
+
+   #+RESULTS:
+   : [1] "marcus"
+
+6) How many levels does ~factor(c("a","b","a","a","b"))~ have?
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     factor(c("a","b","a","a","b"))
+   #+end_src
+
+7) What is ~factor(matrix("small","medium","large"))~?
+   #+begin_example
+   factor(matrix("small","medium","large")) # error!
+   # what is the correct definition?
+   #+end_example
+
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     M <- matrix(c("small","medium","large"))
+     M
+     factor(M)
+   #+end_src
+
+   #+RESULTS:
+   :      [,1]
+   : [1,] "small"
+   : [2,] "medium"
+   : [3,] "large"
+   : [1] small  medium large
+   : Levels: large medium small
+
+8) Extract "bar" from ~M <- matrix(c(a="foo",b="bar"))~ in two ways:
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     M <- matrix(c(a="foo",b="bar"))
+     M[2,1]
+     M[2][1]
+     M["a",1] # error: M doesn't have rownames/colnames (check str)
+     str(M)
+     rownames(M)=c("x","y")
+     colnames(M)=c("a")
+     M
+     str(M)
+     M["y","a"]  # now you can use the names to index elements
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+   [1] "bar"
+   [1] "bar"
+   Error in M["a", 1] : no 'dimnames' attribute for array
+    chr [1:2, 1] "foo" "bar"
+     a
+   x "foo"
+   y "bar"
+    chr [1:2, 1] "foo" "bar"
+    - attr(*, "dimnames")=List of 2
+     ..$ : chr [1:2] "x" "y"
+     ..$ : chr "a"
+   [1] "bar"
+   #+end_example
+
+9) Explain every line in this code and in the output:
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     temp <- data.frame(jan=39)
+     c(temp, sep=57)
+   #+end_src
+
+   #+RESULTS:
+   : $jan
+   : [1] 39
+   :
+   : $sep
+   : [1] 57
+
+   Solution:
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     temp <- data.frame(jan=39) # create data frame with 1 element
+                                # the element is a named vector
+     str(temp)
+     lst <- c(temp, sep=57) # c creates a list!
+                            # c concatenates and coerces (check ?c)
+     lst
+     str(lst)
+     #+end_src
+
+   #+RESULTS:
+   #+begin_example
+   'data.frame':	1 obs. of  1 variable:
+    $ jan: num 39
+   $jan
+   [1] 39
+
+   $sep
+   [1] 57
+   List of 2
+    $ jan: num 39
+    $ sep: num 57
+   #+end_example
+
+10) What are the =rownames= of ~list(A="a", B=c(1,2,3), C=lst)~?
+    #+begin_src R :results output :session *R* :exports both :noweb yes
+      L <- list(A="a", B=c(1,2,3), C=lst)
+      L
+      rownames(L)  # only for matrix-like objects
+      colnames(L)  # only for matrix-like objects
+      names(L)    
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+    $A
+    [1] "a"
+
+    $B
+    [1] 1 2 3
+
+    $C
+    $C$jan
+    [1] 39
+
+    $C$sep
+    [1] 57
+    NULL
+    NULL
+    [1] "A" "B" "C"
+    #+end_example
+
+* Week 2: Python basics and calling functions
+* Week 3: R conditionals and loops
+* Week 4: Python conditionals and loops
+* Week 5: Writing functions in R / 1st sprint review
+* Week 6: Writing functions in Python
+* Week 7: R utilities and =apply= family of functions
+* Week 8: Data manipulation with =pandas= in Python
+* Week 9: Natural language processing in R / 2nd sprint review
+* Week 10: Natural language processing in Python
+* Week 11: R: Importing and exporting data
+* Week 12: Python: Importing and exporting data
+* Week 13: Data science on the command line / 3rd sprint review
+* Week 14: Integration of SQL with R and Python
+* Week 15: Integration of C++ with R
+* Week 16: Project presentations / 4th sprint review
