@@ -15,7 +15,26 @@
 - *Test*: Review Python basics (cp. DataCamp Python for R Users).
 - *Practice*: Getting back to GNU Emacs & Org-mode (tutorial).
 
-** Individual term projects
+** DONE Julius has spoken
+
+| Feature            | R                                                                  | Python                                                                 |
+|--------------------+--------------------------------------------------------------------+------------------------------------------------------------------------|
+| Primary Focus      | Statistical analysis and data visualization.                       | General-purpose programming with strong support for data analysis.     |
+| Language Type      | Domain-specific language for statistics.                           | General-purpose programming language.                                  |
+| Learning Curve     | Steeper for those not familiar with statistical analysis.          | Generally considered easier for beginners.                             |
+| Community          | Strong in academia, statistics, and bioinformatics.                | Broad and diverse, strong in web development, AI, and data science.    |
+| Data Analysis      | Excellent for complex statistical analyses.                        | Very good for data analysis with libraries like pandas and numpy.      |
+| Data Visualization | Superior capabilities with ggplot2 and other packages.             | Good with libraries like matplotlib and seaborn.                       |
+| Libraries          | Comprehensive libraries for statistics and plotting (e.g., dplyr). | Extensive libraries for various applications beyond data analysis.     |
+| IDE Support        | RStudio is a powerful and popular IDE for R.                       | Multiple IDEs available, including Jupyter Notebook and PyCharm.       |
+| Extensibility      | Can call Python, C, C++, and Fortran code.                         | Can call C, C++, and R code, among others.                             |
+| Performance        | Generally slower than Python, but can be improved with Rcpp.       | Faster, with the ability to use Cython for performance-critical code.  |
+| Deployment         | More challenging to deploy in production environments.             | Easier to deploy, with various frameworks and tools for deployment.    |
+| Machine Learning   | Growing number of packages (e.g., caret, xgboost).                 | Extensive machine learning libraries (e.g., scikit-learn, TensorFlow). |
+| Documentation      | Good, especially for statistical methods.                          | Extensive and often includes examples.                                 |
+| Community Support  | Active forums and mailing lists.                                   | Very active communities on Stack Overflow, GitHub, etc.                |
+
+** DONE Individual term projects
 
 - Identify a Python or R package that you explore during the term.
 - 1st sprint: Identify research questions for the package.
@@ -25,7 +44,7 @@
 - Submit Emacs Org-mode file and any other materials.
 - Turn the project in an item for your resume portfolio!
 
-** Announcement: Journal club!
+** DONE Announcement: Journal club!
 
 Data science enthusiasts: there will be a "journal club" on Wednesday
 12-12:45 pm in Derby room 209. We'll put the papers in a GDrive.
@@ -46,7 +65,7 @@ front of my office, about the paper that I wrote before this one.
 your own - I will try to simulate that by discussing my paper as if
 someone else had written it, and also using AI to deliver a critique.
 
-** 10 top tips: How to study programming languages
+** DONE 10 top tips: How to study programming languages
 
 ...when using DataCamp and/or when reviewing a test:
 
@@ -63,202 +82,26 @@ someone else had written it, and also using AI to deliver a critique.
 
 ** Test review - base R & conversion to R
 
-We're going to look at translating this code to Python later.
+Python test results:
+#+begin_src R :results output :session *R* :exports both :noweb yes
+  paste("Python test average", mean(c(77.5, 97.5, 56.67)))
+  paste("R test average", mean(c(75,80,55)))
+#+end_src
 
-1) Explain every line in this code block!
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     name <- c("Python","R","SQL")
-     type <- c("Practice","Project","Lecture")
-     number <- c(100,430,200)
-     courses_df <- data.frame(name,type,number)
-     subset(courses_df,number < 200 )
-   #+end_src
+#+RESULTS:
+: [1] "Python test average 77.2233333333333"
+: [1] "R test average 70"
 
-   #+RESULTS:
-   :     name     type number
-   : 1 Python Practice    100
-
-   Solution:
-   #+begin_example R
-     name <- c("Python","R","SQL") # create character vector `name`
-     type <- c("Practice","Project","Lecture") # create character vector `type`
-     number <- c(100,430,200) # create numeric vector `number`
-     courses_df <- data.frame(name,type,number) # create data frame from vectors
-     subset(courses_df, number < 200 ) # select rows/records whose number < 200
-   #+end_example
-
-2) Name three ways to look at your data, e.g. ~courses_df~.
-
-   Solution:
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     courses_df  # print the data frame
-     str(courses_df) # show the data frame structure
-     summary(courses_df) # show statistical summary
-   #+end_src
-
-3) What is vectorization? Can you think of an example?
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-                                             # Vectorization = converting scalar into vector operations
-     foo <- c(1,2,3,4) # create numeric vector of four elements
-     100 * foo # element-wise multiplication of vector with scalar
-   #+end_src
-
-   #+RESULTS:
-   : [1] 100 200 300 400
-
-4) What happens when you multiply two vectors of differing length?
-
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     bar = c(100,200)
-     foo * bar # multiply 4- with 2-element vector
-   #+end_src
-
-   #+RESULTS:
-   : [1] 100 400 300 800
-
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     baz = c(100,200,300)
-     foo * baz  # multiply 4- with 3-element vector
-   #+end_src
-
-   #+RESULTS:
-   : [1] 100 400 900 400
-   : Warning message:
-   : In foo * baz :
-   :   longer object length is not a multiple of shorter object length
-
-5) Change the first letter of your first name to lower case using R's
-   pattern matching and replacement function =sub=:
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     my_name <- "Marcus"
-     sub(pattern = "M",
-         replacement = "m",
-         x = my_name)
-   #+end_src
-
-   #+RESULTS:
-   : [1] "marcus"
-
-6) How many levels does ~factor(c("a","b","a","a","b"))~ have?
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     factor(c("a","b","a","a","b"))
-   #+end_src
-
-7) What is ~factor(matrix("small","medium","large"))~?
-   #+begin_example
-   factor(matrix("small","medium","large")) # error!
-   # what is the correct definition?
-   #+end_example
-
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     M <- matrix(c("small","medium","large"))
-     M
-     factor(M)
-   #+end_src
-
-   #+RESULTS:
-   :      [,1]
-   : [1,] "small"
-   : [2,] "medium"
-   : [3,] "large"
-   : [1] small  medium large
-   : Levels: large medium small
-
-8) Extract "bar" from ~M <- matrix(c(a="foo",b="bar"))~ in two ways:
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     M <- matrix(c(a="foo",b="bar"))
-     M[2,1]
-     M[2][1]
-     M["a",1] # error: M doesn't have rownames/colnames (check str)
-     str(M)
-     rownames(M)=c("x","y")
-     colnames(M)=c("a")
-     M
-     str(M)
-     M["y","a"]  # now you can use the names to index elements
-   #+end_src
-
-   #+RESULTS:
-   #+begin_example
-   [1] "bar"
-   [1] "bar"
-   Error in M["a", 1] : no 'dimnames' attribute for array
-    chr [1:2, 1] "foo" "bar"
-     a
-   x "foo"
-   y "bar"
-    chr [1:2, 1] "foo" "bar"
-    - attr(*, "dimnames")=List of 2
-     ..$ : chr [1:2] "x" "y"
-     ..$ : chr "a"
-   [1] "bar"
-   #+end_example
-
-9) Explain every line in this code and in the output:
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     temp <- data.frame(jan=39)
-     c(temp, sep=57)
-   #+end_src
-
-   #+RESULTS:
-   : $jan
-   : [1] 39
-   :
-   : $sep
-   : [1] 57
-
-   Solution:
-   #+begin_src R :results output :session *R* :exports both :noweb yes
-     temp <- data.frame(jan=39) # create data frame with 1 element
-                                # the element is a named vector
-     str(temp)
-     lst <- c(temp, sep=57) # c creates a list!
-                            # c concatenates and coerces (check ?c)
-     lst
-     str(lst)
-     #+end_src
-
-   #+RESULTS:
-   #+begin_example
-   'data.frame':	1 obs. of  1 variable:
-    $ jan: num 39
-   $jan
-   [1] 39
-
-   $sep
-   [1] 57
-   List of 2
-    $ jan: num 39
-    $ sep: num 57
-   #+end_example
-
-10) What are the =rownames= of ~list(A="a", B=c(1,2,3), C=lst)~?
-    #+begin_src R :results output :session *R* :exports both :noweb yes
-      L <- list(A="a", B=c(1,2,3), C=lst)
-      L
-      rownames(L)  # only for matrix-like objects
-      colnames(L)  # only for matrix-like objects
-      names(L)    
-    #+end_src
-
-    #+RESULTS:
-    #+begin_example
-    $A
-    [1] "a"
-
-    $B
-    [1] 1 2 3
-
-    $C
-    $C$jan
-    [1] 39
-
-    $C$sep
-    [1] 57
-    NULL
-    NULL
-    [1] "A" "B" "C"
-    #+end_example
+1. Open Emacs.
+2. Using ~M-x eww~, download the practice file from GitHub:
+   [[http://tinyurl.com/dsc205start][tinyurl.com/dsc205start]] - save it with ~C-x C-w~
+3. Navigate to your home directory (~~/~).
+4. Using ~M-x eww~, download ~.emacs~ from GitHub:
+   https://tinyurl.com/EmacsLyon - save it with ~C-x C-w~
+5. Open the file ~(C-x C-f)~ and run it ~(M-x eval-buffer)~
+6. Open the practice file and code alongside me.
+7. Put your name and "(pledged)" next to it at the top after ~#+author:~
+8. Submit the completed practice file to [[https://lyon.instructure.com/courses/2111/assignments/23788][Canvas]].
 
 * Week 2: Python basics and calling functions
 * Week 3: R conditionals and loops
