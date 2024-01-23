@@ -80,6 +80,15 @@ someone else had written it, and also using AI to deliver a critique.
 9) Review DataCamp lessons daily using practice questions.
 10) Review tests monthly by completing them again.
 
+
+** TODO Announcement: UAMS College of Public Health student session
+
+Monday, 29 January 12-12:45 PM via Zoom: http://tinyurl.com/UAMSCPUH
+Passcode: 941969
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/UAMS_student_session.png]]
+
+
 ** Test review - base R & conversion to R
 
 Python test results:
