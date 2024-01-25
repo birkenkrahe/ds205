@@ -5,17 +5,17 @@
 #+OPTIONS: toc:nil num:nil ^:nil
 #+property: header-args:python :results output :noweb yes :session *Python* :exports both
 #+property: header-args:R :results output :noweb yes :session *R* :exports both
-* Week 1: R basics and calling functions
+* DONE Week 1: R basics and calling functions
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/cover.png]]
 
-- Course details: see [[https://lyon.instructure.com/courses/2111/assignments/syllabus][syllabus]] and [[https://lyon.instructure.com/courses/2111/discussion_topics/8683][Jan 13 announcement]].
-- Course materials: [[https://github.com/birkenkrahe/ds205][GitHub]]. See also [[https://lyon.instructure.com/courses/2111/pages/course-links][course links]] in Canvas.
-- *Test:* Review R basics (cp. DataCamp introduction).
-- *Test*: Review Python basics (cp. DataCamp Python for R Users).
-- *Practice*: Getting back to GNU Emacs & Org-mode (tutorial).
+- [X] Course details: see [[https://lyon.instructure.com/courses/2111/assignments/syllabus][syllabus]] and [[https://lyon.instructure.com/courses/2111/discussion_topics/8683][Jan 13 announcement]].
+- [X] Course materials: [[https://github.com/birkenkrahe/ds205][GitHub]]. See also [[https://lyon.instructure.com/courses/2111/pages/course-links][course links]] in Canvas.
+- [ ] *Test:* Review R basics (cp. DataCamp introduction).
+- [ ] *Test*: Review Python basics (cp. DataCamp Python for R Users).
+- [X] *Practice*: Getting back to GNU Emacs & Org-mode (tutorial).
 
-** DONE Julius has spoken
+** Julius has spoken
 
 | Feature            | R                                                                  | Python                                                                 |
 |--------------------+--------------------------------------------------------------------+------------------------------------------------------------------------|
@@ -34,7 +34,7 @@
 | Documentation      | Good, especially for statistical methods.                          | Extensive and often includes examples.                                 |
 | Community Support  | Active forums and mailing lists.                                   | Very active communities on Stack Overflow, GitHub, etc.                |
 
-** DONE Individual term projects
+** Individual term projects
 
 - Identify a Python or R package that you explore during the term.
 - 1st sprint: Identify research questions for the package.
@@ -44,7 +44,7 @@
 - Submit Emacs Org-mode file and any other materials.
 - Turn the project in an item for your resume portfolio!
 
-** DONE Announcement: Journal club!
+** Announcement: Journal club!
 
 Data science enthusiasts: there will be a "journal club" on Wednesday
 12-12:45 pm in Derby room 209. We'll put the papers in a GDrive.
@@ -65,7 +65,7 @@ front of my office, about the paper that I wrote before this one.
 your own - I will try to simulate that by discussing my paper as if
 someone else had written it, and also using AI to deliver a critique.
 
-** DONE 10 top tips: How to study programming languages
+** 10 top tips: How to study programming languages
 
 ...when using DataCamp and/or when reviewing a test:
 
@@ -81,7 +81,7 @@ someone else had written it, and also using AI to deliver a critique.
 10) Review tests monthly by completing them again.
 
 
-** TODO Announcement: UAMS College of Public Health student session
+** Announcement: UAMS College of Public Health student session
 
 Monday, 29 January 12-12:45 PM via Zoom: http://tinyurl.com/UAMSCPUH
 Passcode: 941969
@@ -89,16 +89,16 @@ Passcode: 941969
 [[../img/UAMS_student_session.png]]
 
 
-** Test review - base R & conversion to R
+** IN PROGRESS Test review - base R & conversion to R
 
 Python test results:
 #+begin_src R :results output :session *R* :exports both :noweb yes
-  paste("Python test average", mean(c(77.5, 97.5, 56.67)))
-  paste("R test average", mean(c(75,80,55)))
+  paste("Python test average", mean(c(77.5,97.5,56.67,75)))
+  paste("R test average", mean(c(75,80,55,70)))
 #+end_src
 
 #+RESULTS:
-: [1] "Python test average 77.2233333333333"
+: [1] "Python test average 76.6675"
 : [1] "R test average 70"
 
 1. Open Emacs.
@@ -112,7 +112,119 @@ Python test results:
 7. Put your name and "(pledged)" next to it at the top after ~#+author:~
 8. Submit the completed practice file to [[https://lyon.instructure.com/courses/2111/assignments/23788][Canvas]].
 
+
 * Week 2: Python basics and calling functions
+#+ATTR_HTML: :WIDTH 400px: 
+[[../img/datascientist.png]]
+
+Starting this week, project a more powerful data scientist profile!
+
+- [X] Review: DataCamp lesson "Conditionals and control flow" in R
+- [ ] Review: Entry test Python/R (practice sheet) & Emacs exercise
+
+** DataCamp review questions
+
+(AI-generated from the lesson slides):
+
+1. What are relational operators in R and give an example?
+   #+begin_notes
+   Relational operators are used to compare values in R. An example is
+   the equality operator ~==~, which checks if two values are
+   equal. For instance, ~TRUE == TRUE~ evaluates to ~TRUE~.
+   #+end_notes
+
+2. How does the inequality operator work in R? Provide an example.
+   #+begin_notes
+   The inequality operator ~!=~ in R checks if two values are not
+   equal. For example, ~TRUE != FALSE~ evaluates to ~TRUE~, indicating
+   that the two values are indeed different.
+   #+end_notes
+
+   #+begin_src R
+     TRUE != FALSE
+   #+end_src
+
+3. Can relational operators be used with vectors in R? Give an
+   example.
+   #+begin_notes
+   Yes, relational operators can be applied to vectors in R. For
+   example, if ~linkedin~ is a vector ~(16, 9, 13, 5, 2, 17, 14)~, the
+   expression ~linkedin > 10~ would return a vector of logical values
+   indicating whether each element in ~linkedin~ is greater than 10.
+   #+end_notes
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     linkedin <- c(16, 9, 13, 5, 2, 17, 14)
+     linkedin > 10
+   #+end_src
+
+   #+RESULTS:
+   : [1]  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE
+
+4. What are the logical operators in R and how do they work?
+   #+begin_notes
+   The logical operators in R include AND (~&~), OR (~|~), and NOT
+   (~!~). The AND operator returns ~TRUE~ if both operands are true, the
+   OR operator returns ~TRUE~ if at least one operand is true, and the
+   NOT operator negates the truth value of its operand. For example,
+   ~TRUE & FALSE~ evaluates to ~FALSE~, ~TRUE | FALSE~ to ~TRUE~, and ~!TRUE~ to
+   ~FALSE~.
+   #+end_notes
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     c(TRUE,TRUE,TRUE)  & c(FALSE,TRUE,TRUE)
+     c(TRUE,TRUE,TRUE) && c(FALSE,TRUE,TRUE)
+   #+end_src
+
+   #+RESULTS:
+   : [1] FALSE  TRUE  TRUE
+   : [1] FALSE
+   : Warning messages:
+   : 1: In c(TRUE, TRUE, TRUE) && c(FALSE, TRUE, TRUE) :
+   :   'length(x) = 3 > 1' in coercion to 'logical(1)'
+   : 2: In c(TRUE, TRUE, TRUE) && c(FALSE, TRUE, TRUE) :
+   :   'length(x) = 3 > 1' in coercion to 'logical(1)'
+
+5. How do you write a conditional statement in R?
+   #+begin_notes
+   A conditional statement in R can be written using ~if~, ~else if~, and
+   ~else~ clauses. For example, ~if (x < 0) { print("x is a negative
+   number") } else { print("x is either a positive number or zero") }~
+   will print a message based on the value of ~x~.
+   #+end_notes
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+     x <- 0
+     if (x < 0) {
+       print("x is a negative number")
+     } else {
+       print("x is either a positive number or zero")
+     }
+   #+end_src
+
+   #+RESULTS:
+   : [1] "x is either a positive number or zero"
+
+** Given any thought to your projects?
+
+You'll have to present your proposal in 3 weeks!
+
+What are you leaning towards?
+- Packages that help me work with hospital birth data
+- Packages that help me analyse video game player data
+- Packages that help analyse financial data especially stocks
+
+What will you need to do?
+- Identify an interesting package
+- Find data to experiment with
+- What makes it special or unique?
+- How would you apply it? ("Use cases")
+- Comparing with other (similar) packages
+- Who uses this package?
+- How easy is it to use it?
+- Is it beginner-friendly is it?
+- What should you never use it for? (Performance, maintenance, data)
+- Does it lend itself to an interactive exercise?
+- If it's an R/Python packages, is there an Python/R equivalent
+  
+
 * Week 3: R conditionals and loops
 * Week 4: Python conditionals and loops
 * Week 5: Writing functions in R / 1st sprint review

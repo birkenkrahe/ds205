@@ -1,0 +1,14 @@
+* How to create code blocks
+
+Write <s + TAB
+
+#+begin_src R
+  foo <- 1
+#+end_src
+
+#+RESULTS:
+: 1
+
+Running this without header argument will fail.
+
+To run a file: C-c C-c anywhere in the code block.
