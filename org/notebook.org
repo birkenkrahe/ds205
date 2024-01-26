@@ -222,8 +222,7 @@ What will you need to do?
 - Is it beginner-friendly is it?
 - What should you never use it for? (Performance, maintenance, data)
 - Does it lend itself to an interactive exercise?
-- If it's an R/Python packages, is there an Python/R equivalent
-  
+- If it's an R/Python packages, is there an Python/R equivalent 
 
 * Week 3: R conditionals and loops
 * Week 4: Python conditionals and loops
