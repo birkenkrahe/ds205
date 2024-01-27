@@ -118,11 +118,13 @@ Python test results:
 [[../img/datascientist.png]]
 
 Starting this week, project a more powerful data scientist profile!
+New Year's resolution: look as fit and fierce as the guy in the photo!
 
 - [X] Review: DataCamp lesson "Conditionals and control flow" in R
+- [ ] New content: Fun facts!
 - [ ] Review: Entry test Python/R (practice sheet) & Emacs exercise
 
-** DataCamp review questions
+** DONE DataCamp review questions
 
 (AI-generated from the lesson slides):
 
@@ -202,7 +204,7 @@ Starting this week, project a more powerful data scientist profile!
    #+RESULTS:
    : [1] "x is either a positive number or zero"
 
-** Given any thought to your projects?
+** DONE Given any thought to your projects?
 
 You'll have to present your proposal in 3 weeks!
 
@@ -223,6 +225,46 @@ What will you need to do?
 - What should you never use it for? (Performance, maintenance, data)
 - Does it lend itself to an interactive exercise?
 - If it's an R/Python packages, is there an Python/R equivalent 
+
+
+** Fun facts
+#+ATTR_HTML: :WIDTH 400px: 
+[[../img/funfact.png]]
+
+R:
+#+begin_notes
+R was named partly after its (NZ) creators, Ross Ihaka and Robert
+Gentleman, which also playfully hints at its predecessors, S and
+S-PLUS languages. Another fun fact: I've lived in NZ.
+#+end_notes
+
+And also: how can you check/change your working directory in R?
+#+begin_src R :results output :session *R* :exports both :noweb yes
+  ## Change the working directory to 'path_to_new_directory'
+  setwd('path_to_new_directory')
+
+  ## To confirm the current working directory has been changed, you can use getwd()
+  print(getwd())
+#+end_src
+
+Python:
+#+begin_notes
+Python was named after the British comedy sQeries "Monty Python's
+Flying Circus," not the snake. Its creator, Guido van Rossum, was a
+fan of the show and wanted a name that was short, unique, and slightly
+mysterious.
+#+end_notes
+
+And also: how can you check/change your working directory in Python?
+#+begin_src python :results output :session *Python* :exports both :noweb yes
+  import os
+
+  # Change the working directory to 'path_to_new_directory'
+  os.chdir('path_to_new_directory')
+
+  # To confirm the current working directory has been changed, you can use getcwd()
+  print("Current Working Directory: ", os.getcwd())
+#+end_src
 
 * Week 3: R conditionals and loops
 * Week 4: Python conditionals and loops
