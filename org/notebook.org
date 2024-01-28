@@ -113,7 +113,7 @@ Python test results:
 8. Submit the completed practice file to [[https://lyon.instructure.com/courses/2111/assignments/23788][Canvas]].
 
 
-* Week 2: Python basics and calling functions
+* DONE Week 2: Python basics and calling functions
 #+ATTR_HTML: :WIDTH 400px: 
 [[../img/datascientist.png]]
 
@@ -121,10 +121,10 @@ Starting this week, project a more powerful data scientist profile!
 New Year's resolution: look as fit and fierce as the guy in the photo!
 
 - [X] Review: DataCamp lesson "Conditionals and control flow" in R
-- [ ] New content: Fun facts!
+- [X] New content: Fun facts!
 - [ ] Review: Entry test Python/R (practice sheet) & Emacs exercise
 
-** DONE DataCamp review questions
+** DataCamp review questions
 
 (AI-generated from the lesson slides):
 
@@ -204,7 +204,7 @@ New Year's resolution: look as fit and fierce as the guy in the photo!
    #+RESULTS:
    : [1] "x is either a positive number or zero"
 
-** DONE Given any thought to your projects?
+** Given any thought to your projects?
 
 You'll have to present your proposal in 3 weeks!
 
@@ -225,7 +225,6 @@ What will you need to do?
 - What should you never use it for? (Performance, maintenance, data)
 - Does it lend itself to an interactive exercise?
 - If it's an R/Python packages, is there an Python/R equivalent 
-
 
 ** Fun facts
 #+ATTR_HTML: :WIDTH 400px: 
@@ -266,7 +265,13 @@ And also: how can you check/change your working directory in Python?
   print("Current Working Directory: ", os.getcwd())
 #+end_src
 
+
 * Week 3: R conditionals and loops
+
+- [ ] Review: Entry test Python/R (practice sheet) & Emacs exercise (cont'd)
+- [ ] DataCamp: Python's =matplotlib=
+- [ ] More fun facts!
+
 * Week 4: Python conditionals and loops
 * Week 5: Writing functions in R / 1st sprint review
 * Week 6: Writing functions in Python
