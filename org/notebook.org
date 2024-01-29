@@ -267,10 +267,12 @@ And also: how can you check/change your working directory in Python?
 
 
 * Week 3: R conditionals and loops
+#+ATTR_HTML: :WIDTH 600px:
+[[../img/matplotlib.png]]
 
 - [ ] Review: Entry test Python/R (practice sheet) & Emacs exercise (cont'd)
-- [ ] DataCamp: Python's =matplotlib=
-- [ ] More fun facts!
+- [ ] DataCamp: Python's =matplotlib= (Wednesday)
+- [ ] More fun facts! (Friday)
 
 * Week 4: Python conditionals and loops
 * Week 5: Writing functions in R / 1st sprint review
