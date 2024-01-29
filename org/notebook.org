@@ -274,6 +274,7 @@ And also: how can you check/change your working directory in Python?
 - [ ] DataCamp: Python's =matplotlib= (Wednesday)
 - [ ] More fun facts! (Friday)
 
+
 * Week 4: Python conditionals and loops
 * Week 5: Writing functions in R / 1st sprint review
 * Week 6: Writing functions in Python
