@@ -268,10 +268,22 @@ And also: how can you check/change your working directory in Python?
 #+ATTR_HTML: :WIDTH 600px:
 [[../img/matplotlib.png]]
 
-- [ ] Moved DataCamp lesson deadline to Feb 9
+- [X] Moved DataCamp lesson deadline to Feb 9
 - [ ] Review: Entry test Python/R (practice sheet) & Emacs exercise (cont'd)
 - [ ] DataCamp: Python's =matplotlib= (Wednesday)
-- [ ] More fun facts! (Friday)
+- [X] More fun facts! (Friday) - check out mermaid.live
+
+* How to practice for brutal multiple choice tests
+
+- Check DataCamp assignments since the last test and review
+- Check Google chat especially for review questions
+- Create a glossary of R and Python keywords
+- DataCamp (customized) practice questions (minimum daily)
+- Review the codealong/practice files (reproduce code)
+- Review using total recall (flashcards) (Anki)
+- Use mindmaps or other graphical representations
+- Approach the same set of topics from different angles
+
 
 * Week 4: Python conditionals and loops
 * Week 5: Writing functions in R / 1st sprint review

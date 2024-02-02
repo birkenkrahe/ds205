@@ -1,0 +1,347 @@
+#+title: ds205 - entry test practice
+#+STARTUP: overview hideblocks indent :
+#+PROPERTY: header-args:python :results output :session *Python*
+#+PROPERTY: header-args:R :results output :session *R*
+* Entry Test Review - R and Python
+
+** Creating and subsetting a data frame
+
+1) R: Explain every line in this code block! Write comments in
+   front or next to the commands. Running the code might help.
+   #+begin_src R 
+     name <- c("Python","R","SQL") # create character vector `name`
+     type <- c("Practice","Project","Lecture") # create character vector `type`
+     number <- c(100,430,200) # create numeric vector `number`
+     courses_df <- data.frame(name,type,number) # create data frame from vectors
+     subset(courses_df, number < 200 ) # select rows/records whose number < 200
+   #+end_src
+
+   #+RESULTS:
+   : 
+   :     name     type number
+   : 1 Python Practice    100
+
+2) Python:
+   1) Import =pandas= library
+   2) Construct data frame from data dictionary (see [[https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html][pandas documentation]])
+   3) Change row index to start from 1.
+   #+begin_src python 
+     import pandas as pd  # import pandas library and use `pd` as alias
+     d = {  # define a dictionary of key:value pairs 
+         'name': ["Python","R","SQL"],  
+         'type': ["Practice","Project","Lecture"],
+         'number' : [100,430,200]
+     }
+     courses_df = pd.DataFrame(data=d) # create data frame from the dictionary
+     print(courses_df)
+     courses_df.index=[1,2,3] # move the indices up by one
+     print(courses_df)
+     print(courses_df[courses_df['number'] < 200]) # use a flag vector
+     print(courses_df.query('number < 200')) # use a function
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+        name      type  number
+   0  Python  Practice     100
+   1       R   Project     430
+   2     SQL   Lecture     200
+        name      type  number
+   1  Python  Practice     100
+   2       R   Project     430
+   3     SQL   Lecture     200
+        name      type  number
+   1  Python  Practice     100
+        name      type  number
+   1  Python  Practice     100
+   #+end_example
+   
+** Looking at data
+
+1) R: Show three ways to look at your data, e.g. ~courses_df~.
+   #+begin_src R
+     courses_df
+     print(courses_df)
+     str(courses_df)
+     summary(courses_df)
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+       name     type number
+   1 Python Practice    100
+   2      R  Project    430
+   3    SQL  Lecture    200
+
+       name     type number
+   1 Python Practice    100
+   2      R  Project    430
+   3    SQL  Lecture    200
+
+   'data.frame':	3 obs. of  3 variables:
+    $ name  : chr  "Python" "R" "SQL"
+    $ type  : chr  "Practice" "Project" "Lecture"
+    $ number: num  100 430 200
+
+        name               type               number     
+    Length:3           Length:3           Min.   :100.0  
+    Class :character   Class :character   1st Qu.:150.0  
+    Mode  :character   Mode  :character   Median :200.0  
+                                          Mean   :243.3  
+                                          3rd Qu.:315.0  
+                                          Max.   :430.0
+   #+end_example
+
+2) Python:
+   - print the =DataFrame= as a whole.
+   - =pd.items= iterates over =DataFrame= items (used for loops).
+   - =pd.describe()= is the equivalent of R's =summary= function.
+   #+begin_src python 
+
+   #+end_src
+    print(courses_df)
+    print(courses_df.items) 
+    print(courses_df.describe())  # equivalent of summary() in R
+   #+RESULTS:
+   #+begin_example
+        name      type  number
+   1  Python  Practice     100
+   2       R   Project     430
+   3     SQL   Lecture     200
+g              number
+   count    3.000000
+   mean   243.333333
+   std    169.213869
+   min    100.000000
+   25%    150.000000
+   50%    200.000000
+   75%    315.000000
+   max    430.000000
+   #+end_example
+
+** What is vectorisation?
+
+1) What is vectorization? Can you think of an example?
+   #+begin_src R 
+     foo <- c(1,2,3,4)
+     100 * foo
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : [1] 100 200 300 400
+
+2) Python:
+   #+begin_src python 
+     import numpy as np
+     foo = [1,2,3,4]    # this is a list
+     print(100 * foo)  # the * operator means replication for lists
+     foo_np = np.array(foo)  # turn list into numpy array
+     print(100 * foo_np)  # vectorisation only with numpy arrays
+   #+end_src
+
+   #+RESULTS:
+   : [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
+   : [100 200 300 400]
+
+** Multiplying vectors of different lengths
+
+1) R: What happens when you multiply two vectors of differing length?
+
+   Multiply a 4- with a 2-element vector:
+   #+begin_src R 
+     bar <- c(100,200) # length of foo is twice that of bar
+     foo; bar
+     foo * bar
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : [1] 1 2 3 4
+   : [1] 100 200
+   : 
+   : [1] 100 400 300 800
+
+   Multiply a 4- with a 3-element vector:
+   #+begin_src R 
+     baz <- c(100,200,300)
+     foo * baz
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : [1] 100 400 900 400
+   : Warning message:
+   : In foo * baz :
+   :   longer object length is not a multiple of shorter object length
+
+2) Python:
+   #+begin_src python
+     foo_np = np.array([1,2,3,4])
+     bar_np = np.array([100,200])
+     print(foo_np,bar_np)
+     print(foo_np * bar_np)
+   #+end_src
+
+   #+RESULTS:
+   : [1 2 3 4] [100 200]
+
+** Pattern matching and replacement
+
+1) R: Change the first letter of your first name to lower case using
+   R's pattern matching and replacement function =sub=:
+   #+begin_src R 
+     my_name <- "Marcus"
+     sub(pattern = "M",
+         replacement = "m",
+         x = my_name)
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : [1] "marcus"
+
+2) Python:
+   #+begin_src python
+     my_name = 'Marcus'
+     print(my_name.lower())
+   #+end_src
+
+   #+RESULTS:
+   : marcus
+
+** Factor levels
+
+1) R: How many levels does ~factor(c("a","b","a","a","b"))~ have?
+   #+begin_src R 
+     foo <- factor(c("a","b","a","a","b","c"))
+     foo
+     str(foo)
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : [1] a b a a b c
+   : Levels: a b c
+   : 
+   :  Factor w/ 3 levels "a","b","c": 1 2 1 1 2 3
+
+2) Python: 
+   #+begin_src python
+     import pandas as pd 
+     data = ["a","b","a","a","b","c"] # define list
+     category_data = pd.Categorical(data) # convert list
+     print(category_data) # categorical data
+     print(type(category_data))
+     print(category_data.categories)
+     print(category_data.codes)
+   #+end_src
+
+   #+RESULTS:
+   : ['a', 'b', 'a', 'a', 'b', 'c']
+   : Categories (3, object): ['a', 'b', 'c']
+   : <class 'pandas.core.arrays.categorical.Categorical'>
+   : Index(['a', 'b', 'c'], dtype='object')
+   : [0 1 0 0 1 2]
+
+** IN PROGRESS Matrix to factor
+
+1) R: What is ~factor(matrix("small","medium","large"))~?
+   #+begin_example
+   factor(matrix("small","medium","large")) # error!
+   #+end_example
+
+   #+begin_src R
+     M <- matrix(c("small","medium","large"))
+     M
+     factor(M)
+   #+end_src
+
+   #+RESULTS:
+   : 
+   :      [,1]    
+   : [1,] "small" 
+   : [2,] "medium"
+   : [3,] "large"
+   : 
+   : [1] small  medium large 
+   : Levels: large medium small
+
+2) Python:
+   #+begin_src python 
+
+   #+end_src
+
+   #+RESULTS:
+
+** Extracting matrix elements
+
+1) R: Extract "bar" from ~M <- matrix(c(a="foo",b="bar"))~ in two ways:
+   #+begin_src R 
+ 
+   #+end_src
+
+   #+RESULTS:
+
+
+2) Python: 
+   #+begin_src python 
+     m = np.array([["foo"],["bar"]])
+     print(m)
+     print(m.shape)
+   #+end_src
+
+   #+RESULTS:
+
+   #+begin_src python
+
+   #+end_src
+
+   #+RESULTS:
+   :   File "c:/Users/BIRKEN~1/AppData/Local/Temp/babel-0yuu8W/python-CxNQVS", line 1, in <module>
+   :     m = np.array([["foo"],["bar"]])
+   :         ^^
+   : NameError: name 'np' is not defined
+   : >>>
+
+** Concatenating data frames
+
+1) R: Explain every line in this code and in the output:
+   #+begin_src R 
+     temp <- data.frame(jan=39)
+     c(temp, sep=57)
+   #+end_src
+
+   #+RESULTS:
+   : 
+   : $jan
+   : [1] 39
+   : 
+   : $sep
+   : [1] 57
+
+
+2) Python:
+   #+begin_src python 
+
+   #+end_src
+
+   #+RESULTS:
+
+** Rownames and column names
+
+1) R: What are the =rownames= of ~list(A="a", B=c(1,2,3), C=lst)~?
+   #+begin_src R :results output :session *R* :exports both :noweb yes
+
+   #+end_src
+
+   #+RESULTS:
+
+
+2) Python: 
+   #+begin_src python
+
+   #+end_src
+
+   #+RESULTS:
+

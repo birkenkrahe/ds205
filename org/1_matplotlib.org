@@ -79,7 +79,7 @@ test as a straight dashed line.
 7) Add a title and axis labels:
    #+begin_src python  :results graphics output file :file ../img/hist_test_21.png
      plt.clf()
-     plt.hist(test_1, bins='auto', alpha=0.7, rwidth=0.85)
+      plt.hist(test_1, bins='auto', alpha=0.7, rwidth=0.85)
      plt.xlabel('Points')
      plt.ylabel('Frequency')
      plt.title('Histogram of Test 1 results')
