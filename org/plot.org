@@ -1,0 +1,39 @@
+#+TITLE: Plotting in R and Python (revisited)
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: DSC 205 Advanced Introduction to Data Science
+#+STARTUP: overview hideblocks indent
+#+PROPERTY: header-args:python :session *Python* :python python3 :results output
+#+PROPERTY: header-args:R :session *R* :results output
+
+* Random scatterplot
+
+Plot 100 random points.
+#+begin_src R :results output graphics file :file rplot.png
+  plot(rnorm(100))
+#+end_src
+
+#+RESULTS:
+[[file:rplot.png]]
+
+Same thing in Python. Must import =matplotlib.pyplot= and =random=.
+#+begin_src python :results output graphics file :file pplot.png
+  import matplotlib.pyplot as plt
+  import numpy as np
+
+  # Mean and standard deviation for the normal distribution
+  mean = 0.0
+  std_dev = 1.0
+  
+  # Generate 100 random points following a normal distribution
+  random_points = np.random.normal(mean,std_dev,(100,2))
+
+  # Create a scatter plot of the random points
+  plt.clf()
+  plt.scatter(random_points[:,0],random_points[:,1])
+  plt.savefig("pplot.png")
+#+end_src
+
+#+RESULTS:
+[[file:pplot.png]]
+
+
