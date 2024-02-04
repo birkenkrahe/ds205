@@ -263,8 +263,7 @@ And also: how can you check/change your working directory in Python?
   print("Current Working Directory: ", os.getcwd())
 #+end_src
 
-
-* Week 3: Python's Matplotlib & R factors & loops & function scope
+* DONE Week 3: Python's Matplotlib & R factors & Python Categories
 #+ATTR_HTML: :WIDTH 600px:
 [[../img/matplotlib.png]]
 
@@ -273,7 +272,7 @@ And also: how can you check/change your working directory in Python?
 - [ ] DataCamp: Python's =matplotlib= (Wednesday)
 - [X] More fun facts! (Friday) - check out mermaid.live
 
-* How to practice for brutal multiple choice tests
+** How to practice for brutal multiple choice tests
 
 - Check DataCamp assignments since the last test and review
 - Check Google chat especially for review questions
@@ -284,8 +283,12 @@ And also: how can you check/change your working directory in Python?
 - Use mindmaps or other graphical representations
 - Approach the same set of topics from different angles
 
+* Week 4:
 
-* Week 4: Python conditionals and loops
+** Python vs. R systematic review
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/midnightoil.webp]]
+
 * Week 5: Writing functions in R / 1st sprint review
 * Week 6: Writing functions in Python
 * Week 7: R utilities and =apply= family of functions
