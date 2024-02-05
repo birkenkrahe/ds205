@@ -112,7 +112,7 @@ Python test results:
 8. Submit the completed practice file to [[https://lyon.instructure.com/courses/2111/assignments/23788][Canvas]].
 
 * DONE Week 2: Conditionals and work flow in R & work environment
-#+ATTR_HTML: :WIDTH 400px: 
+#+ATTR_HTML: :WIDTH 400px:
 [[../img/datascientist.png]]
 
 Starting this week, project a more powerful data scientist profile!
@@ -222,10 +222,10 @@ What will you need to do?
 - Is it beginner-friendly is it?
 - What should you never use it for? (Performance, maintenance, data)
 - Does it lend itself to an interactive exercise?
-- If it's an R/Python packages, is there an Python/R equivalent 
+- If it's an R/Python packages, is there an Python/R equivalent
 
 ** Fun facts
-#+ATTR_HTML: :WIDTH 400px: 
+#+ATTR_HTML: :WIDTH 400px:
 [[../img/funfact.png]]
 
 R:
@@ -283,11 +283,17 @@ And also: how can you check/change your working directory in Python?
 - Use mindmaps or other graphical representations
 - Approach the same set of topics from different angles
 
-* Week 4:
-
-** Python vs. R systematic review
+* Week 4: A really short review of R and Python
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/midnightoil.webp]]
+
+/Image: a new data science podcast/
+
+- Monday: getting and importing the data
+- Wednesday: transforming and analyzing the data
+- Friday: plotting the data
+- Friday: deadline for next DataCamp lesson (R loops)
+- Will post review questions (chat) & PDF script (GitHub) after class.
 
 * Week 5: Writing functions in R / 1st sprint review
 * Week 6: Writing functions in Python
