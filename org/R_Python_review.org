@@ -1,0 +1,131 @@
+#+TITLE: Reviewing Python and R basics
+#+AUTHOR: your name (pledged)
+#+SUBTITLE: A really short practical introduction to R and Pyhon
+#+DATE: Time-stamp: <2024-02-05 17:12:26 Birkenkrahe>
+#+STARTUP: overview hideblocks indent : 
+#+PROPERTY: header-args:R :session *R* :results output
+#+PROPERTY: header-args:python :session *Python* :results output
+* A really short parallel introduction to R and Python
+
+The best way to do this is by creating an extended example. We'll
+continue to develop the code in parallel - first R, then Python.
+
+To study the basics of R, I recommend Norm Matloff's free "[[https://github.com/matloff/fasteR][fasteR]]"
+tutorial (Matloff, 2023). An equivalent for Python is [[https://realpython.com/python-for-data-analysis/][this tutorial]] by
+Ian Eyre (Eyre, 2024).
+
+** Problem
+
+I have a data set - test grades from two tests. What I want is:
+1) to import the data (in a suitable format or formats),
+2) to compute statistics (using standard measures),
+3) to plot the data (in a suitable format or formats).
+
+** Classroom setup
+
+1. Open Emacs
+2. Open a new file ~C-x C-f~
+3. Save it as ~review.org~
+4. Add meta data (header information) at the top of your file and run
+   the last two lines with ~C-c C-~:
+   #+begin_example
+   #+TITLE: Reviewing Python and R basics
+   #+AUTHOR: your name (pledged)
+   #+SUBTITLE: A really short practical introduction to R and Pyhon
+   #+DATE: Time-stamp: <>
+   #+STARTUP: overview hideblocks indent : 
+   #+PROPERTY: header-args:R :session *R* :results output
+   #+PROPERTY: header-args:python :session *Python* :results output
+   #+end_example
+
+** Data
+
+The data are available from Canvas a this (sanitized) CSV file[fn:11]:
+[[http://tinyurl.com/grades-csv][tinyurl.com/grades-csv]].
+
+To import the data:
+1. ~M-x eww RET tinyurl.com/grades-csv~
+2. ~C-x C-w ~~/grades.csv~
+3. ~C-x k~
+4. ~C-x C-f ~~/grades.csv~
+
+What can you tell about the data?
+#+begin_notes
+1. It's a CSV file
+2. There are three =numeric= columns
+3. The first column is an ID column (data type =character= OK)
+4. There are missing values (=NA=, =NaN=)
+5. There is a =header= row
+6. The data look unordered
+#+end_notes
+
+** Importing the data with base R
+
+- Importing data from CSV files is done with the base R function
+  =read.csv=. You should always look at the documentation (~?read.csv~).
+
+- To see, which packages are currently loaded in your session, use
+  ~search~:
+  #+begin_src R
+    search()
+  #+end_src
+
+  #+RESULTS:
+  :  [1] ".GlobalEnv"        "ESSR"              "package:stats"     "package:graphics"
+  :  [5] "package:grDevices" "package:utils"     "package:datasets"  "package:methods"
+  :  [9] "Autoloads"         "package:base"
+
+- Question: can packages have duplicate names?
+  #+begin_notes
+  It's technically possible (they're just names for software) as long
+  as they're distributed through different channels. For packages on
+  CRAN (Comprehensive R Archive Network at cran.r-project.org, where
+  your base R comes from), the rule that each package has a distinct
+  name, is enforced ([[https://cran.r-project.org/web/packages/policies.html][source]]). Since there are much fewer packages than
+  functions in packages, one can check the package list for
+  duplicates.
+  #+end_notes
+
+- There is one positional, mandatory, and a bunch of optional keyword
+  parameters. The positional =file= parameter can be a URL.
+
+- You need to specify if the file has a =header= and if you want
+  strings to automatically be imported as =factor= values. You should
+  also check if =numeric= values have a decimal point or a decimal
+  comma.
+
+- To begin with, just import the data and spit them out again:
+  #+begin_src R :results output :session *R* :exports both :noweb yes
+    ## save URL as R object
+    url <- "http://tinyurl.com/grades-csv"
+    ## read CSV data from URL assuming there is a header row
+    read.csv(file=url,
+             header=TRUE)
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+       ID Test.1 Test.2
+  1  1433   4.83  10.00
+  2  1447  13.00  11.00
+  3  1421  16.33   8.50
+  4  1488  19.07  14.50
+  5  2157  16.83  12.00
+  6  1380  10.00   9.50
+  7  1466  18.00  10.33
+  8  1485  15.50  10.67
+  9   646  16.83  13.00
+  10 1136  17.50   9.67
+  11 1654  11.50  10.67
+  12 2130  15.83  10.33
+  13 1916  17.00  10.50
+  14 1377     NA   3.50
+  15 1459  16.33  10.17
+  16 1504  17.50   9.50
+  17  779  17.50  12.50
+  18 1329  16.74  12.00
+  19 1295  17.33   8.17
+  20  753  16.83  11.33
+  21 1292     NA   9.50
+  22 2190     NA     NA
+  #+end_example

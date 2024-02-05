@@ -295,6 +295,11 @@ And also: how can you check/change your working directory in Python?
 - Friday: deadline for next DataCamp lesson (R loops)
 - Will post review questions (chat) & PDF script (GitHub) after class.
 
+Add this line to your review.org file header, too:
+#+begin_example
+#+STARTUP: overview hideblocks indent : 
+#+end_example
+
 * Week 5: Writing functions in R / 1st sprint review
 * Week 6: Writing functions in Python
 * Week 7: R utilities and =apply= family of functions
