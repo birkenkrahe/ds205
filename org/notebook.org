@@ -294,11 +294,80 @@ And also: how can you check/change your working directory in Python?
 - Friday: plotting the data
 - Friday: deadline for next DataCamp lesson (R loops)
 - Will post review questions (chat) & PDF script (GitHub) after class.
+- Project proposal due next Monday! (Template to follow on Canvas)
+- Coming up: another test & writing functions in R and Python
+- Bonus assignment (details to follow): install/enable WSL on Windows
 
 Add this line to your review.org file header, too:
 #+begin_example
-#+STARTUP: overview hideblocks indent : 
+#+STARTUP: overview hideblocks indent :
 #+end_example
+
+** What happened on Monday? review
+
+1. 3 things you want to do with data?
+   #+begin_notes
+   EDA = Exploratory Data Analysis
+   - View data (read and open in R or Python)
+   - Import data (download and import to R or Python)
+   - Analyse data (clean and transform for example scale)
+   #+end_notes
+
+2. How should you upload files to Emacs (from the web)?
+   #+begin_notes
+   With the built-in eww browser (~M-x eww~)
+   #+end_notes
+
+3. What are we looking for in raw data?
+   #+begin_notes
+   - Does the file have a header?
+   - What data types are present? (numeric or string)
+   - How are decimals represented?  (Comma or point)
+   - Are there missing values? (~NA~ in R, ~NaN~ in Python)
+   #+end_notes
+
+4. Which packages are loaded in R?
+   #+begin_notes
+   - With the ~search()~ function
+   #+end_notes
+
+5. How do you load a package into R and Python?
+   #+begin_notes
+   - Python: ~import~ or ~from [pkg] import [function]~
+   - R: ~library("[pkg]")~
+   #+end_notes
+   #+begin_src R
+     search()  ## there's no MASS package loaded
+     library("MASS")  ## loads the MASS package
+     search() ## now the package is loaded
+   #+end_src
+
+   6. What happens when you first start R on any given day?
+   #+begin_notes
+   - Emacs ask you where you want to start the R console
+   - The R console (~*R*~) will be a separate buffer
+   - It runs in the background
+   - Python does not need an explicit confirmation
+   #+end_notes
+
+7. What types of function parameters are there and how do they differ?
+   #+begin_notes
+   For example ~read.csv~ # check the help ~?read.csv~ or ~args~
+   #+end_notes   
+   #+begin_src R
+     args(read.csv)
+   #+end_src
+
+   #+RESULTS:
+   : function (file, header = TRUE, sep = ",", quote = "\"", dec = ".", 
+   :     fill = TRUE, comment.char = "", ...) 
+   : NULL
+
+   If you've forgotten everything except 'read', use ~??~:
+   #+begin_src R
+     ??read
+   #+end_src
+
 
 * Week 5: Writing functions in R / 1st sprint review
 * Week 6: Writing functions in Python
