@@ -368,6 +368,28 @@ Add this line to your review.org file header, too:
      ??read
    #+end_src
 
+** Bonus exercise until Monday
+
+Here is a [[https://lyon.instructure.com/courses/2111/assignments/24871][bonus exercise]] for extra points until the next session:
+#+begin_quote
+In the R and Python review that we've been working on, the dataset
+contains missing value and one record (with the ID 2190) that belongs
+to a test user and needs to be removed.
+
+Your mission (should you choose to accept it) is to transform the
+dataset into a data frame where the last row (for the test user) is
+deleted.
+
+Next, compute the arithmetic average (`mean`) for test 1, for test 2,
+and for test 1 and test 2. Make sure that the missing values are not
+part of the averaging (they're not 0 values!).
+
+Do this in R and in Python. Simply continue the file that you've been
+working in and submit it here as an Org-mode file. You have to meet
+the deadline for these bonus points because we're going to discuss the
+solution on Monday.
+#+end_quote
+
 
 * Week 5: Writing functions in R / 1st sprint review
 * Week 6: Writing functions in Python
