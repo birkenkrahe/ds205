@@ -268,8 +268,8 @@ And also: how can you check/change your working directory in Python?
 [[../img/matplotlib.png]]
 
 - [X] Moved DataCamp lesson deadline to Feb 9
-- [ ] Review: Entry test Python/R (practice sheet) & Emacs exercise (cont'd)
-- [ ] DataCamp: Python's =matplotlib= (Wednesday)
+- [X] Review: Entry test Python/R (practice sheet) & Emacs exercise (cont'd)
+- [X] DataCamp: Python's =matplotlib= (Wednesday)
 - [X] More fun facts! (Friday) - check out mermaid.live
 
 ** How to practice for brutal multiple choice tests
@@ -283,7 +283,7 @@ And also: how can you check/change your working directory in Python?
 - Use mindmaps or other graphical representations
 - Approach the same set of topics from different angles
 
-* Week 4: A really short review of R and Python
+* DONE Week 4: A really short review of R and Python
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/midnightoil.webp]]
 
