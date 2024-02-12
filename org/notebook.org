@@ -391,7 +391,15 @@ solution on Monday.
 #+end_quote
 
 
-* Week 5: Writing functions in R / 1st sprint review
+* Week 5: +Writing functions in R+ Transforming and plotting in R and Python
+#+attr_html: :width 400px
+[[../img/overworked.png]]
+
+Overworked? Overloaded with mastering R and Python?
+
+Never fear! Help is near! 
+
+
 * Week 6: Writing functions in Python
 * Week 7: R utilities and =apply= family of functions
 * Week 8: Data manipulation with =pandas= in Python
