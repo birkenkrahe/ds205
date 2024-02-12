@@ -19,9 +19,9 @@ reveal.js
 # ignore dvi
 *.dvi
 
-#ignore archive
+# ignore archive
 #*#
 *_archive
 
-#.pub keys
+# ignore .pub keys
 *.pub
