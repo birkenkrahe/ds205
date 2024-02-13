@@ -119,50 +119,51 @@ DataCamp lessons that need to be completed in the course of the
 term. Short introductions to text mining, machine learning, and data
 science on the command line are included, time permitting.
 
-| WEEK | TOPICS                                | DataCamp                    | Chapter           |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    1 | Introduction to R:                    | [[https://app.datacamp.com/learn/courses/intermediate-r][Intermediate R]] (C)          | Conditionals and  |
-|      | Basics and Calling Functions          |                             | control functions |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    2 | Introduction to Python:               | [[https://app.datacamp.com/learn/courses/intermediate-python][Intermediate Python]] (C)     | Matplotlib        |
-|      | Basics and Calling Functions          |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    3 | Intermediate R:                       |                             | Loops             |
-|      | Conditionals and Loops                |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    4 | Intermediate Python:                  |                             | Dictionaries &    |
-|      | Conditionals and Loops                |                             | Pandas            |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    5 | Writing Functions in R                |                             |                   |
-|      | 1st Sprint Review                     |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    6 | Writing Functions in Python           |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    7 | Intermediate R:                       |                             |                   |
-|      | Utilities and apply functions         |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    8 | Intermediate Python:                  |                             |                   |
-|      | Data Manipulation with Pandas         |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|    9 | Natural Language Processing in R      | [[https://app.datacamp.com/learn/courses/text-mining-with-bag-of-words-in-r][Bag of Words]]                |                   |
-|      | 2nd Sprint Review                     |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|   10 | Natural Language Processing in Python | [[https://app.datacamp.com/learn/tutorials/wordcloud-python][WordClouds]]                  |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|   11 | R: Importing and Exporting Data       | [[https://app.datacamp.com/learn/tutorials/r-data-import-tutorial][Import data into R]]          |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|   12 | Python: Importing and Exporting Data  | [[https://app.datacamp.com/learn/courses/introduction-to-importing-data-in-python][Importing data]]              |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|   13 | Data science on the command line      | [[https://app.datacamp.com/learn/courses/data-processing-in-shell][Data Processing in Shell]]    |                   |
-|      | 3rd Sprint Review                     |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|   14 | Integration of SQL with R and Python  | [[https://app.datacamp.com/learn/tutorials/sqlite-in-r][SQLite in R]]/[[https://app.datacamp.com/learn/tutorials/sqlalchemy-tutorial-examples][SQLAlchemy]]      |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|   15 | Integration of C++ with R             | [[https://app.datacamp.com/learn/courses/optimizing-r-code-with-rcpp][Optimizing R code with Rcpp]] |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
-|   16 | Project Presentations                 |                             |                   |
-|      | 4th Sprint Review                     |                             |                   |
-|------+---------------------------------------+-----------------------------+-------------------|
+| WEEK | TOPICS                                | DataCamp                    | Chapter              |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    1 | Introduction to R:                    | [[https://app.datacamp.com/learn/courses/intermediate-r][Intermediate R]] (C)          | R Conditionals /     |
+|      | Basics and Calling Functions          |                             | control functions    |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    2 | Introduction to Python:               | [[https://app.datacamp.com/learn/courses/intermediate-python][Intermediate Python]] (C)     | Python Matplotlib    |
+|      | Basics and Calling Functions          |                             |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    3 | Intermediate R:                       |                             | R Loops              |
+|      | Conditionals and Loops                |                             |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    4 | Intermediate Python:                  |                             | Dictionaries &       |
+|      | Conditionals and Loops                |                             | Pandas               |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    5 | Writing Functions in R                |                             | R functions          |
+|      | 1st Sprint Review                     |                             |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    6 | Writing Functions in Python           |                             | R apply family /     |
+|      |                                       |                             | utilities (bonus)    |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    7 | Intermediate R:                       |                             | Python logic flow    |
+|      | Utilities and apply functions         |                             | & loops (bonus)      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    8 | Intermediate Python:                  |                             | Case study           |
+|      | Data Manipulation with Pandas         |                             | Hacker stats (bonus) |
+|------+---------------------------------------+-----------------------------+----------------------|
+|    9 | Natural Language Processing in R      | [[https://app.datacamp.com/learn/courses/text-mining-with-bag-of-words-in-r][Bag of Words]]                |                      |
+|      | 2nd Sprint Review                     |                             |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|   10 | Natural Language Processing in Python | [[https://app.datacamp.com/learn/tutorials/wordcloud-python][WordClouds]]                  |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|   11 | R: Importing and Exporting Data       | [[https://app.datacamp.com/learn/tutorials/r-data-import-tutorial][Import data into R]]          |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|   12 | Python: Importing and Exporting Data  | [[https://app.datacamp.com/learn/courses/introduction-to-importing-data-in-python][Importing data]]              |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|   13 | Data science on the command line      | [[https://app.datacamp.com/learn/courses/data-processing-in-shell][Data Processing in Shell]]    |                      |
+|      | 3rd Sprint Review                     |                             |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|   14 | Integration of SQL with R and Python  | [[https://app.datacamp.com/learn/tutorials/sqlite-in-r][SQLite in R]]/[[https://app.datacamp.com/learn/tutorials/sqlalchemy-tutorial-examples][SQLAlchemy]]      |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|   15 | Integration of C++ with R             | [[https://app.datacamp.com/learn/courses/optimizing-r-code-with-rcpp][Optimizing R code with Rcpp]] |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
+|   16 | Project Presentations                 |                             |                      |
+|      | 4th Sprint Review                     |                             |                      |
+|------+---------------------------------------+-----------------------------+----------------------|
 
 DataCamp assignments: C = course, L = Lesson, T = Tutorial, P = Project
 

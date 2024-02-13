@@ -1664,16 +1664,11 @@ frame.
   :  Max.   :2190   Max.   :19.07   Max.   :14.50
   :                 NA's   :3       NA's   :1
 
-* TODO Plotting the data
-
+* TODO Plotting the data (home assignment)
 ** TODO Decisions
 ** TODO Boxplots in R
 ** TODO Histograms in R
 ** TODO Density plots in R
-** TODO Boxplots in Python
-** TODO Histograms in R
-** TODO Density plots in Python
-
 * TODO Summary and glossary
 
 * Footnotes
