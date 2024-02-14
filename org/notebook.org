@@ -399,6 +399,15 @@ Overworked? Overloaded with mastering R and Python?
 
 Never fear! Help is near! 
 
+** Emacs special
+
+If you're working with code blocks, you want to make your life easier:
+1) add to ~org-tempo-keyword-alist~ (e.g. ~<S~ for startup, ~<H~ for images)
+2) add to ~org-structure-template-alist~ (e.g. ~<p~ for python, ~<sqlite~
+   for sqlite, ~<cc~ for C, ~<cpp~ for C++, ~<r~ for R code blocks, etc.)
+3) Begin by looking these Emacs Lisp variables up: ~C-h v~ + variable
+   name.
+4) You can use ~C-h~ also to check key bindings (~k~) or functions (~f~).
 
 * Week 6: Writing functions in Python
 * Week 7: R utilities and =apply= family of functions
