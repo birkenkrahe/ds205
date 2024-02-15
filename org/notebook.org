@@ -400,6 +400,8 @@ Overworked? Overloaded with mastering R and Python?
 Never fear! Help is near! 
 
 ** Emacs special
+#+attr_html: :width 400px: 
+[[../img/guinea_pigs.png]]
 
 If you're working with code blocks, you want to make your life easier:
 1) add to ~org-tempo-keyword-alist~ (e.g. ~<S~ for startup, ~<H~ for images)
@@ -408,6 +410,7 @@ If you're working with code blocks, you want to make your life easier:
 3) Begin by looking these Emacs Lisp variables up: ~C-h v~ + variable
    name.
 4) You can use ~C-h~ also to check key bindings (~k~) or functions (~f~).
+
 
 * Week 6: Writing functions in Python
 * Week 7: R utilities and =apply= family of functions
@@ -420,3 +423,4 @@ If you're working with code blocks, you want to make your life easier:
 * Week 14: Integration of SQL with R and Python
 * Week 15: Integration of C++ with R
 * Week 16: Project presentations / 4th sprint review
+
