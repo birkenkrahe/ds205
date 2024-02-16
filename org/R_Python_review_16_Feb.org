@@ -6,10 +6,8 @@
 #+PROPERTY: header-args:R :session *R* :results output
 #+PROPERTY: header-args:python :session *Python* :results output :python python3
 * README
-#+ATTR_HTML: :WIDTH 400px:
-[[../img/review.jpg]]
 
-The best way to do this is by creating an extended example. We'll
+The best way to review is by creating an extended example. We'll
 continue to develop the code in parallel - first R, then Python.
 
 To study the basics of R, I recommend Norm Matloff's free "[[https://github.com/matloff/fasteR][fasteR]]"
