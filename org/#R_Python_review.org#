@@ -2052,8 +2052,34 @@ frame.
 - These functions can be expected to already take the presence of
   missing values into account. Let's check that for the average:
   #+begin_src python :results output :exports both :noweb yes
-    
+    print(df)
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+        ID  Test 1  Test 2
+  0   1433    4.83   10.00
+  1   1447   13.00   11.00
+  2   1421   16.33    8.50
+  3   1488   19.07   14.50
+  4   2157   16.83   12.00
+  5   1380   10.00    9.50
+  6   1466   18.00   10.33
+  7   1485   15.50   10.67
+  8    646   16.83   13.00
+  9   1136   17.50    9.67
+  10  1654   11.50   10.67
+  11  2130   15.83   10.33
+  12  1916   17.00   10.50
+  13  1377     NaN    3.50
+  14  1459   16.33   10.17
+  15  1504   17.50    9.50
+  16   779   17.50   12.50
+  17  1329   16.74   12.00
+  18  1295   17.33    8.17
+  19   753   16.83   11.33
+  20  1292     NaN    9.50
+  #+end_example
 
 
 * Math plots with R
