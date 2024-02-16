@@ -403,7 +403,7 @@ Never fear! Help is near!
 #+attr_html: :width 400px: 
 [[../img/guinea_pigs.png]]
 
-If you're working with code blocks, you want to make your life easier:
+If you're working with code blocks, you want to Amake your life easier:
 1) add to ~org-tempo-keyword-alist~ (e.g. ~<S~ for startup, ~<H~ for images)
 2) add to ~org-structure-template-alist~ (e.g. ~<p~ for python, ~<sqlite~
    for sqlite, ~<cc~ for C, ~<cpp~ for C++, ~<r~ for R code blocks, etc.)
@@ -411,6 +411,16 @@ If you're working with code blocks, you want to make your life easier:
    name.
 4) You can use ~C-h~ also to check key bindings (~k~) or functions (~f~).
 
+
+** DataCamp assignment changes
+
+- You're finished with Intermediate Python today (for now)
+- What remains is logic & loops (will do that later)
+- You're starting on functions in R now (because it's easy)
+- The last chapter of "[[https://app.datacamp.com/learn/courses/intermediate-r][Intermediate R]]" (utilities) is a bonus.
+- We'll continue looking at plots in R and Python all of next week.
+- We'll use function definitions from R and Python for that.
+- There will be small bonus exercises - double points for R and Python
 
 * Week 6: Writing functions in Python
 * Week 7: R utilities and =apply= family of functions
