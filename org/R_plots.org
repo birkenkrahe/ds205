@@ -1,0 +1,326 @@
+#+TITLE: Reviewing Python and R basics
+#+AUTHOR: Marcus Birkenkrahe (pledged)
+#+SUBTITLE: Intro to Advanced Data Science - DSC 205 - Lyon College Spring'24
+#+DATE: Time-stamp: <2024-02-09 07:23:51 Birkenkrahe>
+#+STARTUP: overview hideblocks indent :
+#+PROPERTY: header-args:R :session *R* :results output
+#+PROPERTY: header-args:python :session *Python* :results output :python python3
+* README
+
+- In this file, we review and practice plotting with base R.
+
+- Code along.
+
+* Bonus: Math plots with R
+
+- This section is prompted by a Calculus II exercise that I came
+  across. Especially when dealing with trigonometric functions, it can
+  be useful to plot them and get a visual on the problem.
+
+- Plot a complicated function, e.g. $f(x) = sin^2(x) sin(2x)$:
+  1) Base R (~package:base~) has trigonometric functions pre-loaded. Check
+     ~?sin~ on the command line to see documentation and function names.
+  2) To plot, all you need is the ~plot~ function.
+  3) In Emacs, you can change the code block header arguments. The
+     following metadata will store the result in a file ~graph.png~ and it
+     will also link to the file in the =#+RESULTS= output. If you don't do
+     this, the plot will appear in a separate window.
+     #+begin_example
+     #+begin_src R :results output graphics file :file graph.png
+     #+end_example
+
+- Here's the code that opens the graph in a separate window:
+  #+begin_src R :session *R* :results silent :exports both
+    ## function definition
+    f <- function(x) {
+      return (sin(x)**2 * sin(2*x))
+    }
+    ## arguments (independent variable)
+    x = seq(from = 0,to = 10,by = 0.01)
+
+    ## plot as line plot
+    plot(x,f(x), type="l")
+  #+end_src
+
+- Here's the code with the altered header line and with some
+  customization:
+  #+begin_src R :session *R* :results output graphics file :file ../img/func.png :exports both
+    ## function definition
+    f <- function(x) {
+      return (sin(x)**2 * sin(2*x))
+    }
+    ## arguments (independent variable)
+    x = seq(from = 0,to = 10,by = 0.01)
+
+    ## plot as line plot
+    plot(x,f(x), type="l")
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/func.png]]
+
+- Here is the minimal code without function, in one line:
+  #+begin_src R :session *R* :results output graphics file :file ../img/func1.png :exports both
+    plot(x=seq(from = 0,to = 10,by = 0.01),
+         sin(x)**2 * sin(2*x),
+         type="l")
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/func1.png]]
+
+** TODO Decisions
+** TODO Boxplots in R
+** TODO Histograms in R
+** TODO Density plots in R
+* Problem
+
+The LMS returns the following type of reports:
+#+attr_html: :width 400px:
+[[../img/test_1.png]]
+
+#+attr_html: :width 400px:
+[[../img/test_2.png]]
+
+We want to:
+1. Remake the histograms for both tests.
+2. Display histograms separately as two graphs in one panel.
+3. Display histograms together dodged or stacked in one panel.
+4. Create boxplots and display them to compare results easily.
+
+We'll also have to look at the necessity to remove missing values.
+
+* Data preparation
+
+To not have to wade through previous scripts, store the URL in the
+variable ~url~, import the data, and remove the last row as before:
+#+begin_src R
+  url = 'http://tinyurl.com/grades-csv'  # storing URL in variable
+  df <- read.csv(url,header=TRUE) # reading CSV data from the web
+  df <- df[-which(df$ID==2190),] # removing the test user row
+  names(df) <- c('id','t1','t2')  # simplifying column names
+  df # printing resulting data.frame
+#+end_src
+
+#+RESULTS:
+#+begin_example
+     id    t1    t2
+1  1433  4.83 10.00
+2  1447 13.00 11.00
+3  1421 16.33  8.50
+4  1488 19.07 14.50
+5  2157 16.83 12.00
+6  1380 10.00  9.50
+7  1466 18.00 10.33
+8  1485 15.50 10.67
+9   646 16.83 13.00
+10 1136 17.50  9.67
+11 1654 11.50 10.67
+12 2130 15.83 10.33
+13 1916 17.00 10.50
+14 1377    NA  3.50
+15 1459 16.33 10.17
+16 1504 17.50  9.50
+17  779 17.50 12.50
+18 1329 16.74 12.00
+19 1295 17.33  8.17
+20  753 16.83 11.33
+21 1292    NA  9.50
+#+end_example
+
+* Histogram in R
+
+A histogram plots frequencies over a continuous set of values.
+
+- Let's make one for ~df$t1~. For the header arguments, we need:
+  ~:results output graphics file :file histR_t1.png~ - the graph will then
+  be linked here and it will be saved to ~t1.png~:
+  #+begin_src R :session *R* :results output graphics file :file histR_t1.png :exports both :noweb yes
+    t1 <- df$t1
+    hist(t1)
+  #+end_src
+
+  #+RESULTS:
+[[file:histR_t1.png]]
+
+- You can check from here if there's a file (on Windows, you need to
+  replace =ls= by =DIR=):
+  #+begin_src R :session *R* :results output :exports both :noweb yes
+    system('ls -l histR_t1.png')
+  #+end_src
+
+  #+RESULTS:
+  : -rw-rw-r-- 1 marcus marcus 4583 Feb 17 14:32 histR_t1.png
+
+- To put the histograms for both tests in one panel, we use the ~par~
+  function and specify the number and orientation of sub-graphs with
+  =mfrow= - notice that we now save to the file ~histR_t1t2.png~:
+  #+begin_src R :session *R* :results output graphics file :file histR_t1t2.png :exports both :noweb yes
+    t1 <- df$t1
+    t2 <- df$t2
+    par(mfrow=c(2,1)) # create a 2 x 1 panel
+    hist(t1,main="Test 1",xlab="Points") # first histogram
+    hist(t2,main="Test 2",xlab="Points") # second histogram
+    par()
+  #+end_src
+
+  #+RESULTS:
+  [[file:histR_t1t2.png]]
+
+- Now, our scale program becomes obvious: the datasets have different
+  maximum point values. This affects the x-axis. The quickest way to
+  do this is to set the x-axis limits with =xlim=:
+  #+begin_src R :session *R* :results output graphics file :file histR_t1t2_2.png :exports both :noweb yes
+    par(mfrow=c(2,1)) # create a 2 x 1 panel
+    hist(t1,main="Test 1",xlab="Points",xlim=c(0,20))
+    hist(t2,main="Test 2",xlab="Points",xlim=c(0,20))
+    par()
+  #+end_src
+
+  #+RESULTS:
+  [[file:histR_t1t2_2.png]]
+
+- This last result shows clearly that the peformance has decreased
+  drastically between test 1 and test 2. A clearer picture will result
+  from a boxplot (below).
+
+- One last improvement concerns the bin values: they are not close
+  enough for a test where each of the questions has 1 point. To change
+  that, you can set the =breaks= manually:
+  #+begin_src R :session *R* :results output graphics file :file histR_t1t2_3.png :exports both :noweb yes
+    par(mfrow=c(2,1)) # create a 2 x 1 panel
+    hist(t1,
+         breaks = seq(from=0,to=20,by=1),
+         main="Test 1",
+         xlab="Points",
+         xlim=c(0,20))
+    hist(t2,
+         breaks = seq(from=0,to=20,by=1),
+         main="Test 2",
+         xlab="Points",
+         xlim=c(0,20))
+    par()
+  #+end_src
+
+  #+RESULTS:
+  [[file:histR_t1t2_3.png]]
+
+- Another issue (not for these data) could be if we have different
+  number of participants. We might want to align the y-axis as well to
+  make sure that we are looking at comparable datasets.
+
+- However, we have not yet reproduced the LMS graphs: they show the
+  results in percent, which automatically scales the point results.
+
+- We scale the vectors in the dataframe themselves, and we remove the
+  'id' column since we don't need it here at all. Vectorisation rules!
+  #+begin_src R :session *R* :results output :exports both :noweb yes
+    df$t1 <- (df$t1 / 20) * 100 # overwrite t1 with new % vector
+    df$t2 <- (df$t2 / 15) * 100 # overwrite t2 with new % vector
+    df <- df[-1] # remove id column
+    df
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+        t1       t2
+  1  24.15 66.66667
+  2  65.00 73.33333
+  3  81.65 56.66667
+  4  95.35 96.66667
+  5  84.15 80.00000
+  6  50.00 63.33333
+  7  90.00 68.86667
+  8  77.50 71.13333
+  9  84.15 86.66667
+  10 87.50 64.46667
+  11 57.50 71.13333
+  12 79.15 68.86667
+  13 85.00 70.00000
+  14    NA 23.33333
+  15 81.65 67.80000
+  16 87.50 63.33333
+  17 87.50 83.33333
+  18 83.70 80.00000
+  19 86.65 54.46667
+  20 84.15 75.53333
+  21    NA 63.33333
+  #+end_example
+
+- Now we redo the last plot but we do no longer need to worry about
+  the limits or the breaks - make sure to change the name of the file:
+  #+begin_src R :session *R* :results output graphics file :file histR_t1t2_4.png :exports both :noweb yes
+    t1 = df$t1
+    t2 = df$t2
+    par(mfrow=c(2,1)) # create a 2 x 1 panel
+    hist(t1,
+         main="Test 1",
+         xlab="Percentage")
+    hist(t2,
+         main="Test 2",
+         xlab="Percentage")
+    par()
+  #+end_src
+
+  #+RESULTS:
+  [[file:histR_t1t2_4.png]]
+
+
+- The original plots do not look like histograms but like barplots
+  with exact values for the percentage, but as the data show, there
+  are percentage ranges, which is why the histogram is more
+  appropriate.
+
+* Boxplot in R
+
+A boxplot is a graph that illustrates the statistical =summary=
+results.
+
+- The creation of panels and subpanels, the customization and the
+  scaling carries over from the last histogram, since these are
+  graphical parameters. We first create a quick and dirty boxplot, and
+  customize in the next step:
+  #+begin_src R :session *R* :results output graphics file :file box_t1t2.png :exports both :noweb yes
+    par(mfrow=c(2,1)) # create a 2 x 1 panel
+    boxplot(t1,
+            main="Test 1")
+    boxplot(t2,
+            main="Test 2")
+    par()
+  #+end_src
+
+  #+RESULTS:
+  [[file:box_t1t2.png]]
+
+- These results are hard to compare. We're going to:
+  1. turn the boxplots on their side with the parameter =horizontal=TRUE=
+  2. label the x-axis as befre with ~xlab~
+  3. remove the standard x-axis annotation with ~xaxt='n'~
+  4. redefine the x-axis ticks with the =axis= function.
+  #+begin_src R :session *R* :results output graphics file :file box_t1t2_final.png :exports both :noweb yes
+    par(mfrow=c(2,1)) # create a 2 x 1 panel
+    boxplot(t1,
+            horizontal=TRUE, # rotate plot by 90 degrees
+            main="Test 1",
+            xlab="Percentage",
+            xaxt='n') # Suppress default x-axis
+    ## redraw axis data
+    axis(side=1,
+         at=seq(0,100,by=10),
+         labels=paste0(seq(0, 100, by=10), "%")) # Add custom x-axis
+    boxplot(t2,
+            horizontal=TRUE,
+            main="Test 2",
+            xlab="Percentage",
+            xaxt='n') # Suppress default x-axis
+    ## redraw axis data
+    axis(side=1,
+         at=seq(0,100,by=10),
+         labels=paste0(seq(0, 100, by=10), "%")) # Add custom x-axis
+    par()
+  #+end_src
+
+  #+RESULTS:
+  [[file:box_t1t2_final.png]]
+
+* TODO Summary and glossary

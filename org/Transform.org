@@ -6,1157 +6,12 @@
 #+PROPERTY: header-args:R :session *R* :results output
 #+PROPERTY: header-args:python :session *Python* :results output :python python3
 * README
-#+ATTR_HTML: :WIDTH 400px:
-[[../img/review.jpg]]
 
-The best way to do this is by creating an extended example. We'll
-continue to develop the code in parallel - first R, then Python.
+- We're looking at data transformation and modeling in R and Python.
 
-To study the basics of R, I recommend Norm Matloff's free "[[https://github.com/matloff/fasteR][fasteR]]"
-tutorial (Matloff, 2023). An equivalent for Python is [[https://realpython.com/python-for-data-analysis/][this tutorial]] by
-Ian Eyre (Eyre, 2024).
+- Code along.  
 
-If you're coming back to this session after a break, run all code
-blocks so far with ~org-babel-execute-buffer~.
-
-* Problem
-
-I have a data set - test grades from two tests. What I want is:
-1) to import the data (in a suitable format or formats),
-2) to compute statistics (using standard measures),
-3) to plot the data (in a suitable format or formats).
-
-* Classroom setup
-
-1. Open Emacs
-2. Open a new file ~C-x C-f~
-3. Save it as ~review.org~
-4. Add meta data (header information):
-   #+begin_example
-   #+TITLE: Reviewing Python and R basics
-   #+AUTHOR: your name (pledged)
-   #+SUBTITLE: A really short practical introduction to R and Pyhon
-   #+DATE: Time-stamp: <>
-   #+PROPERTY: header-args:R :session *R* :results output
-   #+PROPERTY: header-args:python :session *Python* :results output
-   #+end_example
-
-* Data
-
-The data are available from Canvas a this (sanitized) CSV file[fn:1]:
-[[http://tinyurl.com/grades-csv][tinyurl.com/grades-csv]].
-
-To import the data:
-1. ~M-x eww RET tinyurl.com/grades-csv~
-2. ~C-x C-w RET ~/grades.csv~
-3. ~C-x k~
-4. ~C-x C-f RET ~/grades.csv~
-
-What can you tell about the data?
-#+begin_notes
-1. It's a CSV file
-2. There are three =numeric= columns
-3. The first column is an ID column (data type =character= OK)
-4. There are missing values (=NA=, =NaN=)
-5. There is a =header= row
-6. The data look unordered
-#+end_notes
-* Importing the data
-** Importing the data with base R
-
-- Importing data from CSV files is done with the base R function
-  =read.csv=. You should always look at the documentation (~?read.csv~).
-
-- To see, which packages are currently loaded in your session, use
-  ~search~:
-  #+begin_src R
-    search()
-  #+end_src
-
-  #+RESULTS:
-  :  [1] ".GlobalEnv"        "package:readr"     "ESSR"              "package:stats"    
-  :  [5] "package:graphics"  "package:grDevices" "package:utils"     "package:datasets" 
-  :  [9] "package:methods"   "Autoloads"         "package:base"
-
-- Question: can R packages have duplicate names?
-  #+begin_notes
-  It's technically possible (they're just names for software) as long
-  as they're distributed through different channels. For packages on
-  CRAN (Comprehensive R Archive Network at cran.r-project.org, where
-  your base R comes from), the rule that each package has a distinct
-  name, is enforced (source). Since there are much fewer packages
-  than functions in packages, one can check the [[https://cran.r-project.org/web/packages/available_packages_by_name.html][CRAN package list]] for
-  duplicates.
-  #+end_notes
-
-- There is one positional, mandatory, and a bunch of optional keyword
-  parameter. The positional =file= parameter can be a URL.
-
-- You need to specify if the file has a =header= and if you want
-  strings to automatically be imported as =factor= values. You should
-  also check if =numeric= values have a decimal point or a decimal
-  comma.
-
-- To begin with, just import the data and spit them out again:
-  #+begin_src R :results output :session *R* :exports both :noweb yes
-    ## save URL as R object
-    url <- "http://tinyurl.com/grades-csv"
-    ## read CSV data from URL assuming there is a header row
-    read.csv(file=url,
-             header=TRUE)
-  #+end_src
-
-  #+RESULTS:
-  #+begin_example
-       ID Test.1 Test.2
-  1  1433   4.83  10.00
-  2  1447  13.00  11.00
-  3  1421  16.33   8.50
-  4  1488  19.07  14.50
-  5  2157  16.83  12.00
-  6  1380  10.00   9.50
-  7  1466  18.00  10.33
-  8  1485  15.50  10.67
-  9   646  16.83  13.00
-  10 1136  17.50   9.67
-  11 1654  11.50  10.67
-  12 2130  15.83  10.33
-  13 1916  17.00  10.50
-  14 1377     NA   3.50
-  15 1459  16.33  10.17
-  16 1504  17.50   9.50
-  17  779  17.50  12.50
-  18 1329  16.74  12.00
-  19 1295  17.33   8.17
-  20  753  16.83  11.33
-  21 1292     NA   9.50
-  22 2190     NA     NA
-  #+end_example
-
-** Importing the data with 'Tidyverse'
-
-- At this point, since you've already got one success, you might think
-  about alternatives. There are always alternatives. In R, you could
-  e.g. use =readr::read_csv=. [[https://readr.tidyverse.org/reference/read_delim.html][Here is the documentation]].
-
-- Just for fun, let's see what we get with this function (you need to
-  install and load =readr=[fn:2]):
-  #+begin_src R :results output :session *R* :exports both
-    library(readr)
-    tb <- read_csv(file = url)
-    tb
-  #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  `curl` package not installed, falling back to using `url()`
-  indexed 0B in  0s, 0B/sindexed 1.00TB in  0s, 2.98PB/s                                                                                                Rows: 22 Columns: 3
-  ── Column specification ──────────────────────────────────────────────────────────────────────────
-  Delimiter: ","
-  dbl (3): ID, Test 1, Test 2
-
-  ℹ Use `spec()` to retrieve the full column specification for this data.
-  ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-  # A tibble: 22 × 3
-        ID `Test 1` `Test 2`
-     <dbl>    <dbl>    <dbl>
-   1  1433     4.83    10   
-   2  1447    13       11   
-   3  1421    16.3      8.5 
-   4  1488    19.1     14.5 
-   5  2157    16.8     12   
-   6  1380    10        9.5 
-   7  1466    18       10.3 
-   8  1485    15.5     10.7 
-   9   646    16.8     13   
-  10  1136    17.5      9.67
-  # ℹ 12 more rows
-  # ℹ Use `print(n = ...)` to see more rows
-  #+end_example
-
-- Let's check the data structure of a `tibble`:
-  #+begin_src R
-    class(tb)
-  #+end_src
-
-  #+RESULTS:
-  : [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"
-
-- If you're not sure anymore what the value of ~url~ is or if it is even
-  defined, you can print it:
-  #+begin_src R
-    url
-  #+end_src
-
-  #+RESULTS:
-  : [1] "http://tinyurl.com/grades-csv"
-
-- The result is a "tibble", a "modern reimagining of the =data.frame=,
-  keeping what time has proven to be effective, and throwing out what
-  is not." ([[https://tibble.tidyverse.org/][Source]]). If you're new to tibbles, best forget them again.
-
-- To display the tibble without the control characters, which are
-  generated by the R package, add the following line to your
-  ~~/.Rprofile~ file:
-  #+begin_example R
-  options(crayon.enabled=FALSE)
-  options(repos = c(CRAN = "https://cloud.r-project.org"))
-  #+end_example
-
-- The second line ensures that there's no pop-up in windows asking you
-  to pick a mirror site. The ~~/.Rprofile~ file is run whenever you
-  start an R session (to make sure, you can add a message to it, like:
-  #+begin_example R
-  message("*** ~/.Rprofile run! ***")
-  #+end_example
-
-- You can source the file (and its environment changes) from within R:
-  #+begin_src R
-    source("~/.Rprofile") # source = run the .Rprofile commands
-  #+end_src
-
-  #+RESULTS:
-  : *** Have a nice R day! ***
-
-** Importing the data as =DataFrame= with Python =pandas=
-
-- To import data from CSV files in Python, you can use the function
-  =pandas.read_csv=. Look at the documentation - it's so vast that you
-  had better looked it up [[https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html][online here]]. [[https://pandas.pydata.org/about/][Here]] is more useful information.
-
-- When you decide to use a package, you must digest all of its
-  documentation. What you skipped or did not understand, will harm you
-  later.
-
-- There is one positional and a bunch of keyword parameters. The
-  positional file parameter can be a URL. One difference to R is that
-  the positional argument cannot be named.
-
-- Python 'infers' if there's a =header= or not but (unlike R) it assumes
-  that there is one in the first record (line).
-
-- Let's try it. You may have to run this code block twice.
-  #+begin_src python
-    from pandas import read_csv
-    url = "http://tinyurl.com/grades-csv"
-    print(read_csv(url))
-  #+end_src
-  
-  #+RESULTS:
-  #+begin_example
-        ID  Test 1  Test 2
-  0   1433    4.83   10.00
-  1   1447   13.00   11.00
-  2   1421   16.33    8.50
-  3   1488   19.07   14.50
-  4   2157   16.83   12.00
-  5   1380   10.00    9.50
-  6   1466   18.00   10.33
-  7   1485   15.50   10.67
-  8    646   16.83   13.00
-  9   1136   17.50    9.67
-  10  1654   11.50   10.67
-  11  2130   15.83   10.33
-  12  1916   17.00   10.50
-  13  1377     NaN    3.50
-  14  1459   16.33   10.17
-  15  1504   17.50    9.50
-  16   779   17.50   12.50
-  17  1329   16.74   12.00
-  18  1295   17.33    8.17
-  19   753   16.83   11.33
-  20  1292     NaN    9.50
-  21  2190     NaN     NaN
-  #+end_example
-
-- How can you see which packages are loaded in your Python session?
-  #+begin_src python
-    import sys
-    loaded_packages = list(sys.modules.keys())
-    print(loaded_packages)
-  #+end_src
-
-  #+RESULTS:
-  : ['sys', 'builtins', '_frozen_importlib', '_imp', '_thread', '_warnings', '_weakref', '_io', 'marshal', 'posix', '_frozen_importlib_external', 'time', 'zipimport', '_codecs', 'codecs', 'encodings.aliases', 'encodings', 'encodings.utf_8', '_signal', '_abc', 'abc', 'io', '__main__', '_stat', 'stat', '_collections_abc', 'genericpath', 'posixpath', 'os.path', 'os', '_sitebuiltins', 'apport_python_hook', 'sitecustomize', 'site', 'readline', 'atexit', '_ast', 'itertools', 'keyword', '_operator', 'operator', 'reprlib', '_collections', 'collections', 'types', '_functools', 'functools', 'contextlib', 'enum', 'ast', '_opcode', 'opcode', 'dis', 'collections.abc', 'importlib._bootstrap', 'importlib._bootstrap_external', 'warnings', 'importlib', 'importlib.machinery', '_sre', 'sre_constants', 'sre_parse', 'sre_compile', '_locale', 'copyreg', 're', 'token', 'tokenize', 'linecache', 'inspect', 'rlcompleter', 'encodings.latin_1', 'apt_pkg', 'traceback', 'errno', 'signal', '_weakrefset', 'threading', 'fcntl', '_posixsubprocess', 'select', 'math', 'selectors', 'subprocess', 'fnmatch', 'zlib', '_compression', '_bz2', 'bz2', '_lzma', 'lzma', 'shutil', '_bisect', 'bisect', '_random', '_sha512', 'random', 'weakref', 'tempfile', 'pwd', 'grp', 'glob', 'importlib._abc', 'importlib.util', 'xml', 'xml.dom.domreg', 'xml.dom', 'xml.dom.minicompat', 'copy', 'xml.dom.NodeFilter', 'xml.dom.xmlbuilder', 'xml.dom.minidom', 'xml.parsers', 'pyexpat.errors', 'pyexpat.model', 'pyexpat', 'xml.parsers.expat.model', 'xml.parsers.expat.errors', 'xml.parsers.expat', 'urllib', 'urllib.response', 'urllib.error', '_struct', 'struct', 'binascii', 'base64', 'email', '_hashlib', '_blake2', 'hashlib', 'http', 'email.errors', '_string', 'string', 'email.quoprimime', 'email.base64mime', 'quopri', 'email.encoders', 'email.charset', 'email.header', '_socket', 'array', 'socket', '_datetime', 'datetime', 'urllib.parse', 'locale', 'calendar', 'email._parseaddr', 'email.utils', 'email._policybase', 'email.feedparser', 'email.parser', 'uu', 'email._encoded_words', 'email.iterators', 'email.message', '_ssl', 'ssl', 'http.client', 'urllib.request', 'gzip', 'email.mime', 'email._header_value_parser', 'email.headerregistry', 'email.contentmanager', 'email.policy', 'email.mime.base', 'email.mime.multipart', 'email.mime.nonmultipart', 'email.mime.text', 'problem_report', '_json', 'json.scanner', 'json.decoder', 'json.encoder', 'json', 'configparser', '__future__', 'logging', 'typing.io', 'typing.re', 'typing', 'apt.progress', 'apt.progress.base', 'apt.progress.text', 'apt.package', 'apt.cache', 'apt.cdrom', 'apt', '_compat_pickle', '_pickle', 'pickle', 'apport.packaging', 'apport.packaging_impl', 'apport.fileutils', 'apport.hookutils', 'apport.report', 'gettext', 'apport', 'numpy._utils._convertions', 'numpy._utils', 'numpy._globals', 'numpy.exceptions', 'numpy.version', 'numpy._distributor_init', 'numpy._utils._inspect', 'numpy.core._exceptions', 'numpy.dtypes', 'numpy.core._multiarray_umath', 'numpy.core.overrides', 'numpy.core.multiarray', 'numpy.core.umath', 'numbers', 'numpy.core._string_helpers', 'ntpath', 'pathlib', 'numpy.compat.py3k', 'numpy.compat', 'numpy.core._dtype', 'numpy.core._type_aliases', 'numpy.core.numerictypes', '_contextvars', 'contextvars', 'numpy.core._ufunc_config', 'numpy.core._methods', 'numpy.core.fromnumeric', 'numpy.core.shape_base', 'numpy.core.arrayprint', 'numpy.core._asarray', 'numpy.core.numeric', 'numpy.core.defchararray', 'numpy.core.records', 'numpy.core.memmap', 'numpy.core.function_base', 'numpy.core._machar', 'numpy.core.getlimits', 'numpy.core.einsumfunc', 'numpy.core._multiarray_tests', 'numpy.core._add_newdocs', 'numpy.core._add_newdocs_scalars', 'numpy.core._dtype_ctypes', '_ctypes', 'ctypes._endian', 'ctypes', 'numpy.core._internal', 'numpy._pytesttester', 'numpy.core', 'numpy.__config__', 'numpy.lib.mixins', 'numpy.lib.ufunclike', 'numpy.lib.type_check', 'numpy.lib.scimath', 'numpy.lib.stride_tricks', 'numpy.lib.twodim_base', 'numpy.linalg._umath_linalg', 'numpy._typing._nested_sequence', 'numpy._typing._nbit', 'numpy._typing._char_codes', 'numpy._typing._scalars', 'numpy._typing._shape', 'numpy._typing._dtype_like', 'numpy._typing._array_like', 'numpy._typing', 'numpy.linalg.linalg', 'numpy.linalg', 'numpy.matrixlib.defmatrix', 'numpy.matrixlib', 'numpy.lib.histograms', 'numpy.lib.function_base', 'numpy.lib.index_tricks', 'numpy.lib.nanfunctions', 'numpy.lib.shape_base', 'numpy.lib.polynomial', 'textwrap', 'platform', 'numpy.lib.utils', 'numpy.lib.arraysetops', 'numpy.lib.format', 'numpy.lib._datasource', 'numpy.lib._iotools', 'numpy.lib.npyio', 'numpy.lib.arrayterator', 'numpy.lib.arraypad', 'numpy.lib._version', 'numpy.lib', 'numpy.fft._pocketfft_internal', 'numpy.fft._pocketfft', 'numpy.fft.helper', 'numpy.fft', 'numpy.polynomial.polyutils', 'numpy.polynomial._polybase', 'numpy.polynomial.polynomial', 'numpy.polynomial.chebyshev', 'numpy.polynomial.legendre', 'numpy.polynomial.hermite', 'numpy.polynomial.hermite_e', 'numpy.polynomial.laguerre', 'numpy.polynomial', 'cython_runtime', '_cython_3_0_7', 'numpy.random._common', 'hmac', 'secrets', 'numpy.random.bit_generator', 'numpy.random._bounded_integers', 'numpy.random._mt19937', 'numpy.random.mtrand', 'numpy.random._philox', 'numpy.random._pcg64', 'numpy.random._sfc64', 'numpy.random._generator', 'numpy.random._pickle', 'numpy.random', 'numpy.ctypeslib', 'numpy.ma.core', 'numpy.ma.extras', 'numpy.ma', 'numpy', 'sysconfig', '_sysconfigdata__x86_64-linux-gnu', 'zoneinfo._tzpath', 'zoneinfo._common', '_zoneinfo', 'zoneinfo', 'pytz.exceptions', 'pytz.lazy', 'pytz.tzinfo', 'pytz.tzfile', 'importlib.abc', 'importlib._adapters', 'importlib._common', 'importlib.resources', 'tzdata', 'zipfile', 'importlib.readers', 'pytz', 'dateutil._version', 'dateutil', 'pandas.compat._constants', 'pandas.compat.compressors', 'pandas.util', 'pandas.util.version', 'pandas.compat.numpy', 'pandas.compat.pyarrow', 'pandas.compat', 'pandas._typing', 'pandas.util._exceptions', 'pandas._config.config', 'pandas._config.dates', 'pandas._config.display', 'pandas._config', 'pandas.core', 'pandas.core.config_init', 'pandas._libs.pandas_parser', 'pandas._libs.pandas_datetime', '_cython_3_0_5', 'pandas._libs.tslibs.ccalendar', 'pandas._libs.tslibs.np_datetime', 'pandas._libs.tslibs.dtypes', 'pandas._libs.tslibs.base', 'pandas._libs.tslibs.nattype', 'pandas.compat._optional', 'six', 'six.moves', 'dateutil.tz._common', 'dateutil.tz._factories', 'dateutil.tz.tz', 'dateutil.tz', 'pandas._libs.tslibs.timezones', '_strptime', 'pandas._config.localization', 'pandas._libs.tslibs.fields', 'pandas._libs.tslibs.timedeltas', 'pandas._libs.tslibs.tzconversion', 'pandas._libs.tslibs.timestamps', 'pandas._libs.properties', 'pandas._libs.tslibs.offsets', '_decimal', 'decimal', 'dateutil._common', 'dateutil.relativedelta', 'dateutil.parser._parser', 'dateutil.parser.isoparser', 'dateutil.parser', 'pandas._libs.tslibs.strptime', 'pandas._libs.tslibs.parsing', 'pandas._libs.tslibs.conversion', 'pandas._libs.tslibs.period', 'pandas._libs.tslibs.vectorized', 'pandas._libs.tslibs', 'pandas._libs.ops_dispatch', 'pandas._libs.missing', 'pandas._libs.hashtable', 'pandas._libs.algos', 'pandas._libs.interval', 'pandas._libs', 'pandas.core.dtypes', 'pandas._libs.lib', 'pandas.errors', 'pandas.core.dtypes.generic', 'pandas.core.dtypes.base', 'pandas.core.dtypes.inference', 'pandas.core.dtypes.dtypes', 'pandas.core.dtypes.common', 'pandas.core.dtypes.missing', 'pandas.util._decorators', 'pandas.io', 'pandas.io._util', 'pandas.core.dtypes.cast', 'pandas.core.dtypes.astype', 'pandas.core.dtypes.concat', 'pandas.core.array_algos', 'pandas.core.common', 'pandas.core.construction', 'pandas.core.array_algos.take', 'pandas.core.indexers.utils', 'pandas.core.indexers', 'pandas.core.algorithms', 'pandas.core.arrays.arrow.accessors', 'unicodedata', 'pandas.util._validators', 'pandas.core.missing', 'pandas._libs.ops', 'pandas.core.roperator', 'pandas.core.computation', 'pandas.core.computation.check', 'pandas.core.computation.expressions', 'pandas.core.ops.missing', 'pandas.core.ops.dispatch', 'pandas.core.ops.invalid', 'pandas.core.ops.array_ops', 'pandas.core.ops.common', 'pandas.core.ops.docstrings', 'pandas.core.ops.mask_ops', 'pandas.core.ops', 'pandas.core.arraylike', 'pandas.core.arrays._arrow_string_mixins', 'pandas.core.arrays._utils', 'pandas.compat.numpy.function', 'pandas.core.array_algos.quantile', 'pandas.core.sorting', 'pandas.core.arrays.base', 'pandas.core.nanops', 'pandas.core.array_algos.masked_accumulations', 'pandas.core.array_algos.masked_reductions', 'pandas.core.util', 'pandas._libs.hashing', 'pandas.core.util.hashing', 'pandas.core.arrays.masked', 'pandas._libs.arrays', 'pandas.core.arrays.numeric', 'pandas.core.arrays.floating', 'pandas.core.arrays.integer', 'pandas.core.array_algos.transforms', 'pandas.core.arrays._mixins', 'pandas.core.strings', 'pandas.core.strings.base', 'pandas.core.strings.object_array', 'pandas.core.arrays.numpy_', 'pandas.core.arrays.string_', 'pandas.tseries', 'pandas.tseries.frequencies', 'pandas.core.arrays.arrow.array', 'pandas.core.arrays.arrow', 'pandas.core.arrays.boolean', '_csv', 'csv', 'pandas.core.accessor', 'pandas.core.base', 'pandas.io.formats', 'pandas.io.formats.console', 'pandas.core.arrays.categorical', 'pandas._libs.tslib', 'pandas.core.array_algos.datetimelike_accumulations', 'pandas.core.arrays.datetimelike', 'pandas.core.arrays._ranges', 'pandas.tseries.offsets', 'pandas.core.arrays.datetimes', 'pandas.core.arrays.timedeltas', 'pandas.core.arrays.interval', 'pandas.core.arrays.period', 'pandas._libs.sparse', 'pandas.io.formats.printing', 'pandas.core.arrays.sparse.array', 'pandas.core.arrays.sparse.accessor', 'pandas.core.arrays.sparse', 'pandas.core.arrays.string_arrow', 'pandas.core.arrays', 'pandas.core.flags', 'pandas._libs.internals', 'pandas.core._numba', 'pandas.core._numba.executor', 'pandas.core.apply', 'gc', 'pandas._libs.indexing', 'pandas.core.indexes', 'pandas._libs.index', 'pandas._libs.writers', 'pandas._libs.join', 'pandas.core.array_algos.putmask', 'pandas.core.indexes.frozen', 'pandas.core.strings.accessor', 'pandas.core.indexes.base', 'pandas.core.indexes.extension', 'pandas.core.indexes.category', 'pandas.core.indexes.range', 'pandas.core.tools', 'pandas.core.tools.timedeltas', 'pandas.core.indexes.datetimelike', 'pandas.core.tools.times', 'pandas.core.indexes.datetimes', 'pandas.core.indexes.multi', 'pandas.core.indexes.timedeltas', 'pandas.core.indexes.interval', 'pandas.core.indexes.period', 'pandas.core.indexes.api', 'pandas.core.indexing', 'pandas.core.sample', 'pandas.core.array_algos.replace', 'pandas.core.internals.blocks', 'pandas.core.internals.api', 'pandas.core.internals.base', 'pandas.core.internals.ops', 'pandas.core.internals.managers', 'pandas.core.internals.array_manager', 'pandas.core.internals.concat', 'pandas.core.internals', 'pandas.core.internals.construction', 'pandas.core.methods', 'pandas.core.reshape', 'pandas.core.reshape.concat', 'dataclasses', 'mmap', 'tarfile', 'pandas.core.shared_docs', 'pandas.io.common', 'pandas.io.formats.format', 'pandas.core.methods.describe', 'pandas._libs.window', 'pandas._libs.window.aggregations', 'pandas._libs.window.indexers', 'pandas.core.indexers.objects', 'pandas.core.util.numba_', 'pandas.core.window.common', 'pandas.core.window.doc', 'pandas.core.window.numba_', 'pandas.core.window.online', 'pandas.core.window.rolling', 'pandas.core.window.ewm', 'pandas.core.window.expanding', 'pandas.core.window', 'pandas.core.generic', 'pandas.core.methods.selectn', 'pandas.core.reshape.util', 'pandas.core.tools.numeric', 'pandas.core.reshape.melt', 'pandas._libs.reshape', 'pandas.core.indexes.accessors', 'pandas.arrays', 'pandas.core.tools.datetimes', 'pandas.io.formats.info', 'pandas.plotting._core', 'pandas.plotting._misc', 'pandas.plotting', 'pandas.core.series', 'pandas.core.frame', 'pandas.core.groupby.base', 'pandas._libs.groupby', 'pandas.core.groupby.categorical', 'pandas.core.groupby.grouper', 'pandas.core.groupby.ops', 'pandas.core.groupby.numba_', 'pandas.core.groupby.indexing', 'pandas.core.groupby.groupby', 'pandas.core.groupby.generic', 'pandas.core.groupby', 'pandas.core.api', 'pandas.tseries.api', 'pandas.core.computation.common', 'pandas.core.computation.align', 'pprint', 'pandas.core.computation.scope', 'pandas.core.computation.ops', 'pandas.core.computation.engines', 'pandas.core.computation.parsing', 'pandas.core.computation.expr', 'pandas.core.computation.eval', 'pandas.core.computation.api', 'pandas.core.reshape.encoding', '_uuid', 'uuid', 'pandas.core.reshape.merge', 'pandas.core.reshape.pivot', 'pandas.core.reshape.tile', 'pandas.core.reshape.api', 'pandas.api.extensions', 'pandas.api.indexers', 'pandas.core.interchange', 'pandas.core.interchange.dataframe_protocol', 'pandas.core.interchange.utils', 'pandas.core.interchange.from_dataframe', 'pandas.api.interchange', 'pandas.core.dtypes.api', 'pandas.api.types', 'pandas.core.resample', 'pandas._libs.json', 'pandas.io.json._normalize', 'pandas.io.json._table_schema', 'pandas._libs.parsers', 'pandas.io.parsers.base_parser', 'pandas.io.parsers.arrow_parser_wrapper', 'pandas.io.parsers.c_parser_wrapper', 'pandas.io.parsers.python_parser', 'pandas.io.parsers.readers', 'pandas.io.parsers', 'pandas.io.json._json', 'pandas.io.json', 'pandas.io.stata', 'pandas.api.typing', 'pandas.api', 'pandas._testing.contexts', 'pandas._testing._io', 'pandas._testing._warnings', 'cmath', 'pandas._libs.testing', 'pandas._testing.asserters', 'pandas._testing.compat', 'pandas._testing', 'pandas.testing', 'pandas.util._print_versions', 'pandas.io.clipboards', 'pandas.io.excel._util', 'pandas.io.excel._calamine', 'pandas.io.excel._odfreader', 'pandas.io.excel._openpyxl', 'pandas.io.excel._pyxlsb', 'pandas.io.excel._xlrd', 'pandas.io.excel._base', 'pandas.io.excel._odswriter', 'pandas.io.excel._xlsxwriter', 'pandas.io.excel', 'pandas.io.feather_format', 'pandas.io.gbq', 'pandas.io.html', 'pandas.io.orc', 'pandas.io.parquet', 'pandas.compat.pickle_compat', 'pandas.io.pickle', 'pandas.core.computation.pytables', 'pandas.io.pytables', 'pandas.io.sas.sasreader', 'pandas.io.sas', 'pandas.io.spss', 'pandas.io.sql', 'pandas.io.xml', 'pandas.io.api', 'pandas.util._tester', 'pandas._version_meson', 'pandas', 'stringprep', 'encodings.idna', 'pandas.io.formats.string', 'pkgutil', 'pydoc']
-
-- This is not easy to read. Instead, print the =list= as a
-  =comprehension=, with a =for= loop integrated:
-  #+begin_src python
-    [print(_) for _ in loaded_packages] # as list comprehension
-  #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  sys
-  builtins
-  _frozen_importlib
-  _imp
-  _thread
-  _warnings
-  _weakref
-  _io
-  marshal
-  posix
-  _frozen_importlib_external
-  time
-  zipimport
-  _codecs
-  codecs
-  encodings.aliases
-  encodings
-  encodings.utf_8
-  _signal
-  _abc
-  abc
-  io
-  __main__
-  _stat
-  stat
-  _collections_abc
-  genericpath
-  posixpath
-  os.path
-  os
-  _sitebuiltins
-  apport_python_hook
-  sitecustomize
-  site
-  readline
-  atexit
-  _ast
-  itertools
-  keyword
-  _operator
-  operator
-  reprlib
-  _collections
-  collections
-  types
-  _functools
-  functools
-  contextlib
-  enum
-  ast
-  _opcode
-  opcode
-  dis
-  collections.abc
-  importlib._bootstrap
-  importlib._bootstrap_external
-  warnings
-  importlib
-  importlib.machinery
-  _sre
-  sre_constants
-  sre_parse
-  sre_compile
-  _locale
-  copyreg
-  re
-  token
-  tokenize
-  linecache
-  inspect
-  rlcompleter
-  encodings.latin_1
-  apt_pkg
-  traceback
-  errno
-  signal
-  _weakrefset
-  threading
-  fcntl
-  _posixsubprocess
-  select
-  math
-  selectors
-  subprocess
-  fnmatch
-  zlib
-  _compression
-  _bz2
-  bz2
-  _lzma
-  lzma
-  shutil
-  _bisect
-  bisect
-  _random
-  _sha512
-  random
-  weakref
-  tempfile
-  pwd
-  grp
-  glob
-  importlib._abc
-  importlib.util
-  xml
-  xml.dom.domreg
-  xml.dom
-  xml.dom.minicompat
-  copy
-  xml.dom.NodeFilter
-  xml.dom.xmlbuilder
-  xml.dom.minidom
-  xml.parsers
-  pyexpat.errors
-  pyexpat.model
-  pyexpat
-  xml.parsers.expat.model
-  xml.parsers.expat.errors
-  xml.parsers.expat
-  urllib
-  urllib.response
-  urllib.error
-  _struct
-  struct
-  binascii
-  base64
-  email
-  _hashlib
-  _blake2
-  hashlib
-  http
-  email.errors
-  _string
-  string
-  email.quoprimime
-  email.base64mime
-  quopri
-  email.encoders
-  email.charset
-  email.header
-  _socket
-  array
-  socket
-  _datetime
-  datetime
-  urllib.parse
-  locale
-  calendar
-  email._parseaddr
-  email.utils
-  email._policybase
-  email.feedparser
-  email.parser
-  uu
-  email._encoded_words
-  email.iterators
-  email.message
-  _ssl
-  ssl
-  http.client
-  urllib.request
-  gzip
-  email.mime
-  email._header_value_parser
-  email.headerregistry
-  email.contentmanager
-  email.policy
-  email.mime.base
-  email.mime.multipart
-  email.mime.nonmultipart
-  email.mime.text
-  problem_report
-  _json
-  json.scanner
-  json.decoder
-  json.encoder
-  json
-  configparser
-  __future__
-  logging
-  typing.io
-  typing.re
-  typing
-  apt.progress
-  apt.progress.base
-  apt.progress.text
-  apt.package
-  apt.cache
-  apt.cdrom
-  apt
-  _compat_pickle
-  _pickle
-  pickle
-  apport.packaging
-  apport.packaging_impl
-  apport.fileutils
-  apport.hookutils
-  apport.report
-  gettext
-  apport
-  numpy._utils._convertions
-  numpy._utils
-  numpy._globals
-  numpy.exceptions
-  numpy.version
-  numpy._distributor_init
-  numpy._utils._inspect
-  numpy.core._exceptions
-  numpy.dtypes
-  numpy.core._multiarray_umath
-  numpy.core.overrides
-  numpy.core.multiarray
-  numpy.core.umath
-  numbers
-  numpy.core._string_helpers
-  ntpath
-  pathlib
-  numpy.compat.py3k
-  numpy.compat
-  numpy.core._dtype
-  numpy.core._type_aliases
-  numpy.core.numerictypes
-  _contextvars
-  contextvars
-  numpy.core._ufunc_config
-  numpy.core._methods
-  numpy.core.fromnumeric
-  numpy.core.shape_base
-  numpy.core.arrayprint
-  numpy.core._asarray
-  numpy.core.numeric
-  numpy.core.defchararray
-  numpy.core.records
-  numpy.core.memmap
-  numpy.core.function_base
-  numpy.core._machar
-  numpy.core.getlimits
-  numpy.core.einsumfunc
-  numpy.core._multiarray_tests
-  numpy.core._add_newdocs
-  numpy.core._add_newdocs_scalars
-  numpy.core._dtype_ctypes
-  _ctypes
-  ctypes._endian
-  ctypes
-  numpy.core._internal
-  numpy._pytesttester
-  numpy.core
-  numpy.__config__
-  numpy.lib.mixins
-  numpy.lib.ufunclike
-  numpy.lib.type_check
-  numpy.lib.scimath
-  numpy.lib.stride_tricks
-  numpy.lib.twodim_base
-  numpy.linalg._umath_linalg
-  numpy._typing._nested_sequence
-  numpy._typing._nbit
-  numpy._typing._char_codes
-  numpy._typing._scalars
-  numpy._typing._shape
-  numpy._typing._dtype_like
-  numpy._typing._array_like
-  numpy._typing
-  numpy.linalg.linalg
-  numpy.linalg
-  numpy.matrixlib.defmatrix
-  numpy.matrixlib
-  numpy.lib.histograms
-  numpy.lib.function_base
-  numpy.lib.index_tricks
-  numpy.lib.nanfunctions
-  numpy.lib.shape_base
-  numpy.lib.polynomial
-  textwrap
-  platform
-  numpy.lib.utils
-  numpy.lib.arraysetops
-  numpy.lib.format
-  numpy.lib._datasource
-  numpy.lib._iotools
-  numpy.lib.npyio
-  numpy.lib.arrayterator
-  numpy.lib.arraypad
-  numpy.lib._version
-  numpy.lib
-  numpy.fft._pocketfft_internal
-  numpy.fft._pocketfft
-  numpy.fft.helper
-  numpy.fft
-  numpy.polynomial.polyutils
-  numpy.polynomial._polybase
-  numpy.polynomial.polynomial
-  numpy.polynomial.chebyshev
-  numpy.polynomial.legendre
-  numpy.polynomial.hermite
-  numpy.polynomial.hermite_e
-  numpy.polynomial.laguerre
-  numpy.polynomial
-  cython_runtime
-  _cython_3_0_7
-  numpy.random._common
-  hmac
-  secrets
-  numpy.random.bit_generator
-  numpy.random._bounded_integers
-  numpy.random._mt19937
-  numpy.random.mtrand
-  numpy.random._philox
-  numpy.random._pcg64
-  numpy.random._sfc64
-  numpy.random._generator
-  numpy.random._pickle
-  numpy.random
-  numpy.ctypeslib
-  numpy.ma.core
-  numpy.ma.extras
-  numpy.ma
-  numpy
-  sysconfig
-  _sysconfigdata__x86_64-linux-gnu
-  zoneinfo._tzpath
-  zoneinfo._common
-  _zoneinfo
-  zoneinfo
-  pytz.exceptions
-  pytz.lazy
-  pytz.tzinfo
-  pytz.tzfile
-  importlib.abc
-  importlib._adapters
-  importlib._common
-  importlib.resources
-  tzdata
-  zipfile
-  importlib.readers
-  pytz
-  dateutil._version
-  dateutil
-  pandas.compat._constants
-  pandas.compat.compressors
-  pandas.util
-  pandas.util.version
-  pandas.compat.numpy
-  pandas.compat.pyarrow
-  pandas.compat
-  pandas._typing
-  pandas.util._exceptions
-  pandas._config.config
-  pandas._config.dates
-  pandas._config.display
-  pandas._config
-  pandas.core
-  pandas.core.config_init
-  pandas._libs.pandas_parser
-  pandas._libs.pandas_datetime
-  _cython_3_0_5
-  pandas._libs.tslibs.ccalendar
-  pandas._libs.tslibs.np_datetime
-  pandas._libs.tslibs.dtypes
-  pandas._libs.tslibs.base
-  pandas._libs.tslibs.nattype
-  pandas.compat._optional
-  six
-  six.moves
-  dateutil.tz._common
-  dateutil.tz._factories
-  dateutil.tz.tz
-  dateutil.tz
-  pandas._libs.tslibs.timezones
-  _strptime
-  pandas._config.localization
-  pandas._libs.tslibs.fields
-  pandas._libs.tslibs.timedeltas
-  pandas._libs.tslibs.tzconversion
-  pandas._libs.tslibs.timestamps
-  pandas._libs.properties
-  pandas._libs.tslibs.offsets
-  _decimal
-  decimal
-  dateutil._common
-  dateutil.relativedelta
-  dateutil.parser._parser
-  dateutil.parser.isoparser
-  dateutil.parser
-  pandas._libs.tslibs.strptime
-  pandas._libs.tslibs.parsing
-  pandas._libs.tslibs.conversion
-  pandas._libs.tslibs.period
-  pandas._libs.tslibs.vectorized
-  pandas._libs.tslibs
-  pandas._libs.ops_dispatch
-  pandas._libs.missing
-  pandas._libs.hashtable
-  pandas._libs.algos
-  pandas._libs.interval
-  pandas._libs
-  pandas.core.dtypes
-  pandas._libs.lib
-  pandas.errors
-  pandas.core.dtypes.generic
-  pandas.core.dtypes.base
-  pandas.core.dtypes.inference
-  pandas.core.dtypes.dtypes
-  pandas.core.dtypes.common
-  pandas.core.dtypes.missing
-  pandas.util._decorators
-  pandas.io
-  pandas.io._util
-  pandas.core.dtypes.cast
-  pandas.core.dtypes.astype
-  pandas.core.dtypes.concat
-  pandas.core.array_algos
-  pandas.core.common
-  pandas.core.construction
-  pandas.core.array_algos.take
-  pandas.core.indexers.utils
-  pandas.core.indexers
-  pandas.core.algorithms
-  pandas.core.arrays.arrow.accessors
-  unicodedata
-  pandas.util._validators
-  pandas.core.missing
-  pandas._libs.ops
-  pandas.core.roperator
-  pandas.core.computation
-  pandas.core.computation.check
-  pandas.core.computation.expressions
-  pandas.core.ops.missing
-  pandas.core.ops.dispatch
-  pandas.core.ops.invalid
-  pandas.core.ops.array_ops
-  pandas.core.ops.common
-  pandas.core.ops.docstrings
-  pandas.core.ops.mask_ops
-  pandas.core.ops
-  pandas.core.arraylike
-  pandas.core.arrays._arrow_string_mixins
-  pandas.core.arrays._utils
-  pandas.compat.numpy.function
-  pandas.core.array_algos.quantile
-  pandas.core.sorting
-  pandas.core.arrays.base
-  pandas.core.nanops
-  pandas.core.array_algos.masked_accumulations
-  pandas.core.array_algos.masked_reductions
-  pandas.core.util
-  pandas._libs.hashing
-  pandas.core.util.hashing
-  pandas.core.arrays.masked
-  pandas._libs.arrays
-  pandas.core.arrays.numeric
-  pandas.core.arrays.floating
-  pandas.core.arrays.integer
-  pandas.core.array_algos.transforms
-  pandas.core.arrays._mixins
-  pandas.core.strings
-  pandas.core.strings.base
-  pandas.core.strings.object_array
-  pandas.core.arrays.numpy_
-  pandas.core.arrays.string_
-  pandas.tseries
-  pandas.tseries.frequencies
-  pandas.core.arrays.arrow.array
-  pandas.core.arrays.arrow
-  pandas.core.arrays.boolean
-  _csv
-  csv
-  pandas.core.accessor
-  pandas.core.base
-  pandas.io.formats
-  pandas.io.formats.console
-  pandas.core.arrays.categorical
-  pandas._libs.tslib
-  pandas.core.array_algos.datetimelike_accumulations
-  pandas.core.arrays.datetimelike
-  pandas.core.arrays._ranges
-  pandas.tseries.offsets
-  pandas.core.arrays.datetimes
-  pandas.core.arrays.timedeltas
-  pandas.core.arrays.interval
-  pandas.core.arrays.period
-  pandas._libs.sparse
-  pandas.io.formats.printing
-  pandas.core.arrays.sparse.array
-  pandas.core.arrays.sparse.accessor
-  pandas.core.arrays.sparse
-  pandas.core.arrays.string_arrow
-  pandas.core.arrays
-  pandas.core.flags
-  pandas._libs.internals
-  pandas.core._numba
-  pandas.core._numba.executor
-  pandas.core.apply
-  gc
-  pandas._libs.indexing
-  pandas.core.indexes
-  pandas._libs.index
-  pandas._libs.writers
-  pandas._libs.join
-  pandas.core.array_algos.putmask
-  pandas.core.indexes.frozen
-  pandas.core.strings.accessor
-  pandas.core.indexes.base
-  pandas.core.indexes.extension
-  pandas.core.indexes.category
-  pandas.core.indexes.range
-  pandas.core.tools
-  pandas.core.tools.timedeltas
-  pandas.core.indexes.datetimelike
-  pandas.core.tools.times
-  pandas.core.indexes.datetimes
-  pandas.core.indexes.multi
-  pandas.core.indexes.timedeltas
-  pandas.core.indexes.interval
-  pandas.core.indexes.period
-  pandas.core.indexes.api
-  pandas.core.indexing
-  pandas.core.sample
-  pandas.core.array_algos.replace
-  pandas.core.internals.blocks
-  pandas.core.internals.api
-  pandas.core.internals.base
-  pandas.core.internals.ops
-  pandas.core.internals.managers
-  pandas.core.internals.array_manager
-  pandas.core.internals.concat
-  pandas.core.internals
-  pandas.core.internals.construction
-  pandas.core.methods
-  pandas.core.reshape
-  pandas.core.reshape.concat
-  dataclasses
-  mmap
-  tarfile
-  pandas.core.shared_docs
-  pandas.io.common
-  pandas.io.formats.format
-  pandas.core.methods.describe
-  pandas._libs.window
-  pandas._libs.window.aggregations
-  pandas._libs.window.indexers
-  pandas.core.indexers.objects
-  pandas.core.util.numba_
-  pandas.core.window.common
-  pandas.core.window.doc
-  pandas.core.window.numba_
-  pandas.core.window.online
-  pandas.core.window.rolling
-  pandas.core.window.ewm
-  pandas.core.window.expanding
-  pandas.core.window
-  pandas.core.generic
-  pandas.core.methods.selectn
-  pandas.core.reshape.util
-  pandas.core.tools.numeric
-  pandas.core.reshape.melt
-  pandas._libs.reshape
-  pandas.core.indexes.accessors
-  pandas.arrays
-  pandas.core.tools.datetimes
-  pandas.io.formats.info
-  pandas.plotting._core
-  pandas.plotting._misc
-  pandas.plotting
-  pandas.core.series
-  pandas.core.frame
-  pandas.core.groupby.base
-  pandas._libs.groupby
-  pandas.core.groupby.categorical
-  pandas.core.groupby.grouper
-  pandas.core.groupby.ops
-  pandas.core.groupby.numba_
-  pandas.core.groupby.indexing
-  pandas.core.groupby.groupby
-  pandas.core.groupby.generic
-  pandas.core.groupby
-  pandas.core.api
-  pandas.tseries.api
-  pandas.core.computation.common
-  pandas.core.computation.align
-  pprint
-  pandas.core.computation.scope
-  pandas.core.computation.ops
-  pandas.core.computation.engines
-  pandas.core.computation.parsing
-  pandas.core.computation.expr
-  pandas.core.computation.eval
-  pandas.core.computation.api
-  pandas.core.reshape.encoding
-  _uuid
-  uuid
-  pandas.core.reshape.merge
-  pandas.core.reshape.pivot
-  pandas.core.reshape.tile
-  pandas.core.reshape.api
-  pandas.api.extensions
-  pandas.api.indexers
-  pandas.core.interchange
-  pandas.core.interchange.dataframe_protocol
-  pandas.core.interchange.utils
-  pandas.core.interchange.from_dataframe
-  pandas.api.interchange
-  pandas.core.dtypes.api
-  pandas.api.types
-  pandas.core.resample
-  pandas._libs.json
-  pandas.io.json._normalize
-  pandas.io.json._table_schema
-  pandas._libs.parsers
-  pandas.io.parsers.base_parser
-  pandas.io.parsers.arrow_parser_wrapper
-  pandas.io.parsers.c_parser_wrapper
-  pandas.io.parsers.python_parser
-  pandas.io.parsers.readers
-  pandas.io.parsers
-  pandas.io.json._json
-  pandas.io.json
-  pandas.io.stata
-  pandas.api.typing
-  pandas.api
-  pandas._testing.contexts
-  pandas._testing._io
-  pandas._testing._warnings
-  cmath
-  pandas._libs.testing
-  pandas._testing.asserters
-  pandas._testing.compat
-  pandas._testing
-  pandas.testing
-  pandas.util._print_versions
-  pandas.io.clipboards
-  pandas.io.excel._util
-  pandas.io.excel._calamine
-  pandas.io.excel._odfreader
-  pandas.io.excel._openpyxl
-  pandas.io.excel._pyxlsb
-  pandas.io.excel._xlrd
-  pandas.io.excel._base
-  pandas.io.excel._odswriter
-  pandas.io.excel._xlsxwriter
-  pandas.io.excel
-  pandas.io.feather_format
-  pandas.io.gbq
-  pandas.io.html
-  pandas.io.orc
-  pandas.io.parquet
-  pandas.compat.pickle_compat
-  pandas.io.pickle
-  pandas.core.computation.pytables
-  pandas.io.pytables
-  pandas.io.sas.sasreader
-  pandas.io.sas
-  pandas.io.spss
-  pandas.io.sql
-  pandas.io.xml
-  pandas.io.api
-  pandas.util._tester
-  pandas._version_meson
-  pandas
-  stringprep
-  encodings.idna
-  pandas.io.formats.string
-  pkgutil
-  pydoc
-  #+end_example
-
-** Emacs interlude
-
-- I've just set myself up with Linux at home - finally fed up with
-  Windows (again). So I'm repopulating Emacs with some packages that I
-  like. You should learn how to do that, too.
-
-- Let's start with the =org-bullets= package, which turns the ~*~
-  characters used for headlines in Org-mode into nice bullets.
-
-- To load it, you have to enter
-  1) ~M-x list-packages~ [this lists all available packages]
-  2) ~U~  [this checks for updates]
-  3) ~C-s org-bullets~ [to find the package]
-  4) ~i~   [to mark it for install]
-  5) ~x~   [to install it]
-
-- Now run ~M-x org-bullets-mode~ in any Org-mode file with
-  headlines. This mode toggles - that is you can switch bullets
-  on/off.
-
-- To have functions like these enabled at startup, you need to add a
-  line of Lisp to your ~.emacs~ file: ~(require 'org-bullets)~. Then it
-  will always be 'on' unless you switch it off.
-
-** Importing the data with the Python Standard library (=urllib=)
-
-If we want to only use the Standard Library, things get more
-complicated: we fetch data from the web, write them to memory, and
-then write the file into a dictionary, which we can convert to a data
-frame.
-
-*** Fetching CSV data from the web and write them to file
-
-**** Approach
-
-1. Use the =urllib.request= module to open the URL and read the data.
-2. Use the =csv= module to parse the CSV data read from the URL.
-3. Write the parsed CSV data to a file.
-
-**** Code Example
-#+BEGIN_SRC python
-  import csv
-  import urllib.request
-
-  # URL containing the CSV data
-  url = "http://tinyurl.com/grades-csv"
-
-  # File path to write the CSV data
-  output_file_path = "grades.csv"
-
-  # Open the URL and fetch the CSV data
-  with urllib.request.urlopen(url) as response:
-      # Assume the response is text (CSV data), read it as such
-      lines = [l.decode('utf-8') for l in response.readlines()]
-
-      # Now, write these lines to a CSV file
-      with open(output_file_path, 'w', newline='') as csvfile:
-          writer = csv.writer(csvfile)
-          for line in lines:
-              # Parse each line as CSV
-              reader = csv.reader([line])
-              for row in reader:
-                  # Write the parsed row to the file
-                  writer.writerow(row)
-
-  print("CSV data has been read from the URL and written to", output_file_path)
-#+END_SRC
-
-#+RESULTS:
-: CSV data has been read from the URL and written to grades.csv
-
-**** Notes
-
-- This code snippet assumes the CSV data is encoded in UTF-8.
-
-- The =newline=''= parameter in the =open= function call ensures
-  that the newline characters in the input are handled according to
-  the Python CSV module's requirements, which might vary across
-  different platforms.
-
-- This example reads all lines from the URL response into memory
-  before writing them to a file. For very large CSV files, you might
-  consider a more memory-efficient approach that processes lines one
-  at a time.
-
-
-*** Read the CSV file into a Python =dictionary=
-
-**** Approach
-
-- Use the =csv.DictReader= class to read the CSV file. This class
-  automatically reads the first row of the CSV file as fieldnames
-  (keys of the dictionary).
-- Iterate over the rows in the =DictReader= object to access each
-  row as a dictionary.
-
-**** Code Example
-#+BEGIN_SRC python
-  import csv
-
-  # File path of the CSV file
-  input_file_path = "grades.csv"
-
-  # List to hold dictionaries (each row as a dictionary)
-  data = []
-
-  # Read the CSV file as a dictionary
-  with open(input_file_path, mode='r', newline='') as csvfile:
-      reader = csv.DictReader(csvfile)
-
-      # Iterate over rows in the CSV file
-      for row in reader:
-          # Each row is a dictionary
-          data.append(row)
-
-  # print result if file exists
-  if data:
-      [print(i) for i in data]
-#+END_SRC
-
-#+RESULTS:
-#+begin_example
-{'ID': '1433', 'Test 1': '4.83', 'Test 2': '10'}
-{'ID': '1447', 'Test 1': '13', 'Test 2': '11'}
-{'ID': '1421', 'Test 1': '16.33', 'Test 2': '8.5'}
-{'ID': '1488', 'Test 1': '19.07', 'Test 2': '14.5'}
-{'ID': '2157', 'Test 1': '16.83', 'Test 2': '12'}
-{'ID': '1380', 'Test 1': '10', 'Test 2': '9.5'}
-{'ID': '1466', 'Test 1': '18', 'Test 2': '10.33'}
-{'ID': '1485', 'Test 1': '15.5', 'Test 2': '10.67'}
-{'ID': '646', 'Test 1': '16.83', 'Test 2': '13'}
-{'ID': '1136', 'Test 1': '17.5', 'Test 2': '9.67'}
-{'ID': '1654', 'Test 1': '11.5', 'Test 2': '10.67'}
-{'ID': '2130', 'Test 1': '15.83', 'Test 2': '10.33'}
-{'ID': '1916', 'Test 1': '17', 'Test 2': '10.5'}
-{'ID': '1377', 'Test 1': '', 'Test 2': '3.5'}
-{'ID': '1459', 'Test 1': '16.33', 'Test 2': '10.17'}
-{'ID': '1504', 'Test 1': '17.5', 'Test 2': '9.5'}
-{'ID': '779', 'Test 1': '17.5', 'Test 2': '12.5'}
-{'ID': '1329', 'Test 1': '16.74', 'Test 2': '12'}
-{'ID': '1295', 'Test 1': '17.33', 'Test 2': '8.17'}
-{'ID': '753', 'Test 1': '16.83', 'Test 2': '11.33'}
-{'ID': '1292', 'Test 1': '', 'Test 2': '9.5'}
-{'ID': '2190', 'Test 1': '', 'Test 2': ''}
-#+end_example
-
-**** Notes
-
-- The =csv.DictReader= does not require specifying column names
-  upfront; it uses the first row of the CSV file for that.
-
-- Each row accessed in the loop is a dictionary, where keys are column
-  names from the first row of the CSV file, and values are the
-  corresponding entries for each row.
-
-- This method is handy for CSV files with a header row. If your CSV
-  file does not have a header row, you need to manually specify the
-  fieldnames parameter when creating the =DictReader= object.
-
-
-*** Convert =dictionary= data to =DataFrame= with =pandas=
-
-- Convert the =dictionary= to a data frame:
-  #+begin_src python
-    import pandas as pd
-
-    df = pd.DataFrame(data)
-    print(df)
-  #+end_src
-
-  #+RESULTS:
-  #+begin_example
-        ID Test 1 Test 2
-  0   1433   4.83     10
-  1   1447     13     11
-  2   1421  16.33    8.5
-  3   1488  19.07   14.5
-  4   2157  16.83     12
-  5   1380     10    9.5
-  6   1466     18  10.33
-  7   1485   15.5  10.67
-  8    646  16.83     13
-  9   1136   17.5   9.67
-  10  1654   11.5  10.67
-  11  2130  15.83  10.33
-  12  1916     17   10.5
-  13  1377           3.5
-  14  1459  16.33  10.17
-  15  1504   17.5    9.5
-  16   779   17.5   12.5
-  17  1329  16.74     12
-  18  1295  17.33   8.17
-  19   753  16.83  11.33
-  20  1292           9.5
-  21  2190
-  #+end_example
-
-- Note that the missing 'NaN' values are not displayed in this
-  result. However, if you check the Python console (=*Python*=), you
-  will see them.
-
-* Transforming and modeling the data
-** Decisions
+* Decisions
 
 - We can only transform the date with regard to what the data actually
   represent. A lot of misinterpretation is based on lack of
@@ -1185,7 +40,7 @@ frame.
   1) remove test user data
   2) remove missing values
 
-** Mutability in Python ("Mutabor!")[fn:3]
+* Mutability in Python ("Mutabor!")[fn:1]
 
 - Python distinguishes between mutable and immutable data
   structures. Mutable means that you can add or drop values, modify
@@ -1258,8 +113,8 @@ frame.
   1) concatenate a single-item tuple ~(10,)~
   2) to the two-item sub-tuple ~(2,3)~
 
-** Remove unwanted data in Python
-*** Listing user-defined variables (equivalent of =ls()=)
+* Remove unwanted data in Python
+** Listing user-defined variables (equivalent of =ls()=)
 
 - Let's find out how to list the user-defined variables, like our data
   frame. In IPython, there is the =%who= "magic" command for that.
@@ -1452,7 +307,7 @@ frame.
   18  1295  17.33   8.17
   19   753  16.83  11.33
   20  1292           9.5
-  21  2190              
+  21  2190
   s hello
   s_new hallo
   t (1, 2, 3)
@@ -1597,7 +452,7 @@ frame.
   None
   #+end_example
 
-*** Converting missing values to NaN
+** Converting missing values to NaN
 
 - R will always show the =NA= values, Python does not always - the
   =pandas= function ~read_csv~ however does convert missing values to ~NaN~.
@@ -1610,16 +465,16 @@ frame.
   #+RESULTS:
   : http://tinyurl.com/grades-csv
 
-- The import with ~read_csv~ will not work without loading =pandas=: there 
+- The import with ~read_csv~ will not work without loading =pandas=: there
   are two ways to do this - import all of it or only the function
-  #+begin_src python :session *Python* :results output :exports both :noweb yes 
+  #+begin_src python :session *Python* :results output :exports both :noweb yes
     import pandas as pd  # now you can use all pandas functions
-                         # you have to prefix them with pd.
-    from pandas import read_csv # now now prefix is needed                         
+    # you have to prefix them with pd.
+    from pandas import read_csv # now now prefix is needed
   #+end_src
 
   #+RESULTS:
-  
+
 - Use ~read_csv(url)~ for CSV data stored online at ~url~, or with a file
   name as argument:
   #+begin_src python
@@ -1706,7 +561,7 @@ frame.
   : True
   : True
 
-*** Removing unwanted values
+** Removing unwanted values
 
 - To remove the ~2190~ record for the test user, you can use a pandas
   function, or you can use the index method with a Boolean comparison.
@@ -1759,9 +614,9 @@ frame.
   <class 'pandas.core.frame.DataFrame'>
   RangeIndex: 22 entries, 0 to 21
   Data columns (total 3 columns):
-   #   Column  Non-Null Count  Dtype  
-  ---  ------  --------------  -----  
-   0   ID      22 non-null     int64  
+   #   Column  Non-Null Count  Dtype
+  ---  ------  --------------  -----
+   0   ID      22 non-null     int64
    1   Test 1  19 non-null     float64
    2   Test 2  21 non-null     float64
   dtypes: float64(2), int64(1)
@@ -1790,7 +645,7 @@ frame.
   #+RESULTS:
   : True
   : False
-  
+
 - Now, create the flag vector for real:
   #+begin_src python
     print(df.ID==2190)
@@ -1927,7 +782,7 @@ frame.
     df.tail()
   #+end_example
 
-** Remove unwanted data in R
+* Remove unwanted data in R
 
 - In R, the =ls()= command lists all user-defined variables, not
   distinguishing between different data structures - everything in R
@@ -1977,7 +832,7 @@ frame.
   #+end_src
 
   #+RESULTS:
-  : 'data.frame':	21 obs. of  3 variables:
+  : 'data.frame':       21 obs. of  3 variables:
   :  $ ID    : int  1433 1447 1421 1488 2157 1380 1466 1485 646 1136 ...
   :  $ Test.1: num  4.83 13 16.33 19.07 16.83 ...
   :  $ Test.2: num  10 11 8.5 14.5 12 ...
@@ -2007,7 +862,7 @@ frame.
   : [1] ID     Test.1 Test.2
   : <0 rows> (or 0-length row.names)
 
-** TODO Statistical properties
+* Statistical properties in Python with =describe= and in R with =summary=
 
 - Our next project is to compute some statistical properties without
   being affected by missing values.
@@ -2015,149 +870,138 @@ frame.
 - As indicated, this is done more easily directly when plotting but we
   shall first do it directly, algebraically, to know what we're doing.
 
+** Python
+
+- For Python, let's get the proper DataFrame first: we don't need the
+  last row and we don't need the first column for statistics:
+  #+begin_src python :session *Python* :results output :exports both :noweb yes
+    import pandas as pd
+    df = pd.read_csv('http://tinyurl.com/grades-csv')
+    df = df[:-1] # remove last row
+    df = df.iloc[:,[1,2]] # remove first column
+    print(df)
+  #+end_src
+
 - The =pandas= function =describe= returns some of the information of R's
-  =summary=. Note that it is not generic that is it only works for
-  =pandas= data frames:
+  =summary=. Note that it is not generic (it only works for =pandas= data
+  frames):
   #+begin_src python
     print(df.describe())
   #+end_src
 
-  #+RESULTS:
-  :                ID     Test 1     Test 2
-  : count    21.00000  19.000000  21.000000
-  : mean   1407.00000  15.497368  10.349524
-  : std     383.67786   3.425992   2.165707
-  : min     646.00000   4.830000   3.500000
-  : 25%    1295.00000  15.665000   9.500000
-  : 50%    1433.00000  16.830000  10.330000
-  : 75%    1488.00000  17.415000  11.330000
-  : max    2157.00000  19.070000  14.500000
+- Find out what happened to the =NaN= values by looking at the [[https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html][documentation]]:
+  #+begin_quote
+  "Descriptive statistics include those that summarize the central
+  tendency, dispersion and shape of a dataset’s distribution,
+  excluding NaN values."
+  #+end_quote
+
+** R
 
 - Compare with R's =summary=:
   #+begin_src R
-    df <- read.csv(url, header=TRUE)
+    df <- read.csv(file="http://tinyurl.com/grades-csv",
+                   header=TRUE)
+    df <- df[-which(df$ID==2190),]
     summary(df)
   #+end_src
 
-  #+RESULTS:
-  :        ID           Test.1          Test.2     
-  :  Min.   : 646   Min.   : 4.83   Min.   : 3.50  
-  :  1st Qu.:1304   1st Qu.:15.66   1st Qu.: 9.50  
-  :  Median :1440   Median :16.83   Median :10.33  
-  :  Mean   :1443   Mean   :15.50   Mean   :10.35  
-  :  3rd Qu.:1500   3rd Qu.:17.41   3rd Qu.:11.33  
-  :  Max.   :2190   Max.   :19.07   Max.   :14.50  
-  :                 NA's   :3       NA's   :1
+- When reading the documentation of =summary,= it is not immediately
+  clear if =NA= are removed or not. Using the function =na.omit=, we can
+  check if the summary is changed or not. =na.omit= removes all rows
+  with =NA= values in them:
+  #+begin_src R :session *R* :results output :exports both :noweb yes
+    summary(df$Test.1)
+    summary(na.omit(df$Test.1))
+  #+end_src
 
-- These functions can be expected to already take the presence of
-  missing values into account. Let's check that for the average:
-  #+begin_src python :results output :exports both :noweb yes
-    print(df)
+- This settles it: =summary= in R, like =describe= in Python's =pandas=,
+  ignores =NA= for the summary statistics computation.
+
+* More modeling (later)
+
+There is more modeling that we can do here, as part of our EDA with
+the data. Vector data can be checked for trends, and we could use the
+results for the first two tests to try and predict the next test
+(e.g. with linear regression). We'll do that in a later session.
+
+* TODO Statistical properties from scratch in R
+
+- The functions we need to rebuild the results of =summary= are
+  =quantile=, =median=, and =mean= (since the quantiles include min and max)
+
+- To find out how these functions treate =NA=, check their
+  documentation. You can do this most easily by opening an R console
+  and calling =help=.
+  #+begin_quote
+  1) =quantile=: default is ~na.rm=FALSE~
+  2) =median=: default is ~na.rm=FALSE~
+  3) =mean=: default is ~na.rm=FALSE~
+  #+end_quote
+
+- Let's run these:
+  #+begin_src R :session *R* :results output :exports both :noweb yes
+    ## test 1
+    quantile(df$Test.1,na.rm=TRUE)
+    median(df$Test.1,na.rm=TRUE)
+    mean(df$Test.1,na.rm=TRUE)
+    ## test 2
+    quantile(df$Test.2,na.rm=TRUE)
+    median(df$Test.2,na.rm=TRUE)
+    mean(df$Test.2,na.rm=TRUE)
   #+end_src
 
   #+RESULTS:
-  #+begin_example
-        ID  Test 1  Test 2
-  0   1433    4.83   10.00
-  1   1447   13.00   11.00
-  2   1421   16.33    8.50
-  3   1488   19.07   14.50
-  4   2157   16.83   12.00
-  5   1380   10.00    9.50
-  6   1466   18.00   10.33
-  7   1485   15.50   10.67
-  8    646   16.83   13.00
-  9   1136   17.50    9.67
-  10  1654   11.50   10.67
-  11  2130   15.83   10.33
-  12  1916   17.00   10.50
-  13  1377     NaN    3.50
-  14  1459   16.33   10.17
-  15  1504   17.50    9.50
-  16   779   17.50   12.50
-  17  1329   16.74   12.00
-  18  1295   17.33    8.17
-  19   753   16.83   11.33
-  20  1292     NaN    9.50
-  #+end_example
+  :     0%    25%    50%    75%   100%
+  :  4.830 15.665 16.830 17.415 19.070
+  : [1] 16.83
+  : [1] 15.49737
+  :    0%   25%   50%   75%  100%
+  :  3.50  9.50 10.33 11.33 14.50
+  : [1] 10.33
+  : [1] 10.34952
 
-
-* Math plots with R
-
-- This section is prompted by a Calculus II exercise that I came
-  across. Especially when dealing with trigonometric functions, it can
-  be useful to plot them and get a visual on the problem.
-
-- Plot a complicated function, e.g. $f(x) = sin^2(x) sin(2x)$:
-  1) Base R (~package:base~) has trigonometric functions pre-loaded. Check
-     ~?sin~ on the command line to see documentation and function names.
-  2) To plot, all you need is the ~plot~ function.
-  3) In Emacs, you can change the code block header arguments. The
-     following metadata will store the result in a file ~graph.png~ and it
-     will also link to the file in the =#+RESULTS= output. If you don't do
-     this, the plot will appear in a separate window.
-     #+begin_example
-     #+begin_src R :results output graphics file :file graph.png
-     #+end_example
-
-- Here's the code that opens the graph in a separate window:
-  #+begin_src R :session *R* :results silent :exports both
-    ## function definition
-    f <- function(x) {
-      return (sin(x)**2 * sin(2*x))
-    }
-    ## arguments (independent variable)
-    x = seq(from = 0,to = 10,by = 0.01)
-
-    ## plot as line plot
-    plot(x,f(x), type="l")
-  #+end_src
-
-- Here's the code with the altered header line and with some
-  customization:
-  #+begin_src R :session *R* :results output graphics file :file ../img/func.png :exports both
-    ## function definition
-    f <- function(x) {
-      return (sin(x)**2 * sin(2*x))
-    }
-    ## arguments (independent variable)
-    x = seq(from = 0,to = 10,by = 0.01)
-
-    ## plot as line plot
-    plot(x,f(x), type="l")
+- To compare the results of =summary= and the individual functions
+  automatically, we can use =identical=, but we need to know what
+  structure =summary= has:
+  #+begin_src R :session *R* :results output :exports both :noweb yes
+    str(summary(df))
   #+end_src
 
   #+RESULTS:
-  [[file:../img/func.png]]
+  :  'table' chr [1:7, 1:3] "Min.   : 646  " "1st Qu.:1295  " "Median :1433  " ...
+  :  - attr(*, "dimnames")=List of 2
+  :   ..$ : chr [1:7] "" "" "" "" ...
+  :   ..$ : chr [1:3] "      ID" "    Test.1" "    Test.2"
 
-- Here is the minimal code without function, in one line:
-  #+begin_src R :session *R* :results output graphics file :file ../img/func1.png :exports both
-    plot(x=seq(from = 0,to = 10,by = 0.01),
-         sin(x)**2 * sin(2*x),
-         type="l")
+- The statistical properties are stored in a table of character
+  values:
+  #+begin_src R :session *R* :results output :exports both :noweb yes
+    summary(df)[1,] # first row across  all columns
+    summary(df)[,2] # second column across all rows
+    summary(df)[dim(summary(df))[1],c(2,3)] # NA information in the last row
   #+end_src
 
-  #+RESULTS:
-  [[file:../img/func1.png]]
+- The last command is worth analyzing:
+  1. ~dim~ returns the dimensions of the =summary= object: 7,3
+  2. The first column gives the number of rows for any object:
+     ~dim(summary(df))[1]~ returns the number 7 (last row)
+  3. The full command extracts the 7th row and the columns 2-3.
 
-** TODO Decisions
-** TODO Boxplots in R
-** TODO Histograms in R
-** TODO Density plots in R
-* TODO Plotting the data
+- To compare the individual function values and the =summary= table
+  results automatically, we should write a function! We do that in a
+  later session!
 
-To get through this
+* TODO Statistical properties from scratch in Python
+
+To be completed!
+
 
 * TODO Summary and glossary
+
 * Footnotes
 
-[fn:1] The original file is a lot messier. We'll learn later how to
-handle messy CSV files, i.e. how to include or exclude columns, or how
-to dump the lot into an SQLite database and =SELECT= them from there.
-
-[fn:2] To install use ~install_packages("readr")~ in the R console.
-
-[fn:3] Of all Hauff’s tales the most popular in English was ’Caliph
+[fn:1] Of all Hauff’s tales the most popular in English was ’Caliph
 Stork’, which was in fact the first story in Die Karawane. Its first
 appearance in English was in Burns’s Select Popular Tales, after which
 it was printed in all subsequent major selections or complete
