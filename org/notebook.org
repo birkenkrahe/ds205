@@ -390,8 +390,7 @@ the deadline for these bonus points because we're going to discuss the
 solution on Monday.
 #+end_quote
 
-
-* Week 5: +Writing functions in R+ Transforming and plotting in R and Python
+* DONE Week 5: +Writing functions in R+ Transforming =pandas= =DataFrame= in Python
 #+attr_html: :width 400px
 [[../img/overworked.png]]
 
@@ -411,7 +410,6 @@ If you're working with code blocks, you want to Amake your life easier:
    name.
 4) You can use ~C-h~ also to check key bindings (~k~) or functions (~f~).
 
-
 ** DataCamp assignment changes
 
 - You're finished with Intermediate Python today (for now)
@@ -422,7 +420,14 @@ If you're working with code blocks, you want to Amake your life easier:
 - We'll use function definitions from R and Python for that.
 - There will be small bonus exercises - double points for R and Python
 
-* Week 6: Writing functions in Python
+
+* Week 6: Transforming =data.frame= and plotting in R
+#+attr_html: :width 400px:
+[[../img/week6.png]]
+
+- Transformation of data frames in R with code along
+- Plotting in R with code along: histograms and boxplots
+
 * Week 7: R utilities and =apply= family of functions
 * Week 8: Data manipulation with =pandas= in Python
 * Week 9: Natural language processing in R / 2nd sprint review
