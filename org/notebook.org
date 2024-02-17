@@ -425,8 +425,16 @@ If you're working with code blocks, you want to Amake your life easier:
 #+attr_html: :width 400px:
 [[../img/week6.png]]
 
+Plan:
 - Transformation of data frames in R with code along
 - Plotting in R with code along: histograms and boxplots
+
+Test results so far (Canvas):
+#+attr_html: :width 400px: 
+[[../img/ds_test_1.png]]
+
+#+attr_html: :width 400px: 
+[[../img/ds_test_2.png]]
 
 * Week 7: R utilities and =apply= family of functions
 * Week 8: Data manipulation with =pandas= in Python
