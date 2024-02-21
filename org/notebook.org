@@ -353,14 +353,14 @@ Add this line to your review.org file header, too:
 7. What types of function parameters are there and how do they differ?
    #+begin_notes
    For example ~read.csv~ # check the help ~?read.csv~ or ~args~
-   #+end_notes   
+   #+end_notes
    #+begin_src R
      args(read.csv)
    #+end_src
 
    #+RESULTS:
-   : function (file, header = TRUE, sep = ",", quote = "\"", dec = ".", 
-   :     fill = TRUE, comment.char = "", ...) 
+   : function (file, header = TRUE, sep = ",", quote = "\"", dec = ".",
+   :     fill = TRUE, comment.char = "", ...)
    : NULL
 
    If you've forgotten everything except 'read', use ~??~:
@@ -396,10 +396,10 @@ solution on Monday.
 
 Overworked? Overloaded with mastering R and Python?
 
-Never fear! Help is near! 
+Never fear! Help is near!
 
 ** Emacs special
-#+attr_html: :width 400px: 
+#+attr_html: :width 400px:
 [[../img/guinea_pigs.png]]
 
 If you're working with code blocks, you want to Amake your life easier:
@@ -425,16 +425,64 @@ If you're working with code blocks, you want to Amake your life easier:
 #+attr_html: :width 400px:
 [[../img/week6.png]]
 
-Plan:
+*Plan:*
 - Transformation of data frames in R with code along
 - Plotting in R with code along: histograms and boxplots
 
-Test results so far (Canvas):
-#+attr_html: :width 400px: 
+* Test results so far (Canvas):
+#+attr_html: :width 400px:
 [[../img/ds_test_1.png]]
 
-#+attr_html: :width 400px: 
+#+attr_html: :width 400px:
 [[../img/ds_test_2.png]]
+
+- Use the whole time! The student with 90% used 60 min, the student
+  with 85% used 30 min, and the student with 60% used 15 minutes!
+
+* Transformation of data frames in R (code along)
+
+*Review questions (Python):*
+
+1) You know how to check for missing values in a =numpy= array and in a
+   =pandas= data frame.
+   #+begin_example python
+     pd.isna(np.nan)
+     np.isnan(np.nan)
+   #+end_example
+2) You know how to create a flag vector for the ~'ID'~ column of a
+   dataframe ~df~, e.g. to check if ID < 10.
+   #+begin_example python
+     df.ID < 10
+   #+end_example
+3) You know how to use the flag vector to extract data frame values.
+   #+begin_example python
+     idx = df.ID < 10
+     df[idx]
+   #+end_example
+4) You know how to get the indices of the data frame elements that
+   satisfy the flag condition.
+   #+begin_example python
+     np.where(df['ID'] < 10)[0]
+   #+end_example
+5) You know how to get data frame structure information.
+   #+begin_example python
+     df.info()
+     df.dtypes
+   #+end_example
+6) You know how to check if any data frame rows of the ID column
+   satisfy the condition to be < 10.
+   #+begin_example python
+     any(df['ID'] < 10)
+   #+end_example
+7) You know how to check the top or the bottom of a data frame ~df~.
+   #+begin_example
+     df.head()
+     df.tail()
+   #+end_example   
+
+Now, load the code along file and code along for the remainder of this
+session on transforming data frames - with R:
+[[http://tinyurl.com/transform-org][tinyurl.com/transform-org]].
 
 * Week 7: R utilities and =apply= family of functions
 * Week 8: Data manipulation with =pandas= in Python
@@ -446,4 +494,3 @@ Test results so far (Canvas):
 * Week 14: Integration of SQL with R and Python
 * Week 15: Integration of C++ with R
 * Week 16: Project presentations / 4th sprint review
-

@@ -789,37 +789,121 @@
 - Begin by importing the data in a =data.frame= named ~df~ from the URL
   http://tinyurl.com/grades-csv and print it:
   #+begin_src R 
-    
+    url <- 'http://tinyurl.com/grades-csv'
+    df <-  read.csv(url, header=TRUE)
+    df
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+       ID Test.1 Test.2
+  1  1433   4.83  10.00
+  2  1447  13.00  11.00
+  3  1421  16.33   8.50
+  4  1488  19.07  14.50
+  5  2157  16.83  12.00
+  6  1380  10.00   9.50
+  7  1466  18.00  10.33
+  8  1485  15.50  10.67
+  9   646  16.83  13.00
+  10 1136  17.50   9.67
+  11 1654  11.50  10.67
+  12 2130  15.83  10.33
+  13 1916  17.00  10.50
+  14 1377     NA   3.50
+  15 1459  16.33  10.17
+  16 1504  17.50   9.50
+  17  779  17.50  12.50
+  18 1329  16.74  12.00
+  19 1295  17.33   8.17
+  20  753  16.83  11.33
+  21 1292     NA   9.50
+  22 2190     NA     NA
+  #+end_example
 
 - In R, the =ls()= command lists all user-defined variables, not
   distinguishing between different data structures - everything in R
   is an object:
   #+begin_src R
-
+    ls()
   #+end_src
+
+  #+RESULTS:
+  : [1] "df"  "url"
 
 - Data frames are built-in, and so is the display of missing values
   (=NA=):
   #+begin_src R
-
+    summary(df)
   #+end_src
+
+  #+RESULTS:
+  :        ID           Test.1          Test.2     
+  :  Min.   : 646   Min.   : 4.83   Min.   : 3.50  
+  :  1st Qu.:1304   1st Qu.:15.66   1st Qu.: 9.50  
+  :  Median :1440   Median :16.83   Median :10.33  
+  :  Mean   :1443   Mean   :15.50   Mean   :10.35  
+  :  3rd Qu.:1500   3rd Qu.:17.41   3rd Qu.:11.33  
+  :  Max.   :2190   Max.   :19.07   Max.   :14.50  
+  :                 NA's   :3       NA's   :1
 
 - To find the flag vector make sure of data types:
   #+begin_src R
-
+    str(df)
   #+end_src
+
+  #+RESULTS:
+  : 'data.frame':	22 obs. of  3 variables:
+  :  $ ID    : int  1433 1447 1421 1488 2157 1380 1466 1485 646 1136 ...
+  :  $ Test.1: num  4.83 13 16.33 19.07 16.83 ...
+  :  $ Test.2: num  10 11 8.5 14.5 12 ...
 
 - Then use the index method to define the flag vector:
   #+begin_src R
-
+    idx <- df$ID == 2190
+    idx
   #+end_src
+
+  #+RESULTS:
+  :  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+  : [16] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
 
 - Use the flag vector to index the dataframe, remove the record and
   overwrite the dataframe:
   #+begin_src R
-
+    df$ID[idx]  # value corresponding to the idx condition
+    which(idx) # indices corresponding to the idx condition
+    df <- df[-which(idx),] # returns all rows for all columns except idx1
+    df
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  [1] 2190
+  [1] 22
+       ID Test.1 Test.2
+  1  1433   4.83  10.00
+  2  1447  13.00  11.00
+  3  1421  16.33   8.50
+  4  1488  19.07  14.50
+  5  2157  16.83  12.00
+  6  1380  10.00   9.50
+  7  1466  18.00  10.33
+  8  1485  15.50  10.67
+  9   646  16.83  13.00
+  10 1136  17.50   9.67
+  11 1654  11.50  10.67
+  12 2130  15.83  10.33
+  13 1916  17.00  10.50
+  14 1377     NA   3.50
+  15 1459  16.33  10.17
+  16 1504  17.50   9.50
+  17  779  17.50  12.50
+  18 1329  16.74  12.00
+  19 1295  17.33   8.17
+  20  753  16.83  11.33
+  21 1292     NA   9.50
+  #+end_example
 
 * Statistical properties in Python with =describe= and in R with =summary=
 
@@ -839,7 +923,11 @@
   4. remove first column of =DataFrame=
   5. print the result
   #+begin_src python :session *Python* :results output :exports both :noweb yes
-
+    import pandas as pd
+    df = pd.read_csv('http://tinyurl.com/grades-csv')
+    df = df[:-1]
+    df = df.iloc[:,[1,2]]
+    print(df)
   #+end_src
 
 - The =pandas= function =describe= returns some of the information of R's
@@ -862,16 +950,33 @@
   2. remove last row for the test user with ~ID = 2190~
   3. print =summary= of data:
   #+begin_src R
-
+    summary(df)
   #+end_src
+
+  #+RESULTS:
+  :        ID           Test.1          Test.2     
+  :  Min.   : 646   Min.   : 4.83   Min.   : 3.50  
+  :  1st Qu.:1295   1st Qu.:15.66   1st Qu.: 9.50  
+  :  Median :1433   Median :16.83   Median :10.33  
+  :  Mean   :1407   Mean   :15.50   Mean   :10.35  
+  :  3rd Qu.:1488   3rd Qu.:17.41   3rd Qu.:11.33  
+  :  Max.   :2157   Max.   :19.07   Max.   :14.50  
+  :                 NA's   :2
 
 - When reading the documentation of =summary,= it is not immediately
   clear if =NA= are removed or not. Using the function =na.omit=, we can
   check if the summary is changed or not. =na.omit= removes all rows
   with =NA= values in them:
   #+begin_src R :session *R* :results output :exports both :noweb yes
-
+    summary(df$Test.1)
+    summary(na.omit(df$Test.1))
   #+end_src
+
+  #+RESULTS:
+  :    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  :    4.83   15.66   16.83   15.50   17.41   19.07       2
+  :    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  :    4.83   15.66   16.83   15.50   17.41   19.07
 
 - This settles it: =summary= in R, like =describe= in Python's =pandas=,
   ignores =NA= for the summary statistics computation.
