@@ -923,12 +923,75 @@
   4. remove first column of =DataFrame=
   5. print the result
   #+begin_src python :session *Python* :results output :exports both :noweb yes
-    import pandas as pd
-    df = pd.read_csv('http://tinyurl.com/grades-csv')
-    df = df[:-1]
-    df = df.iloc[:,[1,2]]
-    print(df)
+    # import pandas for data frames
+
+    # save URL in variable
+
+    # read data from URL and store in dataframe
+
+    # remove last row and overwrite dataframe
+
+    # print dataframe
+
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+        ID  Test 1  Test 2
+  0   1433    4.83   10.00
+  1   1447   13.00   11.00
+  2   1421   16.33    8.50
+  3   1488   19.07   14.50
+  4   2157   16.83   12.00
+  5   1380   10.00    9.50
+  6   1466   18.00   10.33
+  7   1485   15.50   10.67
+  8    646   16.83   13.00
+  9   1136   17.50    9.67
+  10  1654   11.50   10.67
+  11  2130   15.83   10.33
+  12  1916   17.00   10.50
+  13  1377     NaN    3.50
+  14  1459   16.33   10.17
+  15  1504   17.50    9.50
+  16   779   17.50   12.50
+  17  1329   16.74   12.00
+  18  1295   17.33    8.17
+  19   753   16.83   11.33
+  20  1292     NaN    9.50
+  #+end_example
+
+- The 'ID' column is not statistically relevant so let's remove it
+  by selecting only the second and third column and overwriting ~df~:
+  #+begin_src python
+
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+      Test 1  Test 2
+  0     4.83   10.00
+  1    13.00   11.00
+  2    16.33    8.50
+  3    19.07   14.50
+  4    16.83   12.00
+  5    10.00    9.50
+  6    18.00   10.33
+  7    15.50   10.67
+  8    16.83   13.00
+  9    17.50    9.67
+  10   11.50   10.67
+  11   15.83   10.33
+  12   17.00   10.50
+  13     NaN    3.50
+  14   16.33   10.17
+  15   17.50    9.50
+  16   17.50   12.50
+  17   16.74   12.00
+  18   17.33    8.17
+  19   16.83   11.33
+  20     NaN    9.50
+  #+end_example
 
 - The =pandas= function =describe= returns some of the information of R's
   =summary=. Note that it is not generic (it only works for =pandas= data
@@ -948,8 +1011,10 @@
 - Compare with R's =summary=:
   1. read CSV data from URL (http://tinyurl.com/grades-csv) into data frame ~df~
   2. remove last row for the test user with ~ID = 2190~
-  3. print =summary= of data:
+  3. remove first column (no statistical value)
+  4. print =summary= of data:
   #+begin_src R
+    df <- 
     summary(df)
   #+end_src
 

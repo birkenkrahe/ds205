@@ -420,8 +420,7 @@ If you're working with code blocks, you want to Amake your life easier:
 - We'll use function definitions from R and Python for that.
 - There will be small bonus exercises - double points for R and Python
 
-
-* Week 6: Transforming =data.frame= and plotting in R
+* DONE Week 6: Transforming dataframes in R and getting summary statistics
 #+attr_html: :width 400px:
 [[../img/week6.png]]
 
@@ -429,7 +428,7 @@ If you're working with code blocks, you want to Amake your life easier:
 - Transformation of data frames in R with code along
 - Plotting in R with code along: histograms and boxplots
 
-* Test results so far (Canvas):
+** Test results so far (Canvas):
 #+attr_html: :width 400px:
 [[../img/ds_test_1.png]]
 
@@ -439,7 +438,7 @@ If you're working with code blocks, you want to Amake your life easier:
 - Use the whole time! The student with 90% used 60 min, the student
   with 85% used 30 min, and the student with 60% used 15 minutes!
 
-* Transformation of data frames in R (code along)
+** Transformation of data frames in R (code along)
 
 *Review questions (Python):*
 
@@ -484,7 +483,16 @@ Now, load the code along file and code along for the remainder of this
 session on transforming data frames - with R:
 [[http://tinyurl.com/transform-org][tinyurl.com/transform-org]].
 
+
 * Week 7: R utilities and =apply= family of functions
+
+#+attr_html: :width 400px: 
+[[../img/conflict.png]]
+
+- Python's =describe= completed
+- Addendum to R's =summary= - don't use the ~ID~ column
+- Plotting in R - histograms and boxplots
+
 * Week 8: Data manipulation with =pandas= in Python
 * Week 9: Natural language processing in R / 2nd sprint review
 * Week 10: Natural language processing in Python
