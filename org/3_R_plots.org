@@ -9,7 +9,7 @@
 
 - In this file, we review and practice plotting with base R.
 
-- Code along using tinyurl.com/
+- Code along using http://tinyurl.com/r-plots-org
 
 * Bonus: Math plots with R
 
@@ -69,10 +69,6 @@
   #+RESULTS:
   [[file:../img/func1.png]]
 
-** TODO Decisions
-** TODO Boxplots in R
-** TODO Histograms in R
-** TODO Density plots in R
 * Problem
 
 The LMS returns the following type of reports:
