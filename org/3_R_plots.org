@@ -9,7 +9,7 @@
 
 - In this file, we review and practice plotting with base R.
 
-- Code along.
+- Code along using tinyurl.com/
 
 * Bonus: Math plots with R
 
