@@ -125,6 +125,17 @@ the first column, which is irrelevant for our stats visualization:
 21    NA  9.50
 #+end_example
 
+#+begin_src R
+  df <- read.csv(url,header=TRUE) # reading CSV data from the web
+  str(df)
+#+end_src
+
+#+RESULTS:
+: 'data.frame':	22 obs. of  3 variables:
+:  $ ID    : int  1433 1447 1421 1488 2157 1380 1466 1485 646 1136 ...
+:  $ Test.1: num  4.83 13 16.33 19.07 16.83 ...
+:  $ Test.2: num  10 11 8.5 14.5 12 ...
+
 * Histogram in R
 
 A histogram plots frequencies over a continuous set of values.
@@ -143,7 +154,7 @@ A histogram plots frequencies over a continuous set of values.
 - You can check from here if there's a file (on Windows, you need to
   replace =ls= by =DIR=):
   #+begin_src R :session *R* :results output :exports both :noweb yes
-    system('ls -l ../img/histR_t1.png')
+    system('ls -l ../img/histR_t1.png') 
   #+end_src
 
   #+RESULTS:
