@@ -227,16 +227,67 @@ A histogram plots frequencies over a continuous set of values.
   #+RESULTS:
   [[file:bartbl.png]]
 
-- You can also convert the table to a dataframe:
+- You can also convert the table to a dataframe and rename the =factor=
+  values (the table =names=): 
   #+begin_src R
-    freq_df <- as.data.frame(tbl)
+    freq_df <- as.data.frame(tbl1)
     str(freq_df)
+    names(freq_df)[1] <- "Names"
+    freq_df
   #+end_src
 
   #+RESULTS:
-  : 'data.frame':	19 obs. of  2 variables:
-  :  $ Var1: Factor w/ 19 levels "A","A-","A+",..: 1 2 3 4 5 6 7 8 9 10 ...
-  :  $ Freq: int  3755 34 34 72 36 25 502 24 26 17 ...
+  #+begin_example
+  'data.frame':	14 obs. of  2 variables:
+   $ Var1: Factor w/ 14 levels "4.83","10","11.5",..: 1 2 3 4 5 6 7 8 9 10 ...
+   $ Freq: int  1 1 1 1 1 1 2 1 3 1 ...
+     Names Freq
+  1   4.83    1
+  2     10    1
+  3   11.5    1
+  4     13    1
+  5   15.5    1
+  6  15.83    1
+  7  16.33    2
+  8  16.74    1
+  9  16.83    3
+  10    17    1
+  11 17.33    1
+  12  17.5    3
+  13    18    1
+  14 19.07    1
+  #+end_example
+
+- Alternatively, combine the =names= and the frequencies in a dataframe:
+  #+begin_src R
+    names <- names(tbl1)
+    names
+    freqs <- as.numeric(tbl1)
+    freqs
+    data.frame(Name=names, Frequency=freqs)
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+   [1] "4.83"  "10"    "11.5"  "13"    "15.5"  "15.83" "16.33" "16.74" "16.83" "17"    "17.33" "17.5" 
+  [13] "18"    "19.07"
+   [1] 1 1 1 1 1 1 2 1 3 1 1 3 1 1
+      Name Frequency
+  1   4.83         1
+  2     10         1
+  3   11.5         1
+  4     13         1
+  5   15.5         1
+  6  15.83         1
+  7  16.33         2
+  8  16.74         1
+  9  16.83         3
+  10    17         1
+  11 17.33         1
+  12  17.5         3
+  13    18         1
+  14 19.07         1
+  #+end_example
 
 - The binwidth is computed based on the range of the data by Sturges'
   formula (see help). Go back to the histogram code block and add the
