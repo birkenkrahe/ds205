@@ -5,13 +5,13 @@
 #+STARTUP: overview hideblocks indent :
 #+PROPERTY: header-args:R :session *R* :results output
 #+PROPERTY: header-args:python :session *Python* :results output :python python3
-* README
+* DONE README
 
 - In this file, we review and practice plotting with base R.
 
 - Code along using http://tinyurl.com/r-plots-org
 
-* Bonus: Math plots with R
+* DONE Bonus: Math plots with R
 
 - This section is prompted by a Calculus II exercise that I came
   across. Especially when dealing with trigonometric functions, it can
@@ -69,7 +69,7 @@
   #+RESULTS:
   [[file:../img/func1.png]]
 
-* Problem
+* DONE Problem
 
 The LMS returns the following type of reports:
 #+attr_html: :width 400px:
@@ -86,7 +86,7 @@ We want to:
 
 We'll also have to look at the necessity to remove missing values.
 
-* Data preparation
+* DONE Data preparation
 
 To not have to wade through previous scripts, store the URL in the
 variable ~url~, import the data, and remove the last row as before, and
@@ -136,29 +136,112 @@ the first column, which is irrelevant for our stats visualization:
 :  $ Test.1: num  4.83 13 16.33 19.07 16.83 ...
 :  $ Test.2: num  10 11 8.5 14.5 12 ...
 
-* Histogram in R
+* TODO Histogram in R
 
 A histogram plots frequencies over a continuous set of values.
 
 - Let's make one for ~df$t1~. For the header arguments, we need:
   ~:results output graphics file :file histR_t1.png~ - the graph will then
   be linked here and it will be saved to ~t1.png~:
-  #+begin_src R :session *R* :results output graphics file :file ../img/histR_t1.png :exports both :noweb yes
+  #+begin_src R :session *R* :results output graphics file :file histR_t1.png :exports both :noweb yes
     t1 <- df$t1
     hist(t1)
   #+end_src
 
   #+RESULTS:
-  [[file:../img/histR_t1.png]]
+  [[file:histR_t1.png]]
 
 - You can check from here if there's a file (on Windows, you need to
   replace =ls= by =DIR=):
   #+begin_src R :session *R* :results output :exports both :noweb yes
-    system('ls -l ../img/histR_t1.png') 
+    system('ls -l histR_t1.png') 
   #+end_src
 
   #+RESULTS:
-  : -rw-rw-r-- 1 marcus marcus 4583 Feb 17 22:36 ../img/histR_t1.png
+  : -rw-rw-r-- 1 marcus marcus 4583 Feb 25 22:04 histR_t1.png
+
+- You can use =table= to display the frequencies of all values ('contingency table'):
+  #+begin_src R
+    table(df$t1)
+    table(df$t2)
+  #+end_src
+
+  #+RESULTS:
+  : 
+  :  4.83    10  11.5    13  15.5 15.83 16.33 16.74 16.83    17 17.33  17.5    18 19.07 
+  :     1     1     1     1     1     1     2     1     3     1     1     3     1     1
+  : 
+  :   3.5  8.17   8.5   9.5  9.67    10 10.17 10.33  10.5 10.67    11 11.33    12  12.5    13  14.5 
+  :     1     1     1     3     1     1     1     2     1     2     1     1     2     1     1     1
+
+- You can make a barplot of the contingency table data, and you can
+  see the rough shape of the histogram already. Label the x-axis
+  appropriately:
+  #+begin_src R :results graphics output file :file bar_t1.png
+    barplot(table(df$t1),
+            xlab="test values") # same for df$t2
+  #+end_src
+
+  #+RESULTS:
+  [[file:bar_t1.png]]
+
+- What is the data structure of this table? Could you plug the table
+  values straight into a histogram? What about the table frequencies?
+  #+begin_src R
+    tbl1 <- table(df$t1) 
+    str(tbl1)
+  #+end_src
+
+  #+RESULTS:
+  :  'table' int [1:14(1d)] 1 1 1 1 1 1 2 1 3 1 ...
+  :  - attr(*, "dimnames")=List of 1
+  :   ..$ : chr [1:14] "4.83" "10" "11.5" "13" ...
+
+- Try to make a histogram from the frequencies ~as.integer(tbl1)~ and
+  name the x-axis appropriately:
+  #+begin_src R  :results graphics file output :file hist_freq.png
+    freq <- as.integer(tbl1) # table 1 frequencies
+    hist(freq,xlab='frequency')  # visualized as histogram
+  #+end_src
+
+  #+RESULTS:
+  [[file:hist_freq.png]]
+
+- What about the table names?
+  #+begin_src R
+    names(tbl1)
+    hist(names(tbl1))
+  #+end_src
+
+  #+RESULTS:
+  :  [1] "4.83"  "10"    "11.5"  "13"    "15.5"  "15.83" "16.33" "16.74" "16.83" "17"    "17.33" "17.5" 
+  : [13] "18"    "19.07"
+  : Error in hist.default(names(tbl1)) : 'x' must be numeric
+
+- But you can directly make a barplot from the table: the =names= vector
+  is accepted as x-argument:
+  #+begin_src R :results output graphics file :file bartbl.png
+    barplot(tbl1)
+  #+end_src
+
+  #+RESULTS:
+  [[file:bartbl.png]]
+
+- You can also convert the table to a dataframe:
+  #+begin_src R
+    freq_df <- as.data.frame(tbl)
+    str(freq_df)
+  #+end_src
+
+  #+RESULTS:
+  : 'data.frame':	19 obs. of  2 variables:
+  :  $ Var1: Factor w/ 19 levels "A","A-","A+",..: 1 2 3 4 5 6 7 8 9 10 ...
+  :  $ Freq: int  3755 34 34 72 36 25 502 24 26 17 ...
+
+- The binwidth is computed based on the range of the data by Sturges'
+  formula (see help). Go back to the histogram code block and add the
+  parameter =breaks=, then plot the histogram for different values of
+  that parameter: 5, 10, 20.
 
 - To put the histograms for both tests in one panel, we use the ~par~
   function and specify the number and orientation of sub-graphs with

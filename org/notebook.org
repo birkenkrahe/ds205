@@ -484,7 +484,7 @@ session on transforming data frames - with R:
 [[http://tinyurl.com/transform-org][tinyurl.com/transform-org]].
 
 
-* Week 7: R utilities and =apply= family of functions
+* Week 7: R plots, utilities, and =apply= family of functions
 
 #+attr_html: :width 400px: 
 [[../img/conflict.png]]
