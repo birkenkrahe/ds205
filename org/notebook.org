@@ -495,6 +495,9 @@ session on transforming data frames - with R:
 
 * Review plotting so far
 
+To continue coding along, download, open and run: 
+https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong.org
+
 1) Check that an R object (e.g. ~url~) was created.
    #+begin_src R
      ls()
@@ -503,7 +506,47 @@ session on transforming data frames - with R:
    #+RESULTS:
    :  [1] "df"      "f"       "freq"    "freq_df" "freqs"   "names"   "t1"      "t2"      "tbl1"    "url"     "x"
 
-2) 
+2) You have a dataframe ~df~ with two columns. Remove the 2nd column.
+   #+begin_src R
+     df <- data.frame("A"=letters[1:5],"B"=1:5)
+     df
+     str(df)
+     df[-2]   # retains a 1-column dataframe (dataframe operation)
+     df[,-2]  # retains only a vector (row-by-row operation)
+   #+end_src
+
+3) You have a dataframe ~df~ with two columns and five rows. Remove all rows with NA.
+   #+begin_src R
+     df <- data.frame("A"=letters[1:5],"B"=c(1,2,NA,4,5))
+     df
+     na.omit(df)
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+     A  B
+   1 a  1
+   2 b  2
+   3 c NA
+   4 d  4
+   5 e  5
+     A B
+   1 a 1
+   2 b 2
+   4 d 4
+   5 e 5
+   #+end_example
+
+4) histogram
+
+5) table
+
+6) structure of table
+
+7) barplot from table
+
+8) turn table into dataframe
+
 
 * Week 8: Data manipulation with =pandas= in Python
 * Week 9: Natural language processing in R / 2nd sprint review
