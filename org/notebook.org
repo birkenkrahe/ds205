@@ -493,6 +493,18 @@ session on transforming data frames - with R:
 - Addendum to R's =summary= - don't use the ~ID~ column
 - Plotting in R - histograms and boxplots
 
+* Review plotting so far
+
+1) Check that an R object (e.g. ~url~) was created.
+   #+begin_src R
+     ls()
+   #+end_src
+
+   #+RESULTS:
+   :  [1] "df"      "f"       "freq"    "freq_df" "freqs"   "names"   "t1"      "t2"      "tbl1"    "url"     "x"
+
+2) 
+
 * Week 8: Data manipulation with =pandas= in Python
 * Week 9: Natural language processing in R / 2nd sprint review
 * Week 10: Natural language processing in Python
