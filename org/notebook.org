@@ -493,7 +493,7 @@ session on transforming data frames - with R:
 - Addendum to R's =summary= - don't use the ~ID~ column
 - Plotting in R - histograms and boxplots
 
-* Review plotting so far
+* Review plotting histograms, barplots, tables
 
 To continue coding along, download, open and run: 
 https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong.org
@@ -515,7 +515,7 @@ https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong
      df[,-2]  # retains only a vector (row-by-row operation)
    #+end_src
 
-3) You have a dataframe ~df~ with two columns and five rows. Remove all rows with NA.
+3) You have a dataframe ~df~ with two columns and five rows. Remove all rows with ~NA~.
    #+begin_src R
      df <- data.frame("A"=letters[1:5],"B"=c(1,2,NA,4,5))
      df
@@ -537,15 +537,87 @@ https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong
    5 e 5
    #+end_example
 
-4) histogram
+4) You have a vector ~c(1,2,2,3,4,5,5,5,6,9)~ How would you create a histogram?
+   #+begin_src R :file hist.png :session *R* :results output graphics file :exports both :noweb yes
+    foo <- c(1,2,2,3,4,5,5,5,6,9)
+    hist(x = foo)
+   #+end_src
 
-5) table
+   #+RESULTS:
+   [[file:hist.png]]
 
-6) structure of table
+   #+begin_quote
+   You might want to store this header argument so that you can create
+   graphics code blocks in R easily (=org-structure-template-alist)=:
+   [[../img/graphics_codeblock.png]]
+   #+end_quote
 
-7) barplot from table
+5) What's the contingency table for that vector?
+   #+begin_src R
+     table(foo)
+   #+end_src
 
-8) turn table into dataframe
+   #+RESULTS:
+   : foo
+   : 1 2 3 4 5 6 9 
+   : 1 2 1 1 3 1 1
+
+6) What's the structure of the contingency table?
+   #+begin_src R
+     tbl <- table(foo)
+     str(tbl) # integer values `as.integer(tbl)` and `names(tbl)`
+     as.integer(tbl) # numeric integer vector
+     names(tbl)  # character vector
+   #+end_src
+
+   #+RESULTS:
+   :  'table' int [1:7(1d)] 1 2 1 1 3 1 1
+   :  - attr(*, "dimnames")=List of 1
+   :   ..$ foo: chr [1:7] "1" "2" "3" "4" ...
+   : [1] 1 2 1 1 3 1 1
+   : [1] "1" "2" "3" "4" "5" "6" "9"
+
+7) Make a barplot for this table.
+   #+begin_src R :file bar.png :session *R* :results output graphics file :exports both :noweb yes
+     barplot(height = tbl)
+   #+end_src
+
+   #+RESULTS:
+   [[file:bar.png]]
+   
+8) Turn the table into a dataframe.
+   #+begin_src R :session *R* :results output :exports both :noweb yes
+     ## method 1
+     df1 <- as.data.frame(tbl)
+     colnames(df1) <- c('values','frequencies')
+     df1
+
+     ## method 2
+     df2 <- data.frame('values'=names(tbl),'frequencies'=as.integer(tbl))
+     df2                  
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+     values frequencies
+   1      1           1
+   2      2           2
+   3      3           1
+   4      4           1
+   5      5           3
+   6      6           1
+   7      9           1
+     values frequencies
+   1      1           1
+   2      2           2
+   3      3           1
+   4      4           1
+   5      5           3
+   6      6           1
+   7      9           1
+   #+end_example
+
+   
 
 
 * Week 8: Data manipulation with =pandas= in Python
