@@ -14,8 +14,8 @@ You will learn:
 - How you can specify arguments when calling a function
 
 Download the codealong and practice files from GitHub:
-- tinyurl.com/4-codealong-org
-- tinyurl.com/4-practice-org  
+- tinyurl.com/4-R-codealong-org
+- tinyurl.com/4-R-practice-org  
 
 The first practice file is code along while I lecture, the second
 practice file is an independent exercise. Solutions in the pdf repo.
