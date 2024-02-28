@@ -390,7 +390,7 @@ the deadline for these bonus points because we're going to discuss the
 solution on Monday.
 #+end_quote
 
-* DONE Week 5: +Writing functions in R+ Transforming =pandas= =DataFrame= in Python
+* DONE Week 5: +Writing functions in R+ Transforming pandas DataFrame in Python
 #+attr_html: :width 400px
 [[../img/overworked.png]]
 
@@ -489,14 +489,22 @@ session on transforming data frames - with R:
 #+attr_html: :width 400px: 
 [[../img/conflict.png]]
 
-- Python's =describe= completed
-- Addendum to R's =summary= - don't use the ~ID~ column
-- Plotting in R - histograms and boxplots
+- [X] Python's =describe= completed
+- [X] Addendum to R's =summary= - don't use the ~ID~ column
+- [ ] Plotting in R - histograms and boxplots
 
-* Review plotting histograms, barplots, tables
+* TODO Create R graphics code blocks quickly
 
-To continue coding along, download, open and run: 
-https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong.org
+1) ~M-x org-structure-template-alist~
+2) ~Customize~
+3) ~INS~ key: ~rg~, value: 
+   #+begin_example
+   src R :file :results output graphics file :session *R* :exports outputx
+   #+end_example
+4) ~APPLY AND SAVE SETTINGS~
+5) ~<rg TAB~
+
+* TODO Review plotting histograms, barplots, tables
 
 1) Check that an R object (e.g. ~url~) was created.
    #+begin_src R
@@ -617,8 +625,11 @@ https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong
    7      9           1
    #+end_example
 
-   
 
+* TODO Continue "Plotting in R - histograms, barplots, boxplots"
+
+To continue coding along, download, open and run:
+[[https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong.org][tinyurl.com/r-plots-org]].
 
 * Week 8: Data manipulation with =pandas= in Python
 * Week 9: Natural language processing in R / 2nd sprint review
