@@ -483,9 +483,7 @@ Now, load the code along file and code along for the remainder of this
 session on transforming data frames - with R:
 [[http://tinyurl.com/transform-org][tinyurl.com/transform-org]].
 
-
 * Week 7: R plots, utilities, and =apply= family of functions
-
 #+attr_html: :width 400px: 
 [[../img/conflict.png]]
 
@@ -493,9 +491,9 @@ session on transforming data frames - with R:
 - [X] Addendum to R's =summary= - don't use the ~ID~ column
 - [ ] Plotting in R - histograms and boxplots
 
-* TODO Create R graphics code blocks quickly
+* DONE Create R graphics code blocks quickly
 
-1) ~M-x org-structure-template-alist~
+1) ~C-h v org-structure-template-alist~
 2) ~Customize~
 3) ~INS~ key: ~rg~, value: 
    #+begin_example
@@ -512,9 +510,9 @@ session on transforming data frames - with R:
    #+end_src
 
    #+RESULTS:
-   :  [1] "df"      "f"       "freq"    "freq_df" "freqs"   "names"   "t1"      "t2"      "tbl1"    "url"     "x"
+   : [1] "cols"   "df"     "sol"    "solar"  "tbl"    "tweets" "types"  "url"
 
-2) You have a dataframe ~df~ with two columns. Remove the 2nd column.
+  2) You have a dataframe ~df~ with two columns. Remove the 2nd column.
    #+begin_src R
      df <- data.frame("A"=letters[1:5],"B"=1:5)
      df
@@ -522,6 +520,26 @@ session on transforming data frames - with R:
      df[-2]   # retains a 1-column dataframe (dataframe operation)
      df[,-2]  # retains only a vector (row-by-row operation)
    #+end_src
+
+   #+RESULTS:
+   #+begin_example
+     A B
+   1 a 1
+   2 b 2
+   3 c 3
+   4 d 4
+   5 e 5
+   'data.frame':	5 obs. of  2 variables:
+    $ A: chr  "a" "b" "c" "d" ...
+    $ B: int  1 2 3 4 5
+     A
+   1 a
+   2 b
+   3 c
+   4 d
+   5 e
+   [1] "a" "b" "c" "d" "e"
+   #+end_example
 
 3) You have a dataframe ~df~ with two columns and five rows. Remove all rows with ~NA~.
    #+begin_src R
@@ -548,7 +566,7 @@ session on transforming data frames - with R:
 4) You have a vector ~c(1,2,2,3,4,5,5,5,6,9)~ How would you create a histogram?
    #+begin_src R :file hist.png :session *R* :results output graphics file :exports both :noweb yes
     foo <- c(1,2,2,3,4,5,5,5,6,9)
-    hist(x = foo)
+    hist(x = foo, breaks=10)
    #+end_src
 
    #+RESULTS:
@@ -589,14 +607,14 @@ session on transforming data frames - with R:
    #+begin_src R :file bar.png :session *R* :results output graphics file :exports both :noweb yes
      barplot(height = tbl)
    #+end_src
-
+   
    #+RESULTS:
    [[file:bar.png]]
    
 8) Turn the table into a dataframe.
    #+begin_src R :session *R* :results output :exports both :noweb yes
      ## method 1
-     df1 <- as.data.frame(tbl)
+<<     df1 <- as.data.frame(tbl)
      colnames(df1) <- c('values','frequencies')
      df1
 
@@ -625,13 +643,16 @@ session on transforming data frames - with R:
    7      9           1
    #+end_example
 
-
 * TODO Continue "Plotting in R - histograms, barplots, boxplots"
 
 To continue coding along, download, open and run:
 [[https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong.org][tinyurl.com/r-plots-org]].
 
-* Week 8: Data manipulation with =pandas= in Python
+
+* Week 8: Scope and calling functions in R and Python
+
+
+
 * Week 9: Natural language processing in R / 2nd sprint review
 * Week 10: Natural language processing in Python
 * Week 11: R: Importing and exporting data
