@@ -529,7 +529,7 @@ results.
     axis(side=1,
          at=seq(0,100,by=10),
          labels=paste0(seq(0, 100, by=10), "%")) # Add custom x-axis
-    ## par()
+    par()
   #+end_src
 
   #+RESULTS:
