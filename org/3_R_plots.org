@@ -91,6 +91,7 @@ We'll also have to look at the necessity to remove missing values.
 To not have to wade through previous scripts, store the URL in the
 variable ~url~, import the data, and remove the last row as before, and
 the first column, which is irrelevant for our stats visualization:
+#+name: data
 #+begin_src R
   url = 'http://tinyurl.com/grades-csv'  # storing URL in variable
   df <- read.csv(url,header=TRUE) # reading CSV data from the web
@@ -133,7 +134,7 @@ the first column, which is irrelevant for our stats visualization:
 #+end_src
 
 #+RESULTS:
-: 'data.frame': 21 obs. of  2 variables:
+: 'data.frame':	21 obs. of  2 variables:
 :  $ t1: num  4.83 13 16.33 19.07 16.83 ...
 :  $ t2: num  10 11 8.5 14.5 12 ...
 
@@ -168,14 +169,18 @@ A histogram plots frequencies over a continuous set of values.
   #+end_src
 
   #+RESULTS:
-  : t1
-  :  4.83    10  11.5    13  15.5 15.83 16.33 16.74 16.83    17 17.33  17.5    18 19.07
-  :     1     1     1     1     1     1     2     1     3     1     1     3     1     1
-  : t2
-  :   3.5  8.17   8.5   9.5  9.67    10 10.17 10.33  10.5 10.67    11 11.33    12  12.5    13
-  :     1     1     1     3     1     1     1     2     1     2     1     1     2     1     1
-  :  14.5
-  :     1
+  #+begin_example
+  t1
+   4.83    10  11.5    13  15.5 15.83 16.33 16.74 16.83    17 17.33  17.5    18 
+      1     1     1     1     1     1     2     1     3     1     1     3     1 
+  19.07 
+      1
+  t2
+    3.5  8.17   8.5   9.5  9.67    10 10.17 10.33  10.5 10.67    11 11.33    12 
+      1     1     1     3     1     1     1     2     1     2     1     1     2 
+   12.5    13  14.5 
+      1     1     1
+  #+end_example
 
 - You can make a barplot of the contingency table data, and you can
   see the rough shape of the histogram already. Label the x-axis
@@ -217,8 +222,8 @@ A histogram plots frequencies over a continuous set of values.
   #+end_src
 
   #+RESULTS:
-  :  [1] "4.83"  "10"    "11.5"  "13"    "15.5"  "15.83" "16.33" "16.74" "16.83" "17"
-  : [11] "17.33" "17.5"  "18"    "19.07"
+  :  [1] "4.83"  "10"    "11.5"  "13"    "15.5"  "15.83" "16.33" "16.74" "16.83"
+  : [10] "17"    "17.33" "17.5"  "18"    "19.07"
   : Error in hist.default(names(tbl1)) : 'x' must be numeric
 
 - But you can directly make a barplot from the table: the =names= vector
@@ -241,7 +246,7 @@ A histogram plots frequencies over a continuous set of values.
 
   #+RESULTS:
   #+begin_example
-  'data.frame': 14 obs. of  2 variables:
+  'data.frame':	14 obs. of  2 variables:
    $ Var1: Factor w/ 14 levels "4.83","10","11.5",..: 1 2 3 4 5 6 7 8 9 10 ...
    $ Freq: int  1 1 1 1 1 1 2 1 3 1 ...
      Names Freq
@@ -272,8 +277,8 @@ A histogram plots frequencies over a continuous set of values.
 
   #+RESULTS:
   #+begin_example
-   [1] "4.83"  "10"    "11.5"  "13"    "15.5"  "15.83" "16.33" "16.74" "16.83" "17"
-  [11] "17.33" "17.5"  "18"    "19.07"
+   [1] "4.83"  "10"    "11.5"  "13"    "15.5"  "15.83" "16.33" "16.74" "16.83"
+  [10] "17"    "17.33" "17.5"  "18"    "19.07"
    [1] 1 1 1 1 1 1 2 1 3 1 1 3 1 1
      Names Freq
   1   4.83    1
@@ -303,11 +308,10 @@ A histogram plots frequencies over a continuous set of values.
   #+end_src
 
   #+RESULTS:
-  :  [1] 24.15 65.00 81.65 95.35 84.15 50.00 90.00 77.50 84.15 87.50 57.50 79.15 85.00    NA
-  : [15] 81.65 87.50 87.50 83.70 86.65 84.15    NA
-  :  [1] 66.66667 73.33333 56.66667 96.66667 80.00000 63.33333 68.86667 71.13333 86.66667
-  : [10] 64.46667 71.13333 68.86667 70.00000 23.33333 67.80000 63.33333 83.33333 80.00000
-  : [19] 54.46667 75.53333 63.33333
+  :  [1]  4.83 13.00 16.33 19.07 16.83 10.00 18.00 15.50 16.83 17.50 11.50 15.83
+  : [13] 17.00    NA 16.33 17.50 17.50 16.74 17.33 16.83    NA
+  :  [1] 10.00 11.00  8.50 14.50 12.00  9.50 10.33 10.67 13.00  9.67 10.67 10.33
+  : [13] 10.50  3.50 10.17  9.50 12.50 12.00  8.17 11.33  9.50
 
 - To put the histograms for both tests in one panel, we use the ~par~
   function and specify the number and orientation of sub-graphs with
@@ -339,12 +343,35 @@ A histogram plots frequencies over a continuous set of values.
   drastically between test 1 and test 2. A clearer picture will result
   from a boxplot (below).
 
+- The boxplot is the visualization of the statistical =summary= function:
+  #+begin_src R
+    summary(t1)
+    summary(t2)
+    summary(data.frame(t1,t2))
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+     4.83   15.66   16.83   15.50   17.41   19.07       2
+     Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+     3.50    9.50   10.33   10.35   11.33   14.50
+         t1              t2       
+   Min.   : 4.83   Min.   : 3.50  
+   1st Qu.:15.66   1st Qu.: 9.50  
+   Median :16.83   Median :10.33  
+   Mean   :15.50   Mean   :10.35  
+   3rd Qu.:17.41   3rd Qu.:11.33  
+   Max.   :19.07   Max.   :14.50  
+   NA's   :2
+  #+end_example
+
 - One last improvement concerns the bin values: they are not close
   enough for a test where each of the questions has 1 point. To change
   that, you can set the =breaks= manually:
   #+begin_src R :session *R* :results output graphics file :file ../img/histR_t1t2_3.png :exports both :noweb yes
     par(mfrow=c(2,1)) # create a 2 x 1 panel
-    hist(t1,
+    hist(t1,   # short version: hist(t1,breaks=seq(0,20,1))
          breaks = seq(from=0,to=20,by=1),
          main="Test 1",
          xlab="Points",
@@ -372,8 +399,8 @@ A histogram plots frequencies over a continuous set of values.
 - We scale the vectors in the dataframe themselves, and we remove the
   'id' column since we don't need it here at all. Vectorisation rules!
   #+begin_src R :session *R* :results output :exports both :noweb yes
-    df$t1 <- (df$t1 / 20) * 100 # overwrite t1 with new % vector
-    df$t2 <- (df$t2 / 15) * 100 # overwrite t2 with new % vector
+    t1 <- (t1 / 20) * 100 # overwrite t1 with new % vector
+    t2 <- (t2 / 15) * 100 # overwrite t2 with new % vector
     df
   #+end_src
 
@@ -427,6 +454,37 @@ A histogram plots frequencies over a continuous set of values.
 
 * TODO Boxplot in R
 
+To make sure that this works, run [[data]]:
+#+begin_src R :noweb yes
+  <<data>>  # this runs the `data` code block way earlier
+#+end_src
+
+#+RESULTS:
+#+begin_example
+      t1    t2
+1   4.83 10.00
+2  13.00 11.00
+3  16.33  8.50
+4  19.07 14.50
+5  16.83 12.00
+6  10.00  9.50
+7  18.00 10.33
+8  15.50 10.67
+9  16.83 13.00
+10 17.50  9.67
+11 11.50 10.67
+12 15.83 10.33
+13 17.00 10.50
+14    NA  3.50
+15 16.33 10.17
+16 17.50  9.50
+17 17.50 12.50
+18 16.74 12.00
+19 17.33  8.17
+20 16.83 11.33
+21    NA  9.50
+#+end_example
+
 A boxplot is a graph that illustrates the statistical =summary=
 results.
 
@@ -448,7 +506,7 @@ results.
 
 - These results are hard to compare. We're going to:
   1. turn the boxplots on their side with the parameter =horizontal=TRUE=
-  2. label the x-axis as befre with ~xlab~
+  2. label the x-axis as before with ~xlab~
   3. remove the standard x-axis annotation with ~xaxt='n'~
   4. redefine the x-axis ticks with the =axis= function.
   #+begin_src R :session *R* :results output graphics file :file ../img/box_t1t2_final.png :exports both :noweb yes
@@ -471,11 +529,46 @@ results.
     axis(side=1,
          at=seq(0,100,by=10),
          labels=paste0(seq(0, 100, by=10), "%")) # Add custom x-axis
-    par()
+    ## par()
   #+end_src
 
   #+RESULTS:
   [[file:../img/box_t1t2_final.png]]
 
-* TODO Summary and glossary
+* Summary
+
+We covered:
+- The practice of plotting mathematical functions, particularly
+  trigonometric functions, in R, which serves as a valuable tool for
+  visualizing complex equations.
+- Addressing real-world data science problems, such as making
+  histograms and creating boxplots, to compare test results
+  visually. This section is crucial for developing skills in data
+  analysis and interpretation.
+- Data preparation techniques, which involve importing, cleaning, and
+  simplifying data for effective statistical visualization. This
+  foundational skill is essential for any data science endeavor.
+
+
+* Glossary
+
+| TERM           | DEFINIION                                                                  |
+|----------------+----------------------------------------------------------------------------|
+| ~"package:base"~ | Name of base package in =search()=                                           |
+| =NULL=           | Represents a non-existing object                                           |
+| =which=          | Extracts indices (Boolean argument)                                        |
+| =plot=           | Used for creating a graph in R. Generic                                    |
+| =hist=           | Generates a histogram in R (numeric distribution)                          |
+| =boxplot=        | Creates a boxplot in R (numeric distribution)                              |
+| =seq=            | Generates regular sequences of numbers in R (as vectors)                   |
+| =table=          | Creates a contingency table of the counts of categorical values            |
+| =barplot=        | Draws a bar plot in R to visualize categoric data)                         |
+| =str=            | Displays the internal structure of an R object.                            |
+| =names=          | Gets or sets the names attribute of an object.                             |
+| =as.integer=     | Converts data types to integer in R.                                       |
+| =as.data.frame=  | Converts an object to a data frame in R.                                   |
+| =read.csv=       | Reads a file in table format and creates a data frame from it.             |
+| =axis=           | Adds an axis to a plot with specific attributes like side, at, and labels. |
+| =par=            | Used to set or query graphical parameters in R.                            |
+| =mfrow=          | Sets panels for multi-panelled plots, e.g. ~mfrow=c(1,2)~                    |
 

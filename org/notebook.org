@@ -477,32 +477,32 @@ If you're working with code blocks, you want to Amake your life easier:
    #+begin_example
      df.head()
      df.tail()
-   #+end_example   
+   #+end_example
 
 Now, load the code along file and code along for the remainder of this
 session on transforming data frames - with R:
 [[http://tinyurl.com/transform-org][tinyurl.com/transform-org]].
 
-* Week 7: R plots, utilities, and =apply= family of functions
-#+attr_html: :width 400px: 
+* Week 7: R plots, +utilities, and =apply= family of functions+
+#+attr_html: :width 400px:
 [[../img/conflict.png]]
 
 - [X] Python's =describe= completed
 - [X] Addendum to R's =summary= - don't use the ~ID~ column
 - [ ] Plotting in R - histograms and boxplots
 
-* DONE Create R graphics code blocks quickly
+** DONE Create R graphics code blocks quickly
 
 1) ~C-h v org-structure-template-alist~
 2) ~Customize~
-3) ~INS~ key: ~rg~, value: 
+3) ~INS~ key: ~rg~, value:
    #+begin_example
    src R :file :results output graphics file :session *R* :exports outputx
    #+end_example
 4) ~APPLY AND SAVE SETTINGS~
 5) ~<rg TAB~
 
-* TODO Review plotting histograms, barplots, tables
+** DONE Review plotting histograms, barplots, tables
 
 1) Check that an R object (e.g. ~url~) was created.
    #+begin_src R
@@ -512,34 +512,34 @@ session on transforming data frames - with R:
    #+RESULTS:
    : [1] "cols"   "df"     "sol"    "solar"  "tbl"    "tweets" "types"  "url"
 
-  2) You have a dataframe ~df~ with two columns. Remove the 2nd column.
-   #+begin_src R
-     df <- data.frame("A"=letters[1:5],"B"=1:5)
-     df
-     str(df)
-     df[-2]   # retains a 1-column dataframe (dataframe operation)
-     df[,-2]  # retains only a vector (row-by-row operation)
-   #+end_src
+   2) You have a dataframe ~df~ with two columns. Remove the 2nd column.
+      #+begin_src R
+        df <- data.frame("A"=letters[1:5],"B"=1:5)
+        df
+        str(df)
+        df[-2]   # retains a 1-column dataframe (dataframe operation)
+        df[,-2]  # retains only a vector (row-by-row operation)
+      #+end_src
 
-   #+RESULTS:
-   #+begin_example
-     A B
-   1 a 1
-   2 b 2
-   3 c 3
-   4 d 4
-   5 e 5
-   'data.frame':	5 obs. of  2 variables:
-    $ A: chr  "a" "b" "c" "d" ...
-    $ B: int  1 2 3 4 5
-     A
-   1 a
-   2 b
-   3 c
-   4 d
-   5 e
-   [1] "a" "b" "c" "d" "e"
-   #+end_example
+      #+RESULTS:
+      #+begin_example
+        A B
+      1 a 1
+      2 b 2
+      3 c 3
+      4 d 4
+      5 e 5
+      'data.frame':     5 obs. of  2 variables:
+       $ A: chr  "a" "b" "c" "d" ...
+       $ B: int  1 2 3 4 5
+        A
+      1 a
+      2 b
+      3 c
+      4 d
+      5 e
+      [1] "a" "b" "c" "d" "e"
+      #+end_example
 
 3) You have a dataframe ~df~ with two columns and five rows. Remove all rows with ~NA~.
    #+begin_src R
@@ -565,8 +565,8 @@ session on transforming data frames - with R:
 
 4) You have a vector ~c(1,2,2,3,4,5,5,5,6,9)~ How would you create a histogram?
    #+begin_src R :file hist.png :session *R* :results output graphics file :exports both :noweb yes
-    foo <- c(1,2,2,3,4,5,5,5,6,9)
-    hist(x = foo, breaks=10)
+     foo <- c(1,2,2,3,4,5,5,5,6,9)
+     hist(x = foo, breaks=10)
    #+end_src
 
    #+RESULTS:
@@ -585,7 +585,7 @@ session on transforming data frames - with R:
 
    #+RESULTS:
    : foo
-   : 1 2 3 4 5 6 9 
+   : 1 2 3 4 5 6 9
    : 1 2 1 1 3 1 1
 
 6) What's the structure of the contingency table?
@@ -607,20 +607,20 @@ session on transforming data frames - with R:
    #+begin_src R :file bar.png :session *R* :results output graphics file :exports both :noweb yes
      barplot(height = tbl)
    #+end_src
-   
+
    #+RESULTS:
    [[file:bar.png]]
-   
+
 8) Turn the table into a dataframe.
    #+begin_src R :session *R* :results output :exports both :noweb yes
      ## method 1
-<<     df1 <- as.data.frame(tbl)
+     <<     df1 <- as.data.frame(tbl)
      colnames(df1) <- c('values','frequencies')
      df1
 
      ## method 2
      df2 <- data.frame('values'=names(tbl),'frequencies'=as.integer(tbl))
-     df2                  
+     df2
    #+end_src
 
    #+RESULTS:
@@ -643,14 +643,105 @@ session on transforming data frames - with R:
    7      9           1
    #+end_example
 
-* TODO Continue "Plotting in R - histograms, barplots, boxplots"
+** DONE Continue "Plotting in R - histograms, barplots, boxplots" :progress:
 
 To continue coding along, download, open and run:
 [[https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong.org][tinyurl.com/r-plots-org]].
 
+** Review and Preview                                                 :test:
+
+Write down what you think the answers are to these questions:
+
+1) What do you think is the output of the command: ~str(search())~
+   #+begin_src R
+     str(search()) # Output is a character vector, values are loaded packages
+   #+end_src
+
+   #+RESULTS:
+   :  chr [1:10] ".GlobalEnv" "ESSR" "package:stats" "package:graphics" ...
+
+2) If ~df~ is a dataframe with 5 columns, what does ~names(df) <- 1:5~ do?
+   #+begin_src R
+     df <- data.frame(mtcars[1:5])
+     names(df)
+     names(df) <- 1:5 # overwrites column names with 1 to 5 as strings
+     names(df)
+   #+end_src
+
+   #+RESULTS:
+   : [1] "mpg"  "cyl"  "disp" "hp"   "drat"
+   : [1] "1" "2" "3" "4" "5"
+
+3) Does every vector also have =names=?
+   #+begin_src R
+     foo <- 1:10
+     foo
+     names(foo)
+     names(foo) <- 1:10
+     names(foo)
+   #+end_src
+
+   #+RESULTS:
+   :  [1]  1  2  3  4  5  6  7  8  9 10
+   : NULL
+   :  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
+
+4) What's the input for =hist=?
+   #+begin_src R :file Nile.png :session *R* :results output graphics file :exports both :noweb yes
+     hist(Nile) # input: numeric distribution (time series)
+   #+end_src
+
+   #+RESULTS:
+   [[file:Nile.png]]
+
+   #+begin_src R
+     str(Nile)
+   #+end_src
+
+   #+RESULTS:
+   :  Time-Series [1:100] from 1871 to 1970: 1120 1160 963 1210 1160 1160 813 1230 1370 1140 ...
+
+5) If ~h <- c(1,2,3,4)~, what will ~barplot(h)~ look like?
+   #+begin_src R :file vecbar.png :session *R* :results output graphics file :exports both :noweb yes
+     h <- c(1,2,3,4)
+     barplot(h)
+   #+end_src
+
+   #+RESULTS:
+   [[file:vecbar.png]]
+   
+6) If ~M <- matrix(1:4,nrow=2)~, what will ~barplot(M)~ look like?
+   #+begin_src R
+     M <- matrix(1:4,nrow=2)
+     M
+   #+end_src
+
+   #+RESULTS:
+   :      [,1] [,2]
+   : [1,]    1    3
+   : [2,]    2    4
+
+
+   #+begin_src R :file matrixbar.png :session *R* :results output graphics file :exports both :noweb yes
+     barplot(M,beside=TRUE) # output: dodged by height
+   #+end_src
+
+   #+RESULTS:
+   [[file:matrixbar.png]]
+
+
+   #+begin_src R :file matrixbar1.png :session *R* :results output graphics file :exports both :noweb yes
+     barplot(M) # output: stacked by height
+   #+end_src
+
+   #+RESULTS:
+   [[file:matrixbar1.png]]
+
+
 
 * Week 8: Scope and calling functions in R and Python
-
+#+attr_html: :width 400px:
+[[../img/scope.webp]]
 
 
 * Week 9: Natural language processing in R / 2nd sprint review
