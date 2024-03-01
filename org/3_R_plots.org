@@ -5,13 +5,13 @@
 #+STARTUP: overview hideblocks indent :
 #+PROPERTY: header-args:R :session *R* :results output
 #+PROPERTY: header-args:python :session *Python* :results output :python python3
-* DONE README
+* README
 
 - In this file, we review and practice plotting with base R.
 
 - Code along using http://tinyurl.com/r-plots-org
 
-* DONE Bonus: Math plots with R
+* Bonus: Math plots with R
 
 - This section is prompted by a Calculus II exercise that I came
   across. Especially when dealing with trigonometric functions, it can
@@ -69,7 +69,7 @@
   #+RESULTS:
   [[file:../img/func1.png]]
 
-* DONE Problem
+* Problem
 
 The LMS returns the following type of reports:
 #+attr_html: :width 400px:
@@ -86,7 +86,7 @@ We want to:
 
 We'll also have to look at the necessity to remove missing values.
 
-* DONE Data preparation
+* Data preparation
 
 To not have to wade through previous scripts, store the URL in the
 variable ~url~, import the data, and remove the last row as before, and
@@ -138,7 +138,7 @@ the first column, which is irrelevant for our stats visualization:
 :  $ t1: num  4.83 13 16.33 19.07 16.83 ...
 :  $ t2: num  10 11 8.5 14.5 12 ...
 
-* TODO Histogram in R
+* Histogram in R
 
 A histogram plots frequencies over a continuous set of values.
 
@@ -452,7 +452,7 @@ A histogram plots frequencies over a continuous set of values.
   are percentage ranges, which is why the histogram is more
   appropriate.
 
-* TODO Boxplot in R
+* Boxplot in R
 
 To make sure that this works, run [[data]]:
 #+begin_src R :noweb yes
@@ -548,7 +548,6 @@ We covered:
 - Data preparation techniques, which involve importing, cleaning, and
   simplifying data for effective statistical visualization. This
   foundational skill is essential for any data science endeavor.
-
 
 * Glossary
 

@@ -483,15 +483,15 @@ Now, load the code along file and code along for the remainder of this
 session on transforming data frames - with R:
 [[http://tinyurl.com/transform-org][tinyurl.com/transform-org]].
 
-* Week 7: R plots, +utilities, and =apply= family of functions+
+* DONE Week 7: R plots, +utilities, and =apply= family of functions+
 #+attr_html: :width 400px:
 [[../img/conflict.png]]
 
 - [X] Python's =describe= completed
 - [X] Addendum to R's =summary= - don't use the ~ID~ column
-- [ ] Plotting in R - histograms and boxplots
+- [X] Plotting in R - histograms, barplots and boxplots
 
-** DONE Create R graphics code blocks quickly
+** Create R graphics code blocks quickly
 
 1) ~C-h v org-structure-template-alist~
 2) ~Customize~
@@ -502,7 +502,7 @@ session on transforming data frames - with R:
 4) ~APPLY AND SAVE SETTINGS~
 5) ~<rg TAB~
 
-** DONE Review plotting histograms, barplots, tables
+** Review plotting histograms, barplots, tables
 
 1) Check that an R object (e.g. ~url~) was created.
    #+begin_src R
@@ -643,7 +643,7 @@ session on transforming data frames - with R:
    7      9           1
    #+end_example
 
-** DONE Continue "Plotting in R - histograms, barplots, boxplots" :progress:
+** Continue "Plotting in R - histograms, barplots, boxplots"      :progress:
 
 To continue coding along, download, open and run:
 [[https://raw.githubusercontent.com/birkenkrahe/ds205/main/org/3_R_plots_codealong.org][tinyurl.com/r-plots-org]].
@@ -736,6 +736,7 @@ Write down what you think the answers are to these questions:
 
    #+RESULTS:
    [[file:matrixbar1.png]]
+
 
 
 
