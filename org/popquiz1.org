@@ -190,5 +190,5 @@ Solar Eclipse data from [[https://www.kaggle.com/datasets/nasa/solar-eclipses?re
 - Enter all code blocks first, then start at the top and run them.
 - Grade yourself based on the percentage of your code that worked.
 - Hand in your graded pop quiz if you like, for bonus points.
-- Fix your code based on the solutions file.
+- Fix your code based on the solutions in GitHub.
 
