@@ -1,0 +1,194 @@
+#+STARTUP: hideblocks overview indent :
+#+OPTIONS: toc:nil num:nil ^:nil : 
+* Popquiz 1
+
+Without any other resources, complete the following tasks in R for
+Solar Eclipse data from [[https://www.kaggle.com/datasets/nasa/solar-eclipses?resource=download][NASA/kaggle.com]] for a total of 5,000 years.
+
+1) Store URL: Create an R object ~url~ for the web address
+   http://tinyurl.com/solar-csv and check that the object is there:
+   #+begin_src R
+     url <- 'http://tinyurl.com/solar-csv'
+     url  # or ls()
+     ls()
+   #+end_src
+
+   #+RESULTS:
+   : [1] "http://tinyurl.com/solar-csv"
+   :  [1] "bar"        "baz"        "cols"       "courses_df" "df"         "f"          "foo"       
+   :  [8] "freq"       "freq_df"    "freqs"      "idx"        "M"          "my_name"    "name"      
+   : [15] "names"      "number"     "sol"        "solar"      "t1"         "t2"         "tb"        
+   : [22] "tbl"        "tbl1"       "temp"       "type"       "types"      "url"        "x"
+
+2) Data import: The CSV data do have a header row. Import the CSV file
+   from the web into a dataframe ~solar~ and display its data structure.
+   #+begin_src R
+     solar <- read.csv(url,header=TRUE)
+     str(solar)
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+   'data.frame':	11898 obs. of  15 variables:
+    $ Catalog.Number   : int  1 2 3 4 5 6 7 8 9 10 ...
+    $ Calendar.Date    : chr  "-1999 June 12" "-1999 December 5" "-1998 June 1" "-1998 November 25" ...
+    $ Eclipse.Time     : chr  "03:14:51" "23:45:23" "18:09:16" "05:57:03" ...
+    $ Delta.T..s.      : int  46438 46426 46415 46403 46393 46391 46381 46379 46369 46358 ...
+    $ Lunation.Number  : int  -49456 -49450 -49444 -49438 -49433 -49432 -49427 -49426 -49421 -49415 ...
+    $ Saros.Number     : int  5 10 15 20 -13 25 -8 30 -3 2 ...
+    $ Eclipse.Type     : chr  "T" "A" "T" "A" ...
+    $ Gamma            : num  -0.27 -0.232 0.499 -0.904 -1.467 ...
+    $ Eclipse.Magnitude: num  1.073 0.938 1.028 0.981 0.161 ...
+    $ Latitude         : chr  "6.0N" "32.9S" "46.2N" "67.8S" ...
+    $ Longitude        : chr  "33.3W" "10.8E" "83.4E" "143.8W" ...
+    $ Sun.Altitude     : int  74 76 60 25 0 0 0 0 43 59 ...
+    $ Sun.Azimuth      : int  344 21 151 74 281 55 265 120 321 214 ...
+    $ Path.Width..km.  : chr  "247" "236" "111" "162" ...
+    $ Central.Duration : chr  "06m37s" "06m44s" "02m15s" "01m14s" ...
+   #+end_example
+
+3) Index extraction: Write a command to extract the number of the
+   column named ~Calendar.Date~ from the ~solar~ dataframe.
+   #+begin_src R :session *R* :results output :exports both :noweb yes
+     which(names(solar)=='Calendar.Date')
+     which(names(solar)=='Eclipse.Type')
+     which(names(solar)=='Latitude')
+     which(names(solar)=='Longitude')
+     which(names(solar)=='Central.Duration')
+   #+end_src
+
+   #+RESULTS:
+   : [1] 2
+   : [1] 7
+   : [1] 10
+   : [1] 11
+   : [1] 15
+
+4) Transformation: Write the following steps in a code block:
+   1) Store the indices of some columns (given in a table below) in a vector ~cols~.
+   2) Copy these columns from the dataframe ~solar~ to a new dataframe
+      ~sol~.
+   3) Change the names of the columns from the old to the new name
+      shown in the table.
+   4) Display the structure of ~sol~.
+
+   | Column | Old name         | New name |
+   |--------+------------------+----------|
+   |      2 | Calendar.Date    | date     |
+   |      7 | Eclipse.Type     | type     |
+   |     10 | Latitude         | lat      |
+   |     11 | Longitude        | lon      |
+   |     15 | Central.Duration | tot      |
+
+   #+begin_src R
+     cols <- c(2,7,10,11,15)
+     sol <- solar[cols]
+     names(sol) <- c('date','type','lat','lon','tot')
+     str(sol)
+   #+end_src
+
+   #+RESULTS:
+   : 'data.frame':	11898 obs. of  5 variables:
+   :  $ date: chr  "-1999 June 12" "-1999 December 5" "-1998 June 1" "-1998 November 25" ...
+   :  $ type: chr  "T" "A" "T" "A" ...
+   :  $ lat : chr  "6.0N" "32.9S" "46.2N" "67.8S" ...
+   :  $ lon : chr  "33.3W" "10.8E" "83.4E" "143.8W" ...
+   :  $ tot : chr  "06m37s" "06m44s" "02m15s" "01m14s" ...
+
+5) Display the contingency table of the solar eclipse types (in ~type~)
+   and store it in an R object called ~tbl~. Then print the table.
+   #+begin_src R
+     tbl <- table(sol$type)
+     tbl
+   #+end_src
+
+   #+RESULTS:
+   : 
+   :    A   A-   A+   Am   An   As    H   H2   H3   Hm    P   Pb   Pe    T   T-   T+   Tm   Tn   Ts 
+   : 3755   34   34   72   36   25  502   24   26   17 3875  163  162 3049   17    9   72   14   12
+
+6) How many types of solar eclipses are there? Write a command that
+   returns the number of types.
+   #+begin_src R
+     length(tbl)
+   #+end_src
+
+   #+RESULTS:
+   : [1] 19
+
+7) The table ~tbl~ has =names= and frequencies. Make a =barplot= of the
+   table names. Label the x- and y-axis appropriately.
+   #+name: barplot
+   #+begin_src R :results graphics file output :file ~/GitHub/admin/spring24/ds205/barsol.png
+     barplot(tbl,
+             xlab="Solar eclipse types",
+             ylab="Number of solar eclipses")
+   #+end_src
+
+   #+RESULTS:
+   [[file:~/GitHub/admin/spring24/ds205/barsol.png]]
+
+8) Convert the table ~tbl~ to a dataframe ~types~ and name the first
+   column ~Type~, then print the dataframe.
+   #+begin_src R
+     types <- as.data.frame(tbl)
+     names(types)[1] <- "Type"
+     types
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+      Type Freq
+   1     A 3755
+   2    A-   34
+   3    A+   34
+   4    Am   72
+   5    An   36
+   6    As   25
+   7     H  502
+   8    H2   24
+   9    H3   26
+   10   Hm   17
+   11    P 3875
+   12   Pb  163
+   13   Pe  162
+   14    T 3049
+   15   T-   17
+   16   T+    9
+   17   Tm   72
+   18   Tn   14
+   19   Ts   12
+   #+end_example
+
+9) Make a histogram of the frequencies in ~types~ in decreasing order,
+   and name the x-axis appropriately. Tip: to sort a vector ~x~ in
+   decreasing order, run ~sort(x, decreasing=TRUE)~.
+   #+name: histogram
+   #+begin_src R :file solhist.png :session *R* :results output graphics file :exports both :noweb yes
+     x <- sort(types$Freq,decreasing=TRUE)
+     hist(x,
+          xlab="Frequency of solar eclipse types")
+   #+end_src
+
+   #+RESULTS: histogram
+   [[file:solhist.png]]
+
+10) Place both the barplot and histogram you just made in one panel on
+    top of one another (barplot on top, histogram below). 
+    #+begin_src R :file panel.png :session *R* :results output graphics file :exports both :noweb yes
+      par(mfrow=c(2,1))
+      <<barplot>>
+      <<histogram>>
+      par()
+    #+end_src
+
+    #+RESULTS:
+    [[file:panel.png]]
+
+- When you're finished, tell me your confidence that your code is error-free.
+- Create an Emacs Org-mode file and enter your code.
+- Enter all code blocks first, then start at the top and run them.
+- Grade yourself based on the percentage of your code that worked.
+- Hand in your graded pop quiz if you like, for bonus points.
+- Fix your code based on the solutions file.
+

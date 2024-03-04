@@ -1,6 +1,6 @@
 #+title: ds205 - entry test practice
 #+STARTUP: overview hideblocks indent :
-#+PROPERTY: header-args:python :results output :session *Python*
+#+PROPERTY: header-args:python :results output :session *Python* :python python3
 #+PROPERTY: header-args:R :results output :session *R*
 * Entry Test Review - R and Python
 

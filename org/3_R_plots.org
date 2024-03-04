@@ -182,7 +182,7 @@ A histogram plots frequencies over a continuous set of values.
 - You can check from here if there's a file (on Windows, you need to
   replace =ls= by =DIR=):
   #+begin_src R :session *R* :results output :exports both :noweb yes
-                                            # system('ls -l histR_t1.png')
+    ## system('ls -l histR_t1.png')
   #+end_src
 
   #+RESULTS:
