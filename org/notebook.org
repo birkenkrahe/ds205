@@ -745,6 +745,16 @@ Write down what you think the answers are to these questions:
 [[../img/scope.webp]]
 
 
+- Lecture: Calling functions & Scoping in R
+
+- Download the codealong and practice files from GitHub:
+  + [[http://tinyurl.com/4-R-codealong-org][tinyurl.com/4-R-codealong-org]]
+  + [[http://tinyurl.com/4-R-practice-org][tinyurl.com/4-R-practice-org]]  
+
+- Test 3 available now until March 10 (30 questions/1 hour)
+
+- Next DataCamp lesson (=apply=) deadline now March 10
+
 * Week 9: Natural language processing in R / 2nd sprint review
 * Week 10: Natural language processing in Python
 * Week 11: R: Importing and exporting data
