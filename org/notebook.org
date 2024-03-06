@@ -744,6 +744,7 @@ Write down what you think the answers are to these questions:
 #+attr_html: :width 400px:
 [[../img/scope.webp]]
 
+- [X] Popquiz - wasn't it great!
 
 - Lecture: Calling functions & Scoping in R
 

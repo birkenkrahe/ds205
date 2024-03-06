@@ -31,19 +31,15 @@ practice file is an independent exercise. Solutions in the pdf repo.
   2) list all built-in datasets in the MASS package
   #+begin_src R
     ## create row-wise 2x2 matrics of 1...9
-    matrix(data=1:9, nrow=3, byrow=TRUE)
+    #matrix(data=1:9, nrow=3, byrow=TRUE)
 
     ## list all datasets in the MASS package
-    library(MASS)
-    data(package='MASS')
+    library(MASS) ## load MASS
+    data(package='MASS') ## list datasets in MASS
   #+end_src
 
   #+RESULTS:
   #+begin_example
-       [,1] [,2] [,3]
-  [1,]    1    2    3
-  [2,]    4    5    6
-  [3,]    7    8    9
   Data sets in package ‘MASS’:
 
   Aids2                     Australian AIDS Survival Data
@@ -177,10 +173,14 @@ practice file is an independent exercise. Solutions in the pdf repo.
   #+begin_src R
     foo <- 4 + 5
     bar <- "stringtastic"
-    hello <- function() print("hello")
+    hello <- function() print("hello, Marcus")
     ls()
     hello()
   #+end_src
+
+  #+RESULTS:
+  : [1] "bar"         "foo"         "hello"       "ToothGrowth" "youthspeak"
+  : [1] "hello, Marcus"
 
 * Package environments and namespaces
 
@@ -191,10 +191,76 @@ practice file is an independent exercise. Solutions in the pdf repo.
   #+begin_src R
     ls("package:datasets")
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+    [1] "ability.cov"           "airmiles"              "AirPassengers"        
+    [4] "airquality"            "anscombe"              "attenu"               
+    [7] "attitude"              "austres"               "beaver1"              
+   [10] "beaver2"               "BJsales"               "BJsales.lead"         
+   [13] "BOD"                   "cars"                  "ChickWeight"          
+   [16] "chickwts"              "co2"                   "CO2"                  
+   [19] "crimtab"               "discoveries"           "DNase"                
+   [22] "esoph"                 "euro"                  "euro.cross"           
+   [25] "eurodist"              "EuStockMarkets"        "faithful"             
+   [28] "fdeaths"               "Formaldehyde"          "freeny"               
+   [31] "freeny.x"              "freeny.y"              "HairEyeColor"         
+   [34] "Harman23.cor"          "Harman74.cor"          "Indometh"             
+   [37] "infert"                "InsectSprays"          "iris"                 
+   [40] "iris3"                 "islands"               "JohnsonJohnson"       
+   [43] "LakeHuron"             "ldeaths"               "lh"                   
+   [46] "LifeCycleSavings"      "Loblolly"              "longley"              
+   [49] "lynx"                  "mdeaths"               "morley"               
+   [52] "mtcars"                "nhtemp"                "Nile"                 
+   [55] "nottem"                "npk"                   "occupationalStatus"   
+   [58] "Orange"                "OrchardSprays"         "PlantGrowth"          
+   [61] "precip"                "presidents"            "pressure"             
+   [64] "Puromycin"             "quakes"                "randu"                
+   [67] "rivers"                "rock"                  "Seatbelts"            
+   [70] "sleep"                 "stack.loss"            "stack.x"              
+   [73] "stackloss"             "state.abb"             "state.area"           
+   [76] "state.center"          "state.division"        "state.name"           
+   [79] "state.region"          "state.x77"             "sunspot.month"        
+   [82] "sunspot.year"          "sunspots"              "swiss"                
+   [85] "Theoph"                "Titanic"               "ToothGrowth"          
+   [88] "treering"              "trees"                 "UCBAdmissions"        
+   [91] "UKDriverDeaths"        "UKgas"                 "USAccDeaths"          
+   [94] "USArrests"             "UScitiesD"             "USJudgeRatings"       
+   [97] "USPersonalExpenditure" "uspop"                 "VADeaths"             
+  [100] "volcano"               "warpbreaks"            "women"                
+  [103] "WorldPhones"           "WWWusage"
+  #+end_example
+
   Or to list the visible objects of the ~graphics~ package:
   #+begin_src R
     ls("package:graphics")
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+   [1] "abline"          "arrows"          "assocplot"       "axis"           
+   [5] "Axis"            "axis.Date"       "axis.POSIXct"    "axTicks"        
+   [9] "barplot"         "barplot.default" "box"             "boxplot"        
+  [13] "boxplot.default" "boxplot.matrix"  "bxp"             "cdplot"         
+  [17] "clip"            "close.screen"    "co.intervals"    "contour"        
+  [21] "contour.default" "coplot"          "curve"           "dotchart"       
+  [25] "erase.screen"    "filled.contour"  "fourfoldplot"    "frame"          
+  [29] "grconvertX"      "grconvertY"      "grid"            "hist"           
+  [33] "hist.default"    "identify"        "image"           "image.default"  
+  [37] "layout"          "layout.show"     "lcm"             "legend"         
+  [41] "lines"           "lines.default"   "locator"         "matlines"       
+  [45] "matplot"         "matpoints"       "mosaicplot"      "mtext"          
+  [49] "pairs"           "pairs.default"   "panel.smooth"    "par"            
+  [53] "persp"           "pie"             "plot"            "plot.default"   
+  [57] "plot.design"     "plot.function"   "plot.new"        "plot.window"    
+  [61] "plot.xy"         "points"          "points.default"  "polygon"        
+  [65] "polypath"        "rasterImage"     "rect"            "rug"            
+  [69] "screen"          "segments"        "smoothScatter"   "spineplot"      
+  [73] "split.screen"    "stars"           "stem"            "strheight"      
+  [77] "stripchart"      "strwidth"        "sunflowerplot"   "symbols"        
+  [81] "text"            "text.default"    "title"           "xinch"          
+  [85] "xspline"         "xyinch"          "yinch"
+  #+end_example
 
 - A package /namespace/ allows the package writer to hide functions and
   data that are only for internal use, and stops functions from
@@ -207,6 +273,35 @@ practice file is an independent exercise. Solutions in the pdf repo.
     library(dplyr)
     dplyr::filter
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+
+  Attaching package: ‘dplyr’
+
+  The following object is masked from ‘package:MASS’:
+
+      select
+
+  The following objects are masked from ‘package:stats’:
+
+      filter, lag
+
+  The following objects are masked from ‘package:base’:
+
+      intersect, setdiff, setequal, union
+  function (.data, ..., .by = NULL, .preserve = FALSE) 
+  {
+      check_by_typo(...)
+      by <- enquo(.by)
+      if (!quo_is_null(by) && !is_false(.preserve)) {
+          abort("Can't supply both `.by` and `.preserve`.")
+      }
+      UseMethod("filter")
+  }
+  <bytecode: 0x55c5d6cb8008>
+  <environment: namespace:dplyr>
+  #+end_example
 
 - If you look at the output (the definition of ~filter~ in this package,
   you notice an internal (~base~) function, ~UseMethod~, which is not
@@ -235,6 +330,11 @@ practice file is an independent exercise. Solutions in the pdf repo.
     youthspeak
   #+end_src
 
+  #+RESULTS:
+  :      [,1]  [,2]  
+  : [1,] "OMG" "WTF" 
+  : [2,] "LOL" "YOLO"
+
 - Calling ~matrix~ like this creates a local environment containing the
   ~data~ vector
 
@@ -259,6 +359,11 @@ practice file is an independent exercise. Solutions in the pdf repo.
     search()
   #+end_src
 
+  #+RESULTS:
+  :  [1] ".GlobalEnv"        "package:dplyr"     "package:MASS"      "ESSR"             
+  :  [5] "package:stats"     "package:graphics"  "package:grDevices" "package:utils"    
+  :  [9] "package:datasets"  "package:methods"   "Autoloads"         "package:base"
+
 - The path always begins at ~.GlobalEnv~ and ends after ~base~. It stops
   if an object is found in any environment along the path.
 
@@ -273,6 +378,9 @@ practice file is an independent exercise. Solutions in the pdf repo.
     baz
   #+end_src
 
+  #+RESULTS:
+  : [1] 0.00 0.75 1.50 2.25 3.00
+
 - R searches ~.GlobalEnv~ for ~seq~, goes through the list and finds it in
   ~base~. ~seq~ is executed and ~baz~ is created in the global environment.
 
@@ -283,7 +391,14 @@ practice file is an independent exercise. Solutions in the pdf repo.
     environment(seq)
     environment(abline)
     environment(filter)
+    environment(stats::filter)    
   #+end_src
+
+  #+RESULTS:
+  : <environment: namespace:base>
+  : <environment: namespace:graphics>
+  : <environment: namespace:dplyr>
+  : <environment: namespace:stats>
 
 - When a package is loaded with ~library~, it is inserted in the search
   path right after the global environment, along with all its
@@ -292,6 +407,12 @@ practice file is an independent exercise. Solutions in the pdf repo.
     library('car')
     search()
   #+end_src
+
+  #+RESULTS:
+  : Error in library("car") : there is no package called ‘car’
+  :  [1] ".GlobalEnv"        "package:dplyr"     "package:MASS"      "ESSR"             
+  :  [5] "package:stats"     "package:graphics"  "package:grDevices" "package:utils"    
+  :  [9] "package:datasets"  "package:methods"   "Autoloads"         "package:base"
 
 - In the example, loading ~car~ lead to the inclusion of the function
   package and its accompanying dataset package: do you remember how to
