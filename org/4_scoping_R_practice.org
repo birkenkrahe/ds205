@@ -96,11 +96,6 @@ the argument: "OMG", "LOL", "IMO", "YOLO".
 
    #+end_src
 
-5) List the contents of the dependency, the dataset ~carData~
-   #+begin_src R
-
-   #+end_src
-
 * Reserved and protected names
 
 1) What happens when you assign a value to an ~NaN~?
