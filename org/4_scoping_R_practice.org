@@ -23,7 +23,7 @@
 
 Example: ~data~ as an argument, and as a function -
 1) create a row-wise 3x3 matrix of the numbers {1..9}
-2) list all datasets in the built-in dataset ~ToothGrowth~
+2) list all datasets in the ~MASS~ package
 
 #+begin_src R
 
