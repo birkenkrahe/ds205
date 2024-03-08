@@ -323,16 +323,16 @@ practice file is an independent exercise. Solutions in the pdf repo.
   function, including any arguments you've supplied during execution.
 
 - Example: create a 2x2 ~matrix~ and pass in the argument ~data~: "OMG", "LOL",
-  "WTF", "YOLO":
+  "IMO", "YOLO":
   #+begin_src R
-    youthspeak <- matrix(data = c("OMG", "LOL", "WTF", "YOLO"),
+    youthspeak <- matrix(data = c("OMG", "LOL", "IMO", "YOLO"),
                          nrow=2, ncol=2)
     youthspeak
   #+end_src
 
   #+RESULTS:
   :      [,1]  [,2]  
-  : [1,] "OMG" "WTF" 
+  : [1,] "OMG" "IMO" 
   : [2,] "LOL" "YOLO"
 
 - Calling ~matrix~ like this creates a local environment containing the
