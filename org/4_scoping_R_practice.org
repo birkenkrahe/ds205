@@ -35,7 +35,7 @@ Example: create three new objects and confirm their existence in the
 global environment:
 1) a ~numeric~ variable ~foo~
 2) a ~character~ variable ~bar~
-3) an anonymous (non-argument) function ~hello~
+3) an anonymous (non-argument) function ~hello~ that prints "Hello!"
 4) check the global environment
 5) run ~hello~
 
@@ -45,12 +45,12 @@ global environment:
 
 * Package environments and namespaces
 
-1) List the content of built-in ~datasets~ (no functions)
+1) List all built-in ~datasets~:
    #+begin_src R
 
    #+end_src
 
-2) List the visible objects of the ~graphics~ package:
+2) List the objects of the ~graphics~ package:
    #+begin_src R
 
    #+end_src
@@ -64,45 +64,39 @@ global environment:
 * Local or lexical environments
 
 Example: create a 2x2 ~matrix~ named ~youthspeak~ and pass as ~data~ in
-the argument: "OMG", "LOL", "WTF", "YOLO".
+the argument: "OMG", "LOL", "IMO", "YOLO".
 #+begin_src R
 
 #+end_src
 
 * Search Path
 
-1) You can view the search path with ~search()~:
+1) You can view the search path with ~search()~. Try calling it without ~()~.
    #+begin_src R
 
    #+end_src
 
-2) Example: create a vector of 5 elements with values between 0 and 3
-   with ~seq~, and print it:
+2) Example: create a vector ~foo~ of 5 elements with values between 0
+   and 3 with ~seq~, and print it:
    #+begin_src R
   
    #+end_src
 
-3) You can look up the environment of any function using ~environment~:
+3) You can look up the environment of any function using
+   ~environment~. Look up ~search~:
    #+begin_src R
 
    #+end_src
 
 4) When a package is loaded with ~library~, it is inserted in the search
    path right after the global environment, along with all its
-   dependencies: load the package ~car~ and print the search path.
+   dependencies: load the package ~MASS~ and print only the element of
+   ~search()~ that indicates this package.
    #+begin_src R
 
    #+end_src
 
 5) List the contents of the dependency, the dataset ~carData~
-   #+begin_src R
-
-   #+end_src
-
-6) An error is thrown if you request a function or object
-   + that you haven't *defined*,
-   + that doesn't *exist*,
-   + that is in a contributed package that you've forgotten to *load*
    #+begin_src R
 
    #+end_src
@@ -114,39 +108,38 @@ the argument: "OMG", "LOL", "WTF", "YOLO".
 
    #+end_src
 
-2) Since R is case-sensitive, you can assign values to case variants of
-   these keywords, causing much confusion:
+2) ~T~ and ~F~ can also be overwritten - don't do it since they are the
+   abbreviations for ~TRUE~ and ~FALSE~. Show this with a short script:
+   1. Overwrite =T= with =FALSE=.
+   2. =paste= the string "2 + 2 = 5" and the expression ~(2+2==5) == T~
    #+begin_src R
 
    #+end_src
 
-3) ~T~ and ~F~ can also be overwritten - don't do it since they are the
-   abbreviations for ~TRUE~ and ~FALSE~:
-   #+begin_src R
-
-   #+end_src
-
-4) With all these confusing changes, clear the global environment now!
+3) With all these confusing changes, clear the global environment now:
+   1. show all user-defined variables
+   2. clear them
+   3. show that the environment is clean (~character(0)~).
    #+begin_src R
 
    #+end_src
 
 * Display package content
 
-1) Find the built-in and automatically loaded ~methods~ package.
-
+1) Find the built-in and automatically loaded ~methods~ package in
+   ~search()~ using =which=:
    #+begin_src R
 
    #+end_src
    
 2) Display only the first 20 items contained in the built-in and
-   automatically loaded ~methods~ package.
-
+   automatically loaded ~methods~ package using =ls=.
+   
    #+begin_src R
 
    #+end_src
 
-3) How many items are there in total?
+3) How many items are there in total in =package:methods=?
 
    #+begin_src R
 
@@ -211,9 +204,3 @@ least one of the values is true. E.g.
 
 #+end_src
 
-* TODO Upload completed Org-file to Canvas
-
-Well done! You've reached the end of this in-class practice file.
-
-If you've completed all steps, you upload the Org-mode file [[https://lyon.instructure.com/courses/1041/assignments][to Canvas]]
-(see ~Assignments > In-class practice~).
