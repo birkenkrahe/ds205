@@ -1,0 +1,696 @@
+#+TITLE: Calling Functions - Scoping - Practice file
+#+AUTHOR: Marcus Birkenkrahe (pledged)
+#+SUBTITLE: In-class practice / DSC 205 / Lyon College Spring 2024
+#+STARTUP:overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This file contains exercises for the lecture "Calling Functions -
+  Scoping" in the Advanced Introduction to Data Science course
+  (DSC205)
+- Most of this material can be found in Davies, Book of
+  R, Chapter 9. Solutions can be found in GitHub (PDF).
+
+* Identify and pledge yourself
+
+1) In Emacs, replace the placeholder ~[yourname]~ at the top of this
+   file by your own name and write ~(pledged)~ next to it
+2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
+   by entering ~S-<right>~ ("Shift + right-arrow").
+
+* Scoping
+
+Example: ~data~ as an argument, and as a function -
+1) create a row-wise 3x3 matrix of the numbers {1..9}
+2) list all datasets in the package ~MASS~
+
+#+begin_src R
+  matrix(data=1:9,nrow=3,byrow=TRUE)
+#+end_src
+
+#+RESULTS:
+:      [,1] [,2] [,3]
+: [1,]    1    2    3
+: [2,]    4    5    6
+: [3,]    7    8    9
+
+#+begin_src R
+  data("ToothGrowth")
+  library("MASS")
+  data(package="MASS")
+#+end_src
+
+#+RESULTS:
+: Error in data(package = MASS) : object 'MASS' not found
+
+* Global environments
+
+Example: create three new objects and confirm their existence in the
+global environment:
+1) a ~numeric~ variable ~foo~
+2) a ~character~ variable ~bar~
+3) an anonymous (non-argument) function ~hello~ that prints "Hello!"
+4) check the global environment
+5) run ~hello~
+
+#+begin_src R
+  foo = 1:3
+  bar = 'A'
+  hello <- function() print("Hello!")
+  ls()
+  hello()
+#+end_src
+
+#+RESULTS:
+: [1] "bar"         "foo"         "hello"       "ToothGrowth"
+: [1] "Hello world"
+
+* Package environments and namespaces
+
+1) List all built-in ~datasets~
+   #+begin_src R
+     data()
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+   Data sets in package ‘datasets’:
+
+   AirPassengers               Monthly Airline Passenger Numbers 1949-1960
+   BJsales                     Sales Data with Leading Indicator
+   BJsales.lead (BJsales)      Sales Data with Leading Indicator
+   BOD                         Biochemical Oxygen Demand
+   CO2                         Carbon Dioxide Uptake in Grass Plants
+   ChickWeight                 Weight versus age of chicks on different diets
+   DNase                       Elisa assay of DNase
+   EuStockMarkets              Daily Closing Prices of Major European Stock Indices,
+                               1991-1998
+   Formaldehyde                Determination of Formaldehyde
+   HairEyeColor                Hair and Eye Color of Statistics Students
+   Harman23.cor                Harman Example 2.3
+   Harman74.cor                Harman Example 7.4
+   Indometh                    Pharmacokinetics of Indomethacin
+   InsectSprays                Effectiveness of Insect Sprays
+   JohnsonJohnson              Quarterly Earnings per Johnson & Johnson Share
+   LakeHuron                   Level of Lake Huron 1875-1972
+   LifeCycleSavings            Intercountry Life-Cycle Savings Data
+   Loblolly                    Growth of Loblolly pine trees
+   Nile                        Flow of the River Nile
+   Orange                      Growth of Orange Trees
+   OrchardSprays               Potency of Orchard Sprays
+   PlantGrowth                 Results from an Experiment on Plant Growth
+   Puromycin                   Reaction Velocity of an Enzymatic Reaction
+   Seatbelts                   Road Casualties in Great Britain 1969-84
+   Theoph                      Pharmacokinetics of Theophylline
+   Titanic                     Survival of passengers on the Titanic
+   ToothGrowth                 The Effect of Vitamin C on Tooth Growth in Guinea Pigs
+   UCBAdmissions               Student Admissions at UC Berkeley
+   UKDriverDeaths              Road Casualties in Great Britain 1969-84
+   UKgas                       UK Quarterly Gas Consumption
+   USAccDeaths                 Accidental Deaths in the US 1973-1978
+   USArrests                   Violent Crime Rates by US State
+   USJudgeRatings              Lawyers' Ratings of State Judges in the US Superior
+                               Court
+   USPersonalExpenditure       Personal Expenditure Data
+   UScitiesD                   Distances Between European Cities and Between US Cities
+   VADeaths                    Death Rates in Virginia (1940)
+   WWWusage                    Internet Usage per Minute
+   WorldPhones                 The World's Telephones
+   ability.cov                 Ability and Intelligence Tests
+   airmiles                    Passenger Miles on Commercial US Airlines, 1937-1960
+   airquality                  New York Air Quality Measurements
+   anscombe                    Anscombe's Quartet of 'Identical' Simple Linear
+                               Regressions
+   attenu                      The Joyner-Boore Attenuation Data
+   attitude                    The Chatterjee-Price Attitude Data
+   austres                     Quarterly Time Series of the Number of Australian
+                               Residents
+   beaver1 (beavers)           Body Temperature Series of Two Beavers
+   beaver2 (beavers)           Body Temperature Series of Two Beavers
+   cars                        Speed and Stopping Distances of Cars
+   chickwts                    Chicken Weights by Feed Type
+   co2                         Mauna Loa Atmospheric CO2 Concentration
+   crimtab                     Student's 3000 Criminals Data
+   discoveries                 Yearly Numbers of Important Discoveries
+   esoph                       Smoking, Alcohol and (O)esophageal Cancer
+   euro                        Conversion Rates of Euro Currencies
+   euro.cross (euro)           Conversion Rates of Euro Currencies
+   eurodist                    Distances Between European Cities and Between US Cities
+   faithful                    Old Faithful Geyser Data
+   fdeaths (UKLungDeaths)      Monthly Deaths from Lung Diseases in the UK
+   freeny                      Freeny's Revenue Data
+   freeny.x (freeny)           Freeny's Revenue Data
+   freeny.y (freeny)           Freeny's Revenue Data
+   infert                      Infertility after Spontaneous and Induced Abortion
+   iris                        Edgar Anderson's Iris Data
+   iris3                       Edgar Anderson's Iris Data
+   islands                     Areas of the World's Major Landmasses
+   ldeaths (UKLungDeaths)      Monthly Deaths from Lung Diseases in the UK
+   lh                          Luteinizing Hormone in Blood Samples
+   longley                     Longley's Economic Regression Data
+   lynx                        Annual Canadian Lynx trappings 1821-1934
+   mdeaths (UKLungDeaths)      Monthly Deaths from Lung Diseases in the UK
+   morley                      Michelson Speed of Light Data
+   mtcars                      Motor Trend Car Road Tests
+   nhtemp                      Average Yearly Temperatures in New Haven
+   nottem                      Average Monthly Temperatures at Nottingham, 1920-1939
+   npk                         Classical N, P, K Factorial Experiment
+   occupationalStatus          Occupational Status of Fathers and their Sons
+   precip                      Annual Precipitation in US Cities
+   presidents                  Quarterly Approval Ratings of US Presidents
+   pressure                    Vapor Pressure of Mercury as a Function of Temperature
+   quakes                      Locations of Earthquakes off Fiji
+   randu                       Random Numbers from Congruential Generator RANDU
+   rivers                      Lengths of Major North American Rivers
+   rock                        Measurements on Petroleum Rock Samples
+   sleep                       Student's Sleep Data
+   stack.loss (stackloss)      Brownlee's Stack Loss Plant Data
+   stack.x (stackloss)         Brownlee's Stack Loss Plant Data
+   stackloss                   Brownlee's Stack Loss Plant Data
+   state.abb (state)           US State Facts and Figures
+   state.area (state)          US State Facts and Figures
+   state.center (state)        US State Facts and Figures
+   state.division (state)      US State Facts and Figures
+   state.name (state)          US State Facts and Figures
+   state.region (state)        US State Facts and Figures
+   state.x77 (state)           US State Facts and Figures
+   sunspot.month               Monthly Sunspot Data, from 1749 to "Present"
+   sunspot.year                Yearly Sunspot Data, 1700-1988
+   sunspots                    Monthly Sunspot Numbers, 1749-1983
+   swiss                       Swiss Fertility and Socioeconomic Indicators (1888)
+                               Data
+   treering                    Yearly Treering Data, -6000-1979
+   trees                       Diameter, Height and Volume for Black Cherry Trees
+   uspop                       Populations Recorded by the US Census
+   volcano                     Topographic Information on Auckland's Maunga Whau
+                               Volcano
+   warpbreaks                  The Number of Breaks in Yarn during Weaving
+   women                       Average Heights and Weights for American Women
+
+   Data sets in package ‘MASS’:
+
+   Aids2                       Australian AIDS Survival Data
+   Animals                     Brain and Body Weights for 28 Species
+   Boston                      Housing Values in Suburbs of Boston
+   Cars93                      Data from 93 Cars on Sale in the USA in 1993
+   Cushings                    Diagnostic Tests on Patients with Cushing's Syndrome
+   DDT                         DDT in Kale
+   GAGurine                    Level of GAG in Urine of Children
+   Insurance                   Numbers of Car Insurance claims
+   Melanoma                    Survival from Malignant Melanoma
+   OME                         Tests of Auditory Perception in Children with OME
+   Pima.te                     Diabetes in Pima Indian Women
+   Pima.tr                     Diabetes in Pima Indian Women
+   Pima.tr2                    Diabetes in Pima Indian Women
+   Rabbit                      Blood Pressure in Rabbits
+   Rubber                      Accelerated Testing of Tyre Rubber
+   SP500                       Returns of the Standard and Poors 500
+   Sitka                       Growth Curves for Sitka Spruce Trees in 1988
+   Sitka89                     Growth Curves for Sitka Spruce Trees in 1989
+   Skye                        AFM Compositions of Aphyric Skye Lavas
+   Traffic                     Effect of Swedish Speed Limits on Accidents
+   UScereal                    Nutritional and Marketing Information on US Cereals
+   UScrime                     The Effect of Punishment Regimes on Crime Rates
+   VA                          Veteran's Administration Lung Cancer Trial
+   abbey                       Determinations of Nickel Content
+   accdeaths                   Accidental Deaths in the US 1973-1978
+   anorexia                    Anorexia Data on Weight Change
+   bacteria                    Presence of Bacteria after Drug Treatments
+   beav1                       Body Temperature Series of Beaver 1
+   beav2                       Body Temperature Series of Beaver 2
+   biopsy                      Biopsy Data on Breast Cancer Patients
+   birthwt                     Risk Factors Associated with Low Infant Birth Weight
+   cabbages                    Data from a cabbage field trial
+   caith                       Colours of Eyes and Hair of People in Caithness
+   cats                        Anatomical Data from Domestic Cats
+   cement                      Heat Evolved by Setting Cements
+   chem                        Copper in Wholemeal Flour
+   coop                        Co-operative Trial in Analytical Chemistry
+   cpus                        Performance of Computer CPUs
+   crabs                       Morphological Measurements on Leptograpsus Crabs
+   deaths                      Monthly Deaths from Lung Diseases in the UK
+   drivers                     Deaths of Car Drivers in Great Britain 1969-84
+   eagles                      Foraging Ecology of Bald Eagles
+   epil                        Seizure Counts for Epileptics
+   farms                       Ecological Factors in Farm Management
+   fgl                         Measurements of Forensic Glass Fragments
+   forbes                      Forbes' Data on Boiling Points in the Alps
+   galaxies                    Velocities for 82 Galaxies
+   gehan                       Remission Times of Leukaemia Patients
+   genotype                    Rat Genotype Data
+   geyser                      Old Faithful Geyser Data
+   gilgais                     Line Transect of Soil in Gilgai Territory
+   hills                       Record Times in Scottish Hill Races
+   housing                     Frequency Table from a Copenhagen Housing Conditions
+                               Survey
+   immer                       Yields from a Barley Field Trial
+   leuk                        Survival Times and White Blood Counts for Leukaemia
+                               Patients
+   mammals                     Brain and Body Weights for 62 Species of Land Mammals
+   mcycle                      Data from a Simulated Motorcycle Accident
+   menarche                    Age of Menarche in Warsaw
+   michelson                   Michelson's Speed of Light Data
+   minn38                      Minnesota High School Graduates of 1938
+   motors                      Accelerated Life Testing of Motorettes
+   muscle                      Effect of Calcium Chloride on Muscle Contraction in Rat
+                               Hearts
+   newcomb                     Newcomb's Measurements of the Passage Time of Light
+   nlschools                   Eighth-Grade Pupils in the Netherlands
+   npk                         Classical N, P, K Factorial Experiment
+   npr1                        US Naval Petroleum Reserve No. 1 data
+   oats                        Data from an Oats Field Trial
+   painters                    The Painter's Data of de Piles
+   petrol                      N. L. Prater's Petrol Refinery Data
+   phones                      Belgium Phone Calls 1950-1973
+   quine                       Absenteeism from School in Rural New South Wales
+   road                        Road Accident Deaths in US States
+   rotifer                     Numbers of Rotifers by Fluid Density
+   ships                       Ships Damage Data
+   shoes                       Shoe wear data of Box, Hunter and Hunter
+   shrimp                      Percentage of Shrimp in Shrimp Cocktail
+   shuttle                     Space Shuttle Autolander Problem
+   snails                      Snail Mortality Data
+   steam                       The Saturated Steam Pressure Data
+   stormer                     The Stormer Viscometer Data
+   survey                      Student Survey Data
+   synth.te                    Synthetic Classification Problem
+   synth.tr                    Synthetic Classification Problem
+   topo                        Spatial Topographic Data
+   waders                      Counts of Waders at 15 Sites in South Africa
+   whiteside                   House Insulation: Whiteside's Data
+   wtloss                      Weight Loss Data from an Obese Patient
+
+
+   Use ‘data(package = .packages(all.available = TRUE))’
+   to list the data sets in all *available* packages.
+   #+end_example
+
+2) List all objects of the ~graphics~ package:
+   #+begin_src R
+     ls(package:graphics)
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+    [1] "abline"          "arrows"          "assocplot"       "axis"            "Axis"
+    [6] "axis.Date"       "axis.POSIXct"    "axTicks"         "barplot"         "barplot.default"
+   [11] "box"             "boxplot"         "boxplot.default" "boxplot.matrix"  "bxp"
+   [16] "cdplot"          "clip"            "close.screen"    "co.intervals"    "contour"
+   [21] "contour.default" "coplot"          "curve"           "dotchart"        "erase.screen"
+   [26] "filled.contour"  "fourfoldplot"    "frame"           "grconvertX"      "grconvertY"
+   [31] "grid"            "hist"            "hist.default"    "identify"        "image"
+   [36] "image.default"   "layout"          "layout.show"     "lcm"             "legend"
+   [41] "lines"           "lines.default"   "locator"         "matlines"        "matplot"
+   [46] "matpoints"       "mosaicplot"      "mtext"           "pairs"           "pairs.default"
+   [51] "panel.smooth"    "par"             "persp"           "pie"             "plot"
+   [56] "plot.default"    "plot.design"     "plot.function"   "plot.new"        "plot.window"
+   [61] "plot.xy"         "points"          "points.default"  "polygon"         "polypath"
+   [66] "rasterImage"     "rect"            "rug"             "screen"          "segments"
+   [71] "smoothScatter"   "spineplot"       "split.screen"    "stars"           "stem"
+   [76] "strheight"       "stripchart"      "strwidth"        "sunflowerplot"   "symbols"
+   [81] "text"            "text.default"    "title"           "xinch"           "xspline"
+   [86] "xyinch"          "yinch"
+   Warning message:
+   In ls(package:graphics) : ‘package:graphics’ converted to character string
+   #+end_example
+
+3) Load (after installation in the R console buffer) the ~dplyr~ package
+   and run the function ~dplyr::filter~.
+   #+begin_src R
+     library(dplyr)
+     dplyr::filter
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+   function (.data, ..., .by = NULL, .preserve = FALSE)
+   {
+       check_by_typo(...)
+       by <- enquo(.by)
+       if (!quo_is_null(by) && !is_false(.preserve)) {
+           abort("Can't supply both `.by` and `.preserve`.")
+       }
+       UseMethod("filter")
+   }
+   <bytecode: 0x5623f0b64810>
+   <environment: namespace:dplyr>
+   #+end_example
+
+* Local or lexical environments
+
+Example: create a 2x2 ~matrix~ named ~youthspeak~ and pass as ~data~ in
+the argument: "OMG", "LOL", "IMO", "YOLO".
+#+begin_src R
+  youthspeak <- matrix(data=c("OMG", "LOL", "IMO", "YOLO"),nrow=2)
+  youthspeak
+#+end_src
+
+#+RESULTS:
+:      [,1]  [,2]
+: [1,] "OMG" "IMO"
+: [2,] "LOL" "YOLO"
+
+* Search Path
+
+1) You can view the search path with ~search()~. Try calling it without ~()~.
+   #+begin_src R
+     search
+     search()
+   #+end_src
+
+   #+RESULTS:
+   : function ()
+   : .Internal(search())
+   : <bytecode: 0x5623ee2e6cb0>
+   : <environment: namespace:base>
+   :  [1] ".GlobalEnv"        "package:dplyr"     "package:MASS"      "ESSR"
+   :  [5] "package:stats"     "package:graphics"  "package:grDevices" "package:utils"
+   :  [9] "package:datasets"  "package:methods"   "Autoloads"         "package:base"
+
+2) Example: create a vector ~foo~ of 5 elements with values between 0 and 3
+   with ~seq~, and print it:
+   #+begin_src R
+     seq(from=0,to=3,length.out=5)
+   #+end_src
+
+   #+RESULTS:
+   : [1] 0.00 0.75 1.50 2.25 3.00
+
+3) You can look up the environment of any function using
+   ~environment~. Look up ~seq~:
+   #+begin_src R
+     environment(seq)
+   #+end_src
+
+   #+RESULTS:
+   : <environment: namespace:base>
+
+4) When a package is loaded with ~library~, it is inserted in the search
+   path right after the global environment, along with all its
+   dependencies: load the package ~MASS~ and print only the element of
+   ~search()~ that indicates this package.
+
+   #+begin_src R
+     library(MASS)
+     search()[which(search()=="package:MASS")] # if you 
+   #+end_src
+
+   #+RESULTS:
+   : [1] "package:MASS"
+
+* Reserved and protected names
+
+1) What happens when you assign a value to an ~NaN~ object?
+   #+begin_src R
+     NaN <- 1
+   #+end_src
+
+   #+RESULTS:
+   : Error in NaN <- 1 : invalid (do_set) left-hand side to assignment
+
+2) ~T~ and ~F~ can also be overwritten - don't do it since they are the
+   abbreviations for ~TRUE~ and ~FALSE~. Show this with a short script:
+   1. Overwrite =T= with =FALSE=.
+   2. =paste= the string "2 + 2 = 5" and the expression ~(2+2==5) == T~
+   #+begin_src R
+     T <- FALSE
+     paste("2+2=5 is", (2+2==5) == T)
+   #+end_src
+
+   #+RESULTS:
+   : [1] "2+2=5 is TRUE"
+
+3) With all these confusing changes, clear the global environment now:
+   1. show all user-defined variables
+   2. clear them
+   3. show that the environment is clean (~character(0)~).
+
+   #+begin_src R
+     ls()
+     rm(list=ls())
+     ls()
+   #+end_src
+
+   #+RESULTS:
+   : [1] "bar"         "F"           "foo"         "hello"       "T"           "ToothGrowth"
+   : [7] "youthspeak"
+   : character(0)
+
+* Display package content
+
+1) Find the built-in and automatically loaded ~methods~ package in
+   ~search()~ using =which=:
+
+   #+begin_src R
+     search()[which(search()=="package:methods")]
+   #+end_src
+
+   #+RESULTS:
+   : [1] "package:methods"
+
+2) Display only the first 20 items contained in the built-in and
+   automatically loaded ~methods~ package using =ls=.
+   #+begin_src R
+     ls('package:methods')[1:20]
+   #+end_src
+
+   #+RESULTS:
+   :  [1] "addNextMethod"         "allNames"              "Arith"
+   :  [4] "as"                    "as<-"                  "asMethodDefinition"
+   :  [7] "assignClassDef"        "assignMethodsMetaData" "balanceMethodsList"
+   : [10] "body<-"                "cacheGenericsMetaData" "cacheMetaData"
+   : [13] "cacheMethod"           "callGeneric"           "callNextMethod"
+   : [16] "canCoerce"             "cbind2"                "checkAtAssignment"
+   : [19] "checkSlotAssignment"   "classesToAM"
+
+3) How many items are there in total in =package:methods=?
+
+   #+begin_src R
+     length(ls('package:methods'))
+   #+end_src
+
+   #+RESULTS:
+   : [1] 203
+
+* Functions and environments
+
+1) Which environment owns the ~read.table~ function?
+
+   #+begin_src R
+     environment(read.table)
+   #+end_src
+
+   #+RESULTS:
+   : <environment: namespace:utils>
+
+2) Which environment owns the ~data~ function?
+
+   #+begin_src R
+     environment(data)
+   #+end_src
+
+   #+RESULTS:
+   : <environment: namespace:utils>
+
+3) Which environment owns the ~matrix~ function?
+
+   #+begin_src R
+     environment(matrix)
+   #+end_src
+
+   #+RESULTS:
+   : <environment: namespace:base>
+
+4) Which environment owns the ~jpeg~ function?
+
+   #+begin_src R
+     environment(jpeg)
+   #+end_src
+
+   #+RESULTS:
+   : <environment: namespace:grDevices>
+
+5) Where is the help for ~jpeg~? Save the =help= for =jpeg= in an object ~h~, and then
+   print the =head= of ~h~. 
+
+   #+begin_src R
+     class(help(jpeg))
+     h <- help(jpeg)
+     head(h)
+   #+end_src
+
+   #+RESULTS:
+   : [1] "help_files_with_topic"
+   : [1] "/usr/lib/R/library/grDevices/help/png"
+
+6) If you check the location that the last output seems to provide,
+   you'll be disappointed: there is only an ~.rdb~ file at that
+   place. These files are created when R is built and installed. They
+   are not meant to be directly read or manipulated. However, you can
+   try to read ~.rds~ files with the =readRDS= function:
+   #+begin_src R
+     readRDS("/usr/lib/R/library/grDevices/help/aliases.rds")
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+          grDevices-package                .axisPars               .ps.prolog 
+        "grDevices-package"              "axisTicks"             "postscript" 
+                adjustcolor         as.graphicsAnnot                as.raster 
+              "adjustcolor"       "as.graphicsAnnot"              "as.raster" 
+            as.raster.array      as.raster.character        as.raster.logical 
+                "as.raster"              "as.raster"              "as.raster" 
+           as.raster.matrix        as.raster.numeric            as.raster.raw 
+                "as.raster"              "as.raster"              "as.raster" 
+                       atop                axisTicks                      bar 
+                 "plotmath"              "axisTicks"               "plotmath" 
+                     bgroup                   bitmap                   blues9 
+                 "plotmath"             "dev2bitmap"               "densCols" 
+                        bmp                     bold               bolditalic 
+                      "png"               "plotmath"               "plotmath" 
+              boxplot.stats               bringToTop          cairoSymbolFont 
+            "boxplot.stats"             "bringToTop"        "cairoSymbolFont" 
+                  cairo_pdf                 cairo_ps            check.options 
+                    "cairo"                  "cairo"          "check.options" 
+                      chull                  CIDFont                       cm 
+                    "chull"              "Type1Font"                     "cm" 
+                  cm.colors                  col2rgb           colorConverter 
+                 "palettes"                "col2rgb"               "make.rgb" 
+                  colorRamp         colorRampPalette                   colors 
+                "colorRamp"              "colorRamp"                 "colors" 
+                colorspaces                  colours             contourLines 
+             "convertColor"                 "colors"           "contourLines" 
+               convertColor                 densCols         dev.capabilities 
+             "convertColor"               "densCols"       "dev.capabilities" 
+                dev.capture              dev.control                 dev.copy 
+              "dev.capture"                   "dev2"                   "dev2" 
+               dev.copy2eps             dev.copy2pdf                  dev.cur 
+                     "dev2"                   "dev2"                    "dev" 
+                  dev.flush                 dev.hold          dev.interactive 
+                "dev.flush"              "dev.flush"        "dev.interactive" 
+                   dev.list                  dev.new                 dev.next 
+                      "dev"                    "dev"                    "dev" 
+                    dev.off                 dev.prev                dev.print 
+                      "dev"                    "dev"                   "dev2" 
+                    dev.set                 dev.size               dev2bitmap 
+                      "dev"               "dev.size"             "dev2bitmap" 
+              devAskNewPage                   device      deviceIsInteractive 
+            "devAskNewPage"                "Devices"        "dev.interactive" 
+                    Devices             displaystyle                      dot 
+                  "Devices"               "plotmath"               "plotmath" 
+                 embedFonts              extendrange                     frac 
+               "embedFonts"            "extendrange"               "plotmath" 
+           getGraphicsEvent      getGraphicsEventEnv             graphics.off 
+         "getGraphicsEvent"       "getGraphicsEvent"                    "dev" 
+                       gray              gray.colors                grDevices 
+                     "gray"            "gray.colors"      "grDevices-package" 
+                       grey              grey.colors                    group 
+                     "gray"            "gray.colors"               "plotmath" 
+              grSoftVersion                      hat                      hcl 
+            "grSoftVersion"               "plotmath"                    "hcl" 
+                 hcl.colors                 hcl.pals              heat.colors 
+                 "palettes"               "palettes"               "palettes" 
+                    Hershey                      hsv                      inf 
+                  "Hershey"                    "hsv"               "plotmath" 
+                   integral                is.raster                   italic 
+                 "plotmath"              "as.raster"               "plotmath" 
+                   Japanese                     jpeg                 make.rgb 
+                 "Japanese"                    "png"               "make.rgb" 
+                  msgWindow                  n2mfrow                nclass.FD 
+                "msgWindow"                "n2mfrow"                 "nclass" 
+               nclass.scott           nclass.Sturges                     over 
+                   "nclass"                 "nclass"               "plotmath" 
+                    palette           palette.colors             palette.pals 
+                  "palette"                "palette"                "palette" 
+                        pdf              pdf.options                 pdfFonts 
+                      "pdf"            "pdf.options"        "postscriptFonts" 
+                    phantom                   pictex                    plain 
+                 "plotmath"                 "pictex"               "plotmath" 
+                   plotmath                      png               postscript 
+                 "plotmath"                    "png"             "postscript" 
+            postscriptFonts              pretty.Date            pretty.POSIXt 
+          "postscriptFonts"            "pretty.Date"            "pretty.Date" 
+         print.recordedplot         print.SavedPlots               ps.options 
+               "recordplot"                "windows"             "ps.options" 
+                     quartz           quartz.options              quartz.save 
+                   "quartz"                 "quartz"                 "quartz" 
+                 quartzFont              quartzFonts                  rainbow 
+              "quartzFonts"            "quartzFonts"               "palettes" 
+             recordGraphics               recordPlot               replayPlot 
+           "recordGraphics"             "recordplot"             "recordplot" 
+                        rgb                  rgb2hsv                     ring 
+                      "rgb"                "rgb2hsv"               "plotmath" 
+                   savePlot        scriptscriptstyle              scriptstyle 
+                 "savePlot"               "plotmath"               "plotmath" 
+                     setEPS      setGraphicsEventEnv setGraphicsEventHandlers 
+               "ps.options"       "getGraphicsEvent"       "getGraphicsEvent" 
+                      setPS                stayOnTop                      sup 
+               "ps.options"             "bringToTop"               "plotmath" 
+                        svg                   symbol           terrain.colors 
+                    "cairo"               "plotmath"               "palettes" 
+                  textstyle                     tiff              topo.colors 
+                 "plotmath"                    "png"               "palettes" 
+                    trans3d                Type1Font                underline 
+                  "trans3d"              "Type1Font"               "plotmath" 
+                    widehat                widetilde                win.graph 
+                 "plotmath"               "plotmath"                "windows" 
+               win.metafile                win.print                  windows 
+                  "windows"                "windows"                "windows" 
+            windows.options              windowsFont             windowsFonts 
+          "windows.options"           "windowsFonts"           "windowsFonts" 
+                        X11                      x11              X11.options 
+                      "x11"                    "x11"                    "x11" 
+                    X11Font                 X11Fonts                     xfig 
+                 "x11Fonts"               "x11Fonts"                   "xfig" 
+                  xy.coords                  xyTable               xyz.coords 
+                "xy.coords"                "xyTable"             "xyz.coords" 
+               [.SavedPlots 
+                  "windows"
+   #+end_example
+
+7) Show that ~base::matrix~ is called *after* ~utils::read.table~ by
+   comparing the indices in the ~character~ vector ~search()~.
+
+   /Tip:/ to extract indices, you can use the ~which~ function in
+   connection with logical operators.
+
+   #+begin_src R
+     environment(matrix)
+     environment(read.table)
+     search()
+     which(search()=="package:base")
+     which(search()=="package:utils")
+   #+end_src
+
+   #+RESULTS:
+   : <environment: namespace:base>
+   : <environment: namespace:utils>
+   :  [1] ".GlobalEnv"        "package:dplyr"     "package:MASS"      "ESSR"             
+   :  [5] "package:stats"     "package:graphics"  "package:grDevices" "package:utils"    
+   :  [9] "package:datasets"  "package:methods"   "Autoloads"         "package:base"
+   : [1] 12
+   : [1] 8
+
+* Functions and packages
+
+Use ~ls~ and a test for ~character~ string equality to confirm that the
+function ~smoothScatter~ is part of the ~graphics~ package.
+
+/Tip:/ given a set of logical vectors, the function ~any~ tests if at
+least one of the values is true. E.g.
+#+begin_src R
+  any(c("Jim","Jane","Joe") == "Jane")  # this is TRUE
+  any(c("Jim","Jane","Joe") == "Janet")  # this is FALSE
+#+end_src
+
+#+RESULTS:
+: [1] TRUE
+: [1] FALSE
+
+#+begin_src R
+  any(ls('package:graphics')=='smoothScatter')
+#+end_src
+
+#+RESULTS:
+: [1] TRUE

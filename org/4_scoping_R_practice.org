@@ -150,7 +150,7 @@ the argument: "OMG", "LOL", "IMO", "YOLO".
 
 2) Which environment owns the ~data~ function?
 
-   #+begin_src R 
+   #+begin_src R
 
    #+end_src
 
@@ -159,30 +159,39 @@ the argument: "OMG", "LOL", "IMO", "YOLO".
    #+begin_src R
 
    #+end_src
-   
+
 4) Which environment owns the ~jpeg~ function?
 
    #+begin_src R
 
    #+end_src
-   
-5) What does ~jpeg~ do? To find this out, run the ~help~ function on the
-   command inside the R console and copy the description here:
 
-   #+begin_quote
+5) Where is the help for ~jpeg~? Save the =help= for =jpeg= in an object ~h~, and then
+   print the =head= of ~h~. 
 
-   #+end_quote
+   #+begin_src R
 
-6) Show that ~base::matrix~ is called *after* ~utils::read.table~ by
+   #+end_src
+
+6) If you check the location that the last output seems to provide,
+   you'll be disappointed: there is only an ~.rdb~ file at that
+   place. These files are created when R is built and installed. They
+   are not meant to be directly read or manipulated. However, you can
+   try to read ~.rds~ files with the =readRDS= function:
+   #+begin_src R
+     readRDS("/usr/lib/R/library/grDevices/help/aliases.rds")
+   #+end_src
+
+7) Show that ~base::matrix~ is called *after* ~utils::read.table~ by
    comparing the indices in the ~character~ vector ~search()~.
 
    /Tip:/ to extract indices, you can use the ~which~ function in
    connection with logical operators.
 
    #+begin_src R
-
+     
    #+end_src
-   
+
 * Functions and packages
 
 Use ~ls~ and a test for ~character~ string equality to confirm that the

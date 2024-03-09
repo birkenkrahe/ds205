@@ -1,6 +1,0 @@
-#+begin_src R :file test.png :session *R* :results output graphics file :exports both :noweb yes
-  hist(mtcars$mpg)
-#+end_src
-
-#+RESULTS:
-[[file:test.png]]
