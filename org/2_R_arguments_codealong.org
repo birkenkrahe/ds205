@@ -41,7 +41,7 @@ Switching around the arguments:
   bar <- 
 #+end_src
 
-- [ ] What is ~foo == bar~?
+- What is ~foo == bar~?
   #+begin_src R
 
   #+end_src
@@ -52,7 +52,7 @@ Switching around the arguments:
 
 #+end_src
 
-- [ ] Change ~da~ to ~d~ - what happens and why?[fn:1]
+- Change ~da~ to ~d~ - what happens and why?[fn:1]
   #+begin_src R
 
   #+end_src
@@ -63,7 +63,7 @@ Switching around the arguments:
 
 #+end_src
 
-- [ ] What happens if you leave out the ~byrow~ argument value?
+- What happens if you leave out the ~byrow~ argument value?
   #+begin_src R
 
   #+end_src
@@ -71,13 +71,13 @@ Switching around the arguments:
 * TODO Mixed argument matching
 
 #+begin_src R
-x
+
 #+end_src
 
 * TODO Use of ellipses in arguments
 
-- [ ] What happens when you specify NO arguments for a ~data.frame~
-  named ~df~?
+- What happens when you specify NO arguments for a ~data.frame~ named
+  ~df~?
   #+begin_src R
 
   #+end_src
@@ -94,20 +94,20 @@ x
 
 * TODO Exercises
 
-1) [ ] Is ~matrix~ elliptic? Does this function have an ellipsis (~...~)
-   in its list of arguments?
+1) Is ~matrix~ elliptic? Does this function have an ellipsis (~...~) in
+   its list of arguments?
    #+begin_src R
 
    #+end_src
 
-2) [ ] Use positional matching with ~seq~ to create a sequence of values
+2) Use positional matching with ~seq~ to create a sequence of values
    between -4 and 4 that progresses in steps of 0.2.
    #+begin_src R
 
    #+end_src
 
-3) [ ] Identify, which style of argument matching is being used:
-   exact, partial, positional, or mixed. If mixed, which arguments are
+3) Identify, which style of argument matching is being used: exact,
+   partial, positional, or mixed. If mixed, which arguments are
    specified?
 
    *Write your answer as a comment after the command.*
