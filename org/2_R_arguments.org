@@ -74,7 +74,7 @@ Switching around the arguments:
   bar
 #+end_src
 
-- [ ] What is ~foo == bar~?
+- What is ~foo == bar~?
   #+begin_src R
     foo==bar
   #+end_src
@@ -102,7 +102,7 @@ Switching around the arguments:
   baz
 #+end_src
 
-- [ ] Change ~da~ to ~d~ - what happens and why?[fn:1]
+- Change ~da~ to ~d~ - what happens and why?[fn:1]
   #+begin_src R
     baz <- matrix(
       d=1:9,
@@ -147,7 +147,7 @@ Switching around the arguments:
   bar
 #+end_src
 
-- [ ] What happens if you leave out the ~byrow~ argument value?
+- What happens if you leave out the ~byrow~ argument value?
   #+begin_src R
     bar <-
       matrix(
@@ -186,7 +186,7 @@ Switching around the arguments:
              stringsAsFactors = FALSE)
   #+end_example
 
-- [ ] What happens when you specify NO arguments for ~data.frame~?
+- What happens when you specify NO arguments for ~data.frame~?
   #+begin_src R
     df <- data.frame()
     df
@@ -203,21 +203,23 @@ Switching around the arguments:
   1) ellipsis is the main ingredient (like ~c~ or ~data.frame~)
   2) ellipsis is a supplement (like ~plot~)
 
-- ~plot~ is not variadic but accepts ellipsis arguments:
+- ~plot~ is not variadic but accepts ellipsis arguments (e.g. graphic parameters):
   #+begin_src R
     args(plot)
   #+end_src
+
+- Check out ~help(plot)~ to find out more.
 
 * Exercises
 
 Solutions to these exercises are available in the GitHub pdf repo.
 
-1) [ ] Is ~matrix~ elliptic?
+1) Is ~matrix~ elliptic?
    #+begin_src R
 
    #+end_src
 
-2) [ ] Use positional matching with ~seq~ to create a sequence of values
+2) Use positional matching with ~seq~ to create a sequence of values
    between -4 and 4 that progresses in steps of 0.2.
    #+begin_src R
 
