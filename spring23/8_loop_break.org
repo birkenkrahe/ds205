@@ -1,0 +1,456 @@
+#+TITLE: CODING LOOPS - "break" - "next" - "repeat"
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: DSC 205 - Advanced introduction to data science
+#+STARTUP: overview hideblocks indent inlineimages entitiespretty
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+#+attr_html: :width 400px
+#+caption: Photo by Frank Leuderalbert on Unsplash
+[[../img/8_break.jpg]]
+
+- Download the *raw* file to practice during the lecture [[https://github.com/birkenkrahe/ds2/tree/main/org][from GitHub]],
+  save it as ~8_loop_break_practice.org~ and upload it to Canvas later.
+
+- To test your Emacs mettle, open it on the CMD line with the command
+  ~emacs -nw~ (no graphics - not needed for this exercise).
+
+* Declaring ~break~ or ~next~
+
+- ~for~ loops will exit only when the /loopindex/ exhausts the /loopvector/
+
+- ~while~ loops will exit only when the /loopcondition/ evaluates to ~FALSE~
+
+- ~break~ allows to pre-emptively terminate a loop
+
+- ~next~ allows to leave a loop and continue execution
+
+- Both ~break~ and ~next~ work the same way in ~for~ or ~while~ loops
+
+* Example: ~break~
+
+- Divide a number ~foo~ by each element in a ~numeric~ vector ~bar~:
+  #+name: foobar
+  #+begin_src R :results silent
+    foo <- 5
+    bar <- c(2,3,1.1,4,0,4.1,3)
+  #+end_src
+
+- Divide ~foo~ by ~bar~:
+  #+begin_src R
+    foo/bar
+  #+end_src
+
+  #+RESULTS:
+  : [1] 2.500000 1.666667 4.545455 1.250000      Inf 1.219512 1.666667
+
+- You want to halt execution if one of the results evaluates to ~Inf~:
+  1) initialize ~result~ as vector of length of ~bar~ with ~NA~
+  2) loop over the length of ~bar~
+     1. store ~foo/bar~ in ~temp~
+     2. if ~temp~ ~is.finite~
+        - store ~temp~ in ~result~
+        - otherwise ~break~
+  3) print ~result~
+  #+name: loop1.result
+  #+begin_src R
+    <<foobar>>
+    result <- rep(NA,length(bar))
+    for (i in 1:length(bar)) {
+      foo/bar[i] -> temp
+      if (is.finite(temp)) {
+        temp -> result[i]
+      } else {
+        break
+      }
+    }
+    bar
+    result
+  #+end_src
+
+  #+RESULTS: loop1.result
+  : [1] 2.0 3.0 1.1 4.0 0.0 4.1 3.0
+  : [1] 2.500000 1.666667 4.545455 1.250000       NA       NA       NA
+
+- Solution:
+  #+name: loop1.result.alt
+  #+begin_src R
+    <<foobar>>
+    ## initialize results
+    loop1.init <- rep(NA,length(bar))
+    loop1.result <- loop1.init
+    loop1.result
+    ## loop over length of bar
+    for(i in 1:length(bar)) {
+      loop1.result[i] <- foo/bar[i]
+    }
+    loop1.result
+    loop1.result <- loop1.init
+    ## with break and condition
+    for (i in 1:length(bar)) {
+      temp <- foo/bar[i]
+      if (is.finite(temp)) {
+        loop1.result[i] <- temp
+      } else {
+        break
+      }
+    }
+    loop1.result
+  #+end_src
+
+  #+RESULTS: loop1.result.alt
+  : [1] NA NA NA NA NA NA NA
+  : [1] 2.500000 1.666667 4.545455 1.250000      Inf 1.219512 1.666667
+  : [1] 2.500000 1.666667 4.545455 1.250000       NA       NA       NA
+
+* Example: ~next~
+
+- For more routine operations, use ~next~ instead, which simply advances
+  to the next iteration and continues execution
+
+- Here, ~next~ avoids division by zero:
+  1) initialize 'result' - make vector of length of 'bar' with NA
+  2) loop over length of 'bar'
+     1. if 'bar' is 0, leave loop with 'next'
+     2. if 'bar' is not 0, divide 'foo' by 'bar' and save to 'result'
+  3) print 'result'
+  #+begin_src R
+    <<foobar>>
+    result <- rep(NA,length(bar))
+    for (i in 1:length(bar)) {
+      if (bar[i]==0) {
+        next
+      } else {
+        foo/bar[i] -> result[i]
+      }
+    }
+    bar
+    result
+  #+end_src
+
+  #+RESULTS:
+  : [1] 2.0 3.0 1.1 4.0 0.0 4.1 3.0
+  : [1] 2.500000 1.666667 4.545455 1.250000       NA 1.219512 1.666667
+
+- Solution:
+  #+name: loop2.result
+  #+begin_src R
+    <<foobar>>
+    ## initialize results
+    loop2.result <- rep(NA,length(bar))
+    loop2.result
+    ## loop over length of bar
+    for (i in 1:length(bar)) {
+      if (bar[i]==0) {
+        next
+      } # end if
+      loop2.result[i] <- foo/bar[i]
+    } # end for
+    loop2.result
+  #+end_src
+
+  #+RESULTS: loop2.result
+  : [1] NA NA NA NA NA NA NA
+  : [1] 2.500000 1.666667 4.545455 1.250000       NA 1.219512 1.666667
+
+* ~break~ and ~next~ in nested loops
+
+- If you use either ~break~ or ~next~ in a nested loop, the command will
+  apply only to the innermost loop.
+
+- Fill a matrix with multiples of two vectors and use ~next~ in the
+  inner loop to skip certain values:
+  #+name: init_baz
+  #+begin_src R
+    loopvec1 <- 5:7
+    loopvec2 <- 9:6
+    baz <- matrix(NA,
+                  length(loopvec1),
+                  length(loopvec2))
+  #+end_src
+
+- Loop over both vectors, exclude loops where their element-wise
+  product is greater or equal than 54 but keep going otherwise.
+
+- Algorithm in pseudocode:
+  1) loop over ~loopvec1~
+     1. loop over ~loopvec2~
+        - store product in ~temp~
+        - if ~temp~ is greater or equal than ~54~ leave inner loop
+        - otherwise store temp in ~baz~
+  2) when the loops are done, print ~baz~
+  #+begin_src R
+    <<init_baz>>
+    for (i in 1:length(loopvec1)) {
+      for (j in 1:length(loopvec2)) {
+        temp <- loopvec1[i] * loopvec2[j]
+        if (temp >= 54) {
+          next
+        } else {
+          temp -> baz[i,j]
+        }
+      }
+    }
+    loopvec1
+    loopvec2
+    baz
+  #+end_src
+
+  #+RESULTS:
+  : [1] 5 6 7
+  : [1] 9 8 7 6
+  :      [,1] [,2] [,3] [,4]
+  : [1,]   45   40   35   30
+  : [2,]   NA   48   42   36
+  : [3,]   NA   NA   49   42
+
+- Solution:
+  #+begin_src R
+    <<init_baz>>
+    for (i in 1:length(loopvec1)) {
+      for (j in 1:length(loopvec2)) {
+        temp <- loopvec1[i] * loopvec2[j]
+        if (temp >= 54) {
+          next # leave inner loop
+        } #end if
+        baz[i,j] <- temp
+      } # end for i
+    } # end for j
+    baz
+  #+end_src
+
+* Repeating operations with ~repeat~
+
+- The template for ~repeat~ is simple - it repeats whatever stands
+  between the curly braces:
+  #+begin_src R
+    repeat {
+      do any code in here
+    }
+  #+end_src
+
+- Repetition with ~repeat~ does not include a /loopindex/ or
+  /loopcondition/. To stop repeating the code, you need ~break~.
+
+* Example: ~repeat~
+
+- The Fibonacci sequence is an infinite series of integers beginning
+  with 1,1,2,3,5,8,13,...formally: the n-th Fibonacci number $F_{nx}$ is
+  $F_{n} = F_{n-2} + F_{n-1 }$, $n=2,3,4,5$ and $F_{1} = F_{2} = 1$.
+
+- You can use the Fibonacci sequence into some fun visual designs
+  (Yatsko, 2020).
+
+- You can use ~repeat~, and ~break~ out of the loop:
+  1) initialize first two terms ~fib.a~ and ~fib.b~ with ~1~
+  2) repeat
+     1. store next term ~fib.a + fib.b~ in ~temp~
+     2. overwrite ~fib.a~ with ~fib.b~ (this is now the head)
+     3. overwrite ~fib.b~ with ~temp~ (this is the new term)
+     4. print ~fib.b~ with ~cat~ - in between terms, put a ","
+     5. if ~fib.b~ greater than ~150~
+        - write "(Break now...Fibonacci > 150)" with ~cat~
+        - leave with ~break~
+     #+name: fibonacci
+     #+begin_src R
+       fib.b <- fib.a <- 1 # initialize first 2 terms
+       repeat {
+         fib.a + fib.b -> temp
+         fib.a <- fib.b
+         fib.b <- temp
+         cat(fib.b,",",sep="")
+         if (fib.b > 150) {
+           cat("Break now...Fibonacci > 150\n")
+           break ## 'next' will not break the infinite loop!
+         }
+       }
+     #+end_src
+
+- Solution:
+  #+begin_src R
+    fib.a <- 1  # initialize first two terms
+    fib.b <- 1
+    repeat {
+      temp <- fib.a + fib.b   # compute next term
+      fib.a <- fib.b          # move variables forward
+      fib.b <- temp           # fib.b becomes new Fibonacci number
+      cat(fib.b,",",sep="")   # print Fibonacci number
+      if (fib.b > 150) {      # cut of if number greater than 150
+        cat("Break now...\n")
+        break                 # leave repeat loop
+      } # end if
+    } #end repeat
+  #+end_src
+
+- The quickest Fibonacci generator (first 30 F-numbers, no ~break~):
+  #+begin_src R
+    f <- c(1,1,1,rep(NA,30))
+    for (i in 4:30)  f[i] <- f[i-2] + f[i-1] |> print()
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  [1] 1
+  [1] 2
+  [1] 3
+  [1] 5
+  [1] 8
+  [1] 13
+  [1] 21
+  [1] 34
+  [1] 55
+  [1] 89
+  [1] 144
+  [1] 233
+  [1] 377
+  [1] 610
+  [1] 987
+  [1] 1597
+  [1] 2584
+  [1] 4181
+  [1] 6765
+  [1] 10946
+  [1] 17711
+  [1] 28657
+  [1] 46368
+  [1] 75025
+  [1] 121393
+  [1] 196418
+  [1] 317811
+  #+end_example
+
+- Using this generator for an alternative solution:
+  #+begin_src R
+    fib <- rep(NA,100)  # initialize vector
+    fib[2] <- fib[1] <- 1  # initialize first two numbers
+    i = 2
+    repeat { i <- i + 1  # counter
+      fib[i] <- fib[i-2] + fib[i-1] |> print()
+      if (fib[i] > 150) break
+    }
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  [1] 1
+  [1] 2
+  [1] 3
+  [1] 5
+  [1] 8
+  [1] 13
+  [1] 21
+  [1] 34
+  [1] 55
+  [1] 89
+  [1] 144
+  #+end_example
+
+* Bonus exercises (home assignment)
+#+attr_latex: :width 400px
+[[../img/exercise.jpg]]
+
+- Submit solutions to these exercises as Org-mode files for bonus.
+- Complete one or the other or both (max 20 points.
+- Bonus points are applied at the end of term for your final grade.
+- [[https://lyon.instructure.com/courses/1041/assignments/8975/edit][Upload your solutions to Canvas]].
+
+** Exercise 1: ~while~ without ~break~ or ~next~
+
+Earlier, we divided ~foo~ by ~bar~, where:
+#+begin_src R
+  <<foobar>>
+  foo
+  bar
+#+end_src
+
+#+RESULTS:
+: [1] 5
+: [1] 2.0 3.0 1.1 4.0 0.0 4.1 3.0
+
+1) Write a ~while~ loop - without using ~break~ or ~next~ that will produce
+   the same vector as ~loop1.result~ ([[https://github.com/birkenkrahe/ds2/blob/main/org/8_loop_break.org#example-break][see GitHub]]): compute ~foo/bar~ and
+   make sure you break off as soon as ~Inf~ is produced.
+   #+begin_src R
+     <<loop1.result>>
+   #+end_src
+
+   #+RESULTS:
+   : [1] NA NA NA NA NA NA NA
+   : [1] 2.500000 1.666667 4.545455 1.250000       NA       NA       NA
+
+   #+begin_src R
+     ...
+   #+end_src
+
+2) Obtain the same result as ~loop2.result~ using an ~ifelse~ function
+   instead of a loop.
+   #+begin_src R
+     <<loop2.result>>
+   #+end_src
+
+   #+RESULTS:
+   : [1] NA NA NA NA NA NA NA
+   : [1] 2.500000 1.666667 4.545455 1.250000       NA 1.219512 1.666667
+
+   #+begin_src R
+     ...
+   #+end_src
+
+** Exercise 2: ~for~ and ~repeat~ instead of ~while~
+
+To demonstrate ~while~ loops, you used ~mynumbers~ to progressively fill
+~mylist~ with identity matrices whose dimensions matched the values in
+~mynumbers~. The loop was instructed to stop when it reached the end of
+the ~numeric~ vector or a number greater than 5:
+#+name: initialize
+#+begin_src R :results silent
+  mylist <- list()  # create an empty list to store all matrices
+  counter <- 1      # set loop index counter variable to 1
+  mynumbers <- c(4,5,1,2,6,2,4,6,6,2) # matrix dimensions
+  mycondition <- mynumbers[counter] <= 5 # while loop condition
+#+end_src
+#+name: build_list
+#+begin_src R
+  while (mycondition) {
+    mylist[[counter]] <- diag(mynumbers[counter]) # add matrix to list
+    counter <- counter + 1   # increase counter (stepping through mynumbers)
+    ## update loop condition
+    if (counter <= length(mynumbers)) {
+      mycondition <- mynumbers[counter] <= 5  # counter in bounds
+    } else {
+      mycondition <- FALSE   # counter out of bounds (end of mynumbers)
+    }
+  }
+  mylist
+#+end_src
+
+1) Write a ~for~ loop using a ~break~ declaration that does the same thing.
+
+2) Write a ~repeat~ statement that does the same thing.
+
+* Glossary
+
+| TERM   | MEANING                                   |
+|--------+-------------------------------------------|
+| ~break~  | leave loop and stop execution             |
+| ~next~   | leave current loop and continue execution |
+| ~repeat~ | repeat any statements in the loop area    |
+
+* References
+
+- Ceballos, M. (2013). Data structure. URL: [[http://venus.ifca.unican.es/Rintro/dataStruct.html][venus.ifca.unican.es]].
+- Davies, T.D. (2016). The Book of R. NoStarch Press.
+- Treadway, A. (20 Oct 2020). Why you should use vapply in R. URL:
+  [[https://theautomatic.net/2020/10/20/why-you-should-use-vapply-in-r/][theautomatic.net]].
+- Yatsko, J. (23 Feb, 2020). A New Way to Look at Fibonacci
+  Numbers. URL: [[https://youtu.be/o1eLKODSCqw][youtube.com]].
+- Zach (Dec 7, 2021). How to Use the mapply() Function in R (With
+  Examples). URL: [[https://www.statology.org/r-mapply/][statology.org]].
+
+* Footnotes
+[fn:2]Astonishingly, some websites are trying to sell these (freely
+available) data for US$100.00 ([[https://www.dataandsons.com/categories/product-lists/diamonds-dataset][see here]]).
+
+[fn:1]The ~apply~ call extracts the diagonal elements for each of the 2
+layers with ~diag~. Each call to ~diag~ of a matrix returns a vector and
+these vectors are returned as columns of a new matrix.

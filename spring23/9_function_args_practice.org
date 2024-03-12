@@ -1,0 +1,345 @@
+#+TITLE: FUNCTION ARGUMENTS - CODEALONG PRACTICE FILE
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE:DSC205 Introduction to Advanced Data Science
+#+STARTUP:overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :exports both :results output :session *R* :noweb yes
+* TODO UPDATE #+AUTHOR NAME AND PLEDGE!
+* Intermission: matrix multiplication
+
+- Example: create two matrices, print them and check their dimension:
+  #+name: matrices_A_B
+  #+begin_src R
+    A <- rbind(c(2,5,2),  # rbind is filled by row
+               c(6,1,4))
+    B <- cbind(c(3,-1,1),  # cbind is filled by column
+               c(-3,1,5))
+  #+end_src
+
+- Let's write a function ~multiply~ to check compatibility and run it:
+  1) ~function~ arguments are matrices ~A~ and ~B~.
+  2) test if ~ncol(A)~ is equal to ~nrow(B)~
+  3) multiply if ~TRUE~, otherwise print message
+  4) test the function on the globally defined ~A~ and ~B~ matrices
+  #+name: f_multiply
+  #+begin_src R
+    ## define function with args A and B
+
+    ## check if A and B are compatible for multiplication
+    ## if so, return their product
+    ## otherwise, let the user know (why)
+
+    ## test your function with the previously defined matrices
+    <<matrices_A_B>>
+
+  #+end_src
+
+- Matrix multiplication is generally not commutative. Check that by
+  running ~multiply~ on ~B~ and ~A~ in reverse order from before:
+  #+begin_src R
+    ## multiply B and A
+
+  #+end_src
+
+- Finally, test the function on two incompatible matrices ~C~ and ~D~:
+  #+begin_src R
+    C <- matrix(1:4,2)
+    D <- matrix(1:9,3)
+    ## multiply C and D
+  #+end_src
+
+* Example: multiple ~function~ arguments
+
+- Pseudocode for the function body (objects marked with ~$~):
+  #+begin_example sh
+    $flag matrices in the list $x
+    If $x contains no matrices
+       return $str1
+    Otherwise:
+       Make index from $flag
+       Initialize matrix $counter and $result list
+       Loop over matrices
+         Store matrix in $temp
+         If matrix is compatible with mat
+            Increase matrix counter by 1
+            Multiply $temp and $mat, store in $result
+       If $counter is 0 (no compatible matrices)
+         return $str2
+       Otherwise:
+         return $result of matrix multiplication
+  #+end_example
+
+- Let's code the function ~mult1~ with arguments ~x~, ~mat~, ~str1~, ~str2~:
+  #+name: mult1
+  #+begin_src R :results silent
+    mult1 <- function(x, mat, str1, str2) {
+      ## $flag matrices - use 'sapply', FUN=is.matrix
+      flag <- sapply(X=x, FUN=is.matrix)
+      ## check if $x has 'any' matrices, otherwise 'return' $str1
+      if (!any(flag))  { # TRUE if there a no matrices in x
+        return(str1)
+      }
+      ## $x contains matrices! make index vector $idx from $flag
+      idx <- which(flag) # TRUE for matrix elements of x
+      ## initialize matrix $counter to 0 and an empty $result list
+      counter <- 0
+      result <- list()
+      ## loop over matrices (use $idx as loopindex)
+      for (i in idx) { # sets i to index of x that contains a matrix
+        ## store $x in $temp
+        x[[i]] -> temp
+        ## check if dim of $x and $mat are compatible if TRUE, multiply
+        ## them, store in result (index counter) and increase counter
+        if (ncol(temp) == nrow(mat)) {
+          counter + 1 -> counter
+          temp %*% mat -> result[[counter]]
+        }
+      } ## end of loop over matrix elements of list x
+      ## check if $counter is still 0 then 'return' $str2
+      if (counter == 0) { ## if TRUE then none of the matrices compatible
+        return(str2)
+      } else {      ## otherwise 'return' $result
+        return (result)
+      }
+    }
+  #+end_src
+
+- Test suite with three ~list~ objects ~foo~, ~bar~ and ~baz~:
+  #+name: matrices
+  #+begin_src R :results silent
+    foo <- list(matrix(1:4,2,2),
+                "not a matrix",
+                "definitely not a matrix",
+                matrix(1:8,2,4),
+                matrix(1:8,4,2))
+    bar <- list(1:4,
+                "not a matrix",
+                c(F,T,T,T),
+                "??")
+    baz <- list(1:4,
+                "not a matrix",
+                c(F,T,T,T),
+                "??",
+                matrix(1:8,2,4))
+  #+end_src
+
+- Test ~mult1~ with ~foo~ and set ~mat~ to the 2 x 2 identity matrix - so
+  that post-multiplying any matrix with ~mat~ will simply return the
+  original matrix, as well as appropriate messages ~str1~, ~str2~:
+  #+begin_src R
+    <<matrices>>
+    <<mult1>>
+    mult1(x = ...
+          mat = ...
+          str1 = "no matrices in x",
+          str2 = "no compatible matrices in x")
+  #+end_src
+
+- Test ~mult1~ with ~bar~, which has no matrices at all, and the same
+  arguments otherwise:
+  #+begin_src R
+    <<matrices>>
+    <<mult1>>
+    mult1(x = ...
+          mat = ...
+          str1 = "no matrices in x",
+          str2 = "no compatible matrices in x")
+  #+end_src
+
+- Finally, test ~mult1~ with ~baz~, which has one matrix but no
+  compatibility for multiplication with ~mat~:
+  #+begin_src R
+    <<matrices>>
+    <<mult1>>
+    mult1(x = ...
+          mat = ...
+          str1 = "no matrices in x",
+          str2 = "no compatible matrices in x")
+  #+end_src
+
+- Run ~mult1~ again only for ~x~ and ~mat~:
+  #+begin_src R
+    <<matrices>>
+    <<mult1>>
+    ...
+  #+end_src
+
+- However, for ~x=bar~ this will not work - an argument is missing:
+  #+begin_src R
+    <<matrices>>
+    <<mult1>>
+    ...
+  #+end_src
+
+* Setting default arguments
+
+- ~barplot~ has different methods depending on the class of data fed
+  into it. Can you see how many mandatory arguments each method has?
+
+- Create another version of ~mult1~ and name it ~mult2~, which includes
+  default values for ~str1~ and ~str2~.
+
+- Below is the code for ~mult1~ with the new name ~mult2~ - add the
+  default values yourself:
+  #+name: mult2
+  #+begin_src R :results silent
+    mult2 <- function(x,mat,str1,str2) {
+      flag <- sapply(x, FUN=is.matrix)
+      if(!any(flag)) return (str1)
+      idx <- which(flag)
+      counter <- 0
+      result <- list()
+      for (i in idx) {
+        x[[i]] -> temp
+        if (ncol(temp) == nrow(mat)) {
+          counter <- counter + 1
+          temp %*% mat -> result[[counter]]
+        }
+      }
+      if (counter == 0) {
+        return (str2)
+      } else {
+        return (result)
+      }
+    }
+  #+end_src
+
+- Now re-run the test suite for the three lists ~foo~, ~bar~, and ~baz~,
+  with ~mat~ as the 2 x 2 identity matrix as before:
+  #+begin_src R
+    <<matrices>>
+    <<mult2>>
+    ## test foo
+    ## test bar
+    ## test baz
+  #+end_src
+
+- If you do not want to use the default, you can override it. Call
+  ~mult2~ again for ~baz~ and change the argument for ~str2~ alone to:
+  "Matrices in baz do not have 2 columns."
+  #+begin_src R
+    <<matrices>>
+    <<mult2>>
+    ## test baz but specify argument str2
+  #+end_src
+
+* Checking for missing arguments
+
+- Example using the ~hello(name)~ function: the function ~hello~ throws an
+  error when called without argument.
+  #+begin_src R
+    hello <- function(name) {
+      return(paste("Hello",name))
+    }
+    ## run hello without an argument
+  #+end_src
+
+- But ~hello~ with a check and call to ~missing~ will not break: add the
+  check using ~missing~ for ~name~, then run it with and without argument.
+  #+begin_src R
+    hello <- function(name) {
+      return(paste("Hello",name))
+    }
+  #+end_src
+
+- In the modification ~mult3~ of the algorithm ~mult1~, add an argument
+  check with missing both for ~str1~ and ~str2~.
+  #+name: mult3
+  #+begin_src R
+    mult3 <- function(x,mat,str1,str2) {
+      flag <- sapply(x, FUN=is.matrix)
+      if(!any(flag)) return (str1)
+      idx <- which(flag)
+      counter <- 0
+      result <- list()
+      for (i in idx) {
+        x[[i]] -> temp
+        if (ncol(temp) == nrow(mat)) {
+          counter <- counter + 1
+          temp %*% mat -> result[[counter]]
+        }
+      }
+      if (counter == 0) {
+        return (str2)
+      } else {
+        return (result)
+      }
+    }
+  #+end_src
+
+- Test ~mult3~ with ~bar~ (which returns ~str1~) and with ~baz~ (which returns
+  ~str2~:
+  #+begin_src R
+    <<matrices>>
+    <<mult3>>
+    ## test with bar
+    ## test with baz
+  #+end_src
+
+* Dealing with ellipses
+
+- Write a function that can plot the specified Fibonacci numbers:
+  1) create the Fibonacci sequence ~fibseq~ to ~threshold~
+  2) if ~plotit~ is ~TRUE~, plot the obtained sequence on the y-axis
+     against its index for the x-axis
+  3) Pass the ellipsis right into ~plot~
+  #+name: myfibplot
+  #+begin_src R :results silent
+    myfibplot <- function(threshold, plotit=TRUE,...) {
+      fibseq <- c(1,1)
+      counter <- 2
+      repeat {
+        fibseq <- c(fibseq,fibseq[counter-1]+fibseq[counter])
+        counter <- counter +1
+        if (fibseq[counter] > threshold) break
+      } ## end of Fibonacci computation
+      ## plot(fibseq) if plotit=TRUE and return(fibseq) otherwise
+    }
+  #+end_src
+
+- Suppress the plot but print the sequence up to ~threshold=150~:
+  #+begin_src R
+    <<myfibplot>>
+
+  #+end_src
+
+- Plot Fibonacci numbers up to the ~threshold~ 150 with ~myfib~:
+  #+begin_src R :results graphics file :file ../img/myfib.png
+    <<myfibplot>>
+
+  #+end_src
+
+- In this plot, the ellipsis is not used. In the next one, we'll use
+  it. Add the following arguments to the plot:
+  1) Give it the title "Terms of the Fibonacci sequence"
+  2) Change the point character (~pch~) to 4
+  3) Change the line type (~lty~) to 2
+  4) Change the x-axis label (~xlab~) to "Term (n)"
+  5) Change the y-axis label (~ylab~) to "Fibonacci number"
+  6) Change the plot ~type~ to "both points and lines" (~"b"~)
+  #+begin_src R :results graphics file :file myfib_ellipsis.png
+
+  #+end_src
+
+- The dummy function ~unpackme(...)~ takes an ellipsis converts it into
+  a list.
+  #+name: unpackme
+  #+begin_src R :results silent
+    unpackme <- function(...) {
+      ## assign the ellipsis argument to a list x
+      ## print the list
+      ## print the names of the list elements
+      ## print the types of the list elements
+    }
+  #+end_src
+
+- Here's a sample run:
+  1) four arguments, tagged ~aa~, ~bb~, ~cc~, and ~dd~ are contents of ~...~
+  2) ~unpackme~ identifies them using ~list~
+  #+begin_src R
+    <<unpackme>>
+    unpackme(aa = matrix(1:4,2,2),
+             bb = TRUE,
+             cc = c("two","strings"),
+             dd = factor(c(1,1,2,1)))
+  #+end_src

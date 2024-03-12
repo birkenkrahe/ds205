@@ -1,0 +1,158 @@
+o#+TITLE:COURSE OVERVIEW
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: CSC 205 - ADVANCED INTRODUCTION TO DATA SCIENCE - SPRING 23
+#+STARTUP: overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+#+attr_html: :width 600px
+[[../img/cover.jpg]]
+
+* What is an "Advanced intro to data science"?
+#+attr_latex: :width 400px
+#+caption: Map of the Lonely Mountain (Tolkien, The Hobbit)
+[[../img/0_lonelymountain.png]]
+
+* Data science: Journey to the "Lonely Mountain"
+#+attr_latex: :width 400px
+#+caption: Map of the Lonely Mountain (Tolkien, The Hobbit)
+[[../img/0_dwarves.jpg]]
+
+Glóin. Thorin and Company:
+
+| THE HOBBIT            | THE COURSE                  |
+|-----------------------+-----------------------------|
+| Treasure hunters      | Big Data                    |
+| Skilled experts       | Data science training       |
+| Magic ring owners     | R + Emacs + ESS + Org-mode  |
+| Fighters against evil | Statistics for good or evil |
+| Band of brothers      | Scrum projects              |
+
+* What will you do in this course?
+#+attr_html: :width 350px
+#+attr_latex: :width 250px
+#+caption: Syllabus, Canvas (lyon.instructure.com) or GitHub (github.com/birkenkrahe/ds2)
+[[../img/0_schedule.png]]
+
+#+begin_quote
+- Last DSC 205 course in spring'22 was too "tidy"[fn:2]
+- Mixture of DataCamp lessons and current topics
+- Learn R programming (functions, conditions, loops, utilities)
+- Improve performance (e.g. ~data.table~, fast reading/writing)
+- Special data science topics (e.g. NLP, ML, projects)
+- Transcend R programming (e.g. command line data science)
+#+end_quote
+
+* How will you be evaluated?
+#+attr_html: :width 400px
+#+attr_latex: :width 400px
+#+caption: Source: syllabus, Canvas (lyon.instructure.com) or GitHub (github.com/birkenkrahe/ml)
+[[../img/0_grades.png]]
+
+- All course requirements have deadlines
+- Late submissions will be penalized (loss of points)
+- Final exam will be sourced by term test questions
+- The project topic can come from any of the course sub-topics
+- The project deliverable is a working *literate* program
+
+* Which tools are you going to use?
+#+attr_html: :width 500px
+#+attr_latex: :width 300px
+#+caption: Unsplash, workshop
+[[../img/0_tools.png]]
+
+- [[https://app.datacamp.com/learn/skill-tracks/R-programming][DataCamp courses]] (10 weekly home assignments)
+- [[https://github.com/birkenkrahe/ds2][GitHub repository]] (all course materials except tests)
+- [[https://github.com/birkenkrahe/org/blob/master/FAQ.org][GNU Emacs + ESS + R]] (literate programming environment)
+- [[https://lyon.instructure.com/][Canvas]] (learning management system)
+
+* How can you register at DataCamp?
+#+attr_latex: :width 400px
+#+caption: DataCamp assignments for January 2023
+[[../img/0_datacamp.png]]
+
+- You find the invitation link to the group for Spring 23 [[https://lyon.instructure.com/courses/1041/pages/course-links][in Canvas]].
+- You will automatically be subscribed to the DSC 205 team
+- If you are in more than one course, I will add you later manually
+- These accounts will be valid until July 8, 2023 only
+
+* When is the first assignment due?
+#+attr_html: :width 300px
+#+attr_latex: :width 300px
+[[../img/0_test.jpg]]
+
+- The first DataCamp home assignment is due on Friday, January 23. For
+  late submissions, you lose 1 point per day (out of 10).
+
+- The first in-class assignment is due on Friday, January 27. For late
+  submissions, you lose 1 point per day (out of 10 possible points)
+
+- We'll write the first weekly multiple-choice test on January 23,
+  covering all of the material that was covered until then.
+
+* What should we do as a project?
+#+attr_latex: :width 500px
+#+caption: R packages suitable for student projects by ChatGPT
+[[../img/0_chatgpt.png]]
+
+- For your term project, *pick an R package* to explore and explain
+
+- The exploration should include *examples and tests*
+
+- Your final deliverable should be a *literate program* (Org-mode)
+
+- The final presentation should include *exercises* for the audience
+
+- We can only accommodate *four (4) projects* altogether (groups of 3)
+
+- Deliverables: proposal, literature review, abstract, Org-mode file
+
+* Don't be fooled by ChatGPT
+#+attr_html: :width 400px
+#+attr_latex: :width 250px
+[[../img/0_chatgpt1.png]]
+
+#+begin_src R :results output
+  x1 <- 1:10
+  x2 <- seq(from=1,to=10)
+  x3 <- c(1,2,3,4,5,6,7,8,9,10)
+  x1; x2; x3
+  class(x1)
+#+end_src
+
+#+RESULTS:
+:  [1]  1  2  3  4  5  6  7  8  9 10
+:  [1]  1  2  3  4  5  6  7  8  9 10
+:  [1]  1  2  3  4  5  6  7  8  9 10
+: [1] "integer"
+
+* What are you looking forward to?
+#+attr_html: :width 400px
+#+attr_latex: :width 250px
+[[../img/0_package.jpg]]
+
+- Developing lectures and exercises beyond the "Tidyverse"
+- Learning more about R packages through your projects
+- Having fun with R programming and real applications
+- Graphics compilation in a short time
+- Another tool under (better: on) your belt
+- I want the data science minor and the skills
+- Learn more about the functional aspects of R
+- Excited to use Emacs!
+- The projects!
+- I learn better when I get to work hands-on
+- Close to work environment
+- I want to see how far I can take R
+* Next
+#+attr_html: :width 400px
+#+attr_latex: :width 250px
+#+caption: Our next topic is "Argument matching"
+[[../img/0_argument.jpg]]
+
+* Footnotes
+[fn:2]My view towards the "Tidyverse" is well summarized in Matloff's
+essay "[[https://github.com/matloff/TidyverseSkeptic][TidyverseSceptic]]" (Matloff, 2022).
+
+[fn:1]Maps and GIS (Geographic Information Systems) are super cool but
+deserve an introductory course on their own. The focus of my teaching
+is to get you practical experience that you can use on the job instead
+of a broad conceptual overview (though the latter would be easier for
+all of us).
