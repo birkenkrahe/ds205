@@ -58,6 +58,9 @@ it as ~6_ifelse.org~.
     a
   #+end_src
 
+  #+RESULTS:
+  : [1] 9
+
 - Can you turn this into a function ~square~ with two arguments?
   1) define ~square~ as a =function=
   2) call ~square~ on the arguments ~3,4~
@@ -73,6 +76,18 @@ it as ~6_ifelse.org~.
     ## function call
     square(3,4)
   #+end_src
+
+  #+RESULTS:
+  : [1] 9
+
+- A more minimal version:
+  #+begin_src R
+    square1 <- function(a,b) if (a <= b) return (a^2)
+    square(3,4)
+  #+end_src  
+
+  #+RESULTS:
+  : [1] 9
 
 * ~if~ statement in the R console
 Solution:
@@ -100,6 +115,15 @@ Solution:
     mymat
   #+end_src
 
+  #+RESULTS:
+  :  [1] 2.73 5.40 2.15 5.29 1.36 2.16 1.41 6.97 7.99 9.52
+  :      [,1] [,2]
+  : [1,]    2    0
+  : [2,]    0    3
+  : [3,]    1    0
+  : [4,]    2    1
+  : [5,]    3    1
+
 - Use ~myvec~ and ~mymat~ in this statement and run it:
   #+begin_src R
     if(any((myvec-1) > 9) || matrix(myvec,2,5)[2,1] <= 6) {
@@ -110,6 +134,10 @@ Solution:
       paste("-- a list with", length(mylist), "members now exists.")
     }
   #+end_src
+
+  #+RESULTS:
+  : Condition satisfied -- 
+  : [1] "-- a list with 2 members now exists."
 
 - You should have got this output:
   #+begin_example org
@@ -123,6 +151,23 @@ Solution:
     mylist
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  List of 2
+   $ aa: num [1:10] NA 5.4 NA 5.29 NA 2.16 NA 6.97 NA 9.52
+   $ bb: num [1:5, 1:2] 2.5 0.5 1.5 2.5 3.5 0.5 3.5 0.5 1.5 1.5
+  $aa
+   [1]   NA 5.40   NA 5.29   NA 2.16   NA 6.97   NA 9.52
+
+  $bb
+       [,1] [,2]
+  [1,]  2.5  0.5
+  [2,]  0.5  3.5
+  [3,]  1.5  0.5
+  [4,]  2.5  1.5
+  [5,]  3.5  1.5
+  #+end_example
+
 - Let's take the statement apart:
   #+attr_latex: :width 600px
   [[../img/3_example.png]]
@@ -130,23 +175,37 @@ Solution:
   1) Subtract ~1~ from each value of ~myvec~ and compare with ~9~, then
      check if ~any~ of the elements are ~TRUE~:
      #+begin_src R
-       myvec
-       (myvec-1) > 9
-       any((myvec-1) > 9)
+       myvec    # numeric vector
+       (myvec-1) > 9  # Boolean vector
+       any((myvec-1) > 9)  # Boolean 
      #+end_src
+
+     #+RESULTS:
+     :  [1] 2.73 5.40 2.15 5.29 1.36 2.16 1.41 6.97 7.99 9.52
+     :  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+     : [1] FALSE
 
   2) Construct a 2 x 5 matrix using ~myvec~, extract row 2, column 1,
      and compare with ~6~:
      #+begin_src R
        matrix(myvec, 2, 5) # nrow = 2, ncol = 5
-       matrix(myvec, 2, 5)[2,1] <= 6
+       matrix(myvec, 2, 5)[2,1] <= 6  ## extract element in row 2 and column 1
      #+end_src
+
+     #+RESULTS:
+     :      [,1] [,2] [,3] [,4] [,5]
+     : [1,] 2.73 2.15 1.36 1.41 7.99
+     : [2,] 5.40 5.29 2.16 6.97 9.52
+     : [1] TRUE
 
   3) The condition is evaluated as ~FALSE || TRUE~, hence ~TRUE~, and the
      ~if~ statement is entered:
      #+begin_src R
        any((myvec-1) > 9) || matrix(myvec, 2, 5)[2,1] <= 6
      #+end_src
+
+     #+RESULTS:
+     : [1] TRUE
 
   4) ~cat~ is like ~print~ or ~paste~ with fewer coercions
      #+begin_src R
@@ -163,16 +222,38 @@ Solution:
        foo
      #+end_src
 
+     #+RESULTS:
+     :  [1] 2.73 5.40 2.15 5.29 1.36 2.16 1.41 6.97 7.99 9.52
+     : [1] 2.73 2.15 1.36 1.41 7.99
+     :  [1]   NA 5.40   NA 5.29   NA 2.16   NA 6.97   NA 9.52
+
   6) Create a list ~mylist~ and store ~new.myvec~ as element ~aa~. Increase
      all elements of ~mymat~ by ~0.5~ and store them as element ~bb~.
      #+begin_src R
        list(aa = new.myvec, bb = mymat + 0.5)
      #+end_src
 
+     #+RESULTS:
+     #+begin_example
+     $aa
+      [1]   NA 5.40   NA 5.29   NA 2.16   NA 6.97   NA 9.52
+
+     $bb
+          [,1] [,2]
+     [1,]  2.5  0.5
+     [2,]  0.5  3.5
+     [3,]  1.5  0.5
+     [4,]  2.5  1.5
+     [5,]  3.5  1.5
+     #+end_example
+
   7) Print the ~length~ of the resulting list.
      #+begin_src R
        length(mylist)
      #+end_src
+
+     #+RESULTS:
+     : [1] 2
 
 * ~else~ statements
 
@@ -203,6 +284,9 @@ Solution:
       a
     #+end_src
 
+    #+RESULTS:
+    : Condition was TRUE> [1] 4
+
 - After a few re-runs, the value of ~a~ will be smaller than ~mynumber~
   again, and the first part of the ~if~ statement will be accessed.
 
@@ -219,14 +303,22 @@ Solution:
     if (c(FALSE, TRUE, FALSE, TRUE, TRUE)) {}
   #+end_src
 
+  #+RESULTS:
+  : Warning message:
+  : In if (c(FALSE, TRUE, FALSE, TRUE, TRUE)) { :
+  :   the condition has length > 1 and only the first element will be used
+
 - The function ~ifelse~ can perform vectorized checks.
 
 - Example: create objects ~x~ and ~y~
   #+begin_src R
     x <- 5
-    y <- -5:5
+    y <- -5:5   # vector from -5 to 5
     y
   #+end_src
+
+  #+RESULTS:
+  :  [1] -5 -4 -3 -2 -1  0  1  2  3  4  5
 
 - Suppose you want to compute ~x/y~ but every time the result is ~Inf~
   (division by zero) you want it to be replaced with ~NA~. Running
@@ -234,6 +326,9 @@ Solution:
   #+begin_src R
     y == 0
   #+end_src
+
+  #+RESULTS:
+  :  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
 
 - Instead, use ~ifelse~ - the resulting object has the length of ~test~:
   #+begin_src R
@@ -243,6 +338,10 @@ Solution:
       no = x/y)
     result
   #+end_src
+
+  #+RESULTS:
+  :  [1] -1.000000 -1.250000 -1.666667 -2.500000 -5.000000        NA  5.000000  2.500000  1.666667
+  : [10]  1.250000  1.000000
 
 - *Exercise:* how are vectorized conditions implemented in Python? How
   are if-else statements implemented in Python?
