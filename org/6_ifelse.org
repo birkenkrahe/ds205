@@ -18,8 +18,8 @@ You will learn:
 - How to control the flow and execution order in R code
 - How to use ~if~, ~else~ and ~ifelse~ statements in R
 
-Download the *raw* practice file from 
-~3_ifelse_practice.org~.
+Download the *raw* practice file from [[http://tinyurl.com/R-ifelse-org][tinyurl.com/R-ifelse-org]] and save
+it as ~6_ifelse_practice.org~.
 
 To test your Emacs mettle, open it on the CMD line with the command
 ~emacs -nw~ (no graphics - not needed for this exercise).
