@@ -18,18 +18,16 @@ You will learn:
 - How to control the flow and execution order in R code
 - How to use ~if~, ~else~ and ~ifelse~ statements in R
 
-Download the *raw* practice file from [[http://tinyurl.com/R-ifelse-org][tinyurl.com/R-ifelse-org]] and save
-it as ~6_ifelse_practice.org~.
-
-To test your Emacs mettle, open it on the CMD line with the command
-~emacs -nw~ (no graphics - not needed for this exercise).
+Download the *raw* codealong file from [[http://tinyurl.com/R-ifelse-org][tinyurl.com/R-ifelse-org]] and save
+it as ~6_ifelse.org~.
 
 * ~if~ statements
 
 - An ~if~ statement runs a block of code only if its condition is ~TRUE~.
 
-- In R, condition and loop statements are bundled in "Control Flow":
-  #+attr_latex: :width 300px
+- In R, condition and loop statements are bundled in "Control Flow"
+  (see =help=):
+  #+attr_latex: :width 600px
   [[../img/3_control_flow.png]]
 
 - In this lecture, we'll discuss ~if~, ~else~, and ~ifelse~.
@@ -42,7 +40,8 @@ To test your Emacs mettle, open it on the CMD line with the command
      do anything here
   }
   #+end_example
-- Simple example: 
+
+- Simple example:
   1) store two values
   2) compare the values (condition)
   3) do something inside the conditional statement
@@ -58,25 +57,39 @@ To test your Emacs mettle, open it on the CMD line with the command
   #+begin_src R
     a
   #+end_src
-  
-- Run the code chunk again - what value will ~a~ have now?
+
+- Can you turn this into a function ~square~ with two arguments?
+  1) define ~square~ as a =function=
+  2) call ~square~ on the arguments ~3,4~
+  #+begin_src R
+    ## define function
+    square <- function(a,b) {
+      if (a <= b) {
+        a <- a^2
+      }
+      return (a)
+    } 
+
+    ## function call
+    square(3,4)
+  #+end_src
 
 * ~if~ statement in the R console
-Solution:   
-#+attr_latex: :width 300px
+Solution:
+#+attr_latex: :width 600px
 [[../img/3_console.png]]
 
 1) Open the R console ~*R*~ (in Emacs: ~C-x b~)
-2) Clear the console ("flush output") with ~C-c C-o~
-3) Show the listing of all current R objects
-4) Remove ~a~ and ~mynumber~ and check that they're gone
-5) Enter ~a <- 3~ and ~mynumber <- 4~
-6) Enter the ~if~ statement on three different lines
-7) Print ~a~
-8) Check the console continuation character ~continue~ in ~options~
-9) Change the console continuation character to ">> "
-10) Check the new character by running a command over 2 lines
-      
+2) Show the listing of all current R objects
+3) Remove ~a~ and ~mynumber~ and check that they're gone
+4) Enter ~a <- 3~ and ~mynumber <- 4~
+5) Enter the ~if~ statement on three different lines
+6) Print ~a~
+7) Check the console continuation character ~continue~ in ~options~
+8) Change the console continuation character to ">> "
+9) Check the new character by running a command over 2 lines
+10) Return the =options()$continue= character to the default =+=
+
 * Extended ~if~ example
 
 - Create two new R objects to build a more complicated ~if~ statement:
@@ -87,15 +100,6 @@ Solution:
     mymat
   #+end_src
 
-  #+RESULTS:
-  :  [1] 2.73 5.40 2.15 5.29 1.36 2.16 1.41 6.97 7.99 9.52
-  :      [,1] [,2]
-  : [1,]    2    0
-  : [2,]    0    3
-  : [3,]    1    0
-  : [4,]    2    1
-  : [5,]    3    1
-
 - Use ~myvec~ and ~mymat~ in this statement and run it:
   #+begin_src R
     if(any((myvec-1) > 9) || matrix(myvec,2,5)[2,1] <= 6) {
@@ -105,24 +109,22 @@ Solution:
       mylist <- list(aa = new.myvec, bb = mymat + 0.5)
       paste("-- a list with", length(mylist), "members now exists.")
     }
-  #+end_src  
-
-  #+RESULTS:
-  : Condition satisfied -- 
-  : [1] "-- a list with 2 members now exists."
+  #+end_src
 
 - You should have got this output:
   #+begin_example org
-  : Condition satisfied -- 
+  : Condition satisfied --
   : [1] "-- a list with 2 members now exists."
   #+end_example
+
 - Examine the list ~mylist~ you just created:
   #+begin_src R
     str(mylist)
     mylist
   #+end_src
+
 - Let's take the statement apart:
-  #+attr_latex: :width 300px
+  #+attr_latex: :width 600px
   [[../img/3_example.png]]
 
   1) Subtract ~1~ from each value of ~myvec~ and compare with ~9~, then
@@ -133,11 +135,6 @@ Solution:
        any((myvec-1) > 9)
      #+end_src
 
-     #+RESULTS:
-     :  [1] 2.73 5.40 2.15 5.29 1.36 2.16 1.41 6.97 7.99 9.52
-     :  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-     : [1] FALSE
-
   2) Construct a 2 x 5 matrix using ~myvec~, extract row 2, column 1,
      and compare with ~6~:
      #+begin_src R
@@ -145,28 +142,16 @@ Solution:
        matrix(myvec, 2, 5)[2,1] <= 6
      #+end_src
 
-     #+RESULTS:
-     :      [,1] [,2] [,3] [,4] [,5]
-     : [1,] 2.73 2.15 1.36 1.41 7.99
-     : [2,] 5.40 5.29 2.16 6.97 9.52
-     : [1] TRUE
-
   3) The condition is evaluated as ~FALSE || TRUE~, hence ~TRUE~, and the
      ~if~ statement is entered:
      #+begin_src R
        any((myvec-1) > 9) || matrix(myvec, 2, 5)[2,1] <= 6
      #+end_src
 
-     #+RESULTS:
-     : [1] TRUE
-
   4) ~cat~ is like ~print~ or ~paste~ with fewer coercions
      #+begin_src R
-      cat("Condition satisfied -- \n")
+       cat("Condition satisfied -- \n")
      #+end_src
-
-     #+RESULTS:
-     : Condition satisfied --
 
   5) Copy ~myvec~ to ~new.myvec~ and replaces the odd-numbered indices of
      ~new.myvec~ and overwrites them with ~NA~:
@@ -178,37 +163,16 @@ Solution:
        foo
      #+end_src
 
-     #+RESULTS:
-     :  [1] 2.73 5.40 2.15 5.29 1.36 2.16 1.41 6.97 7.99 9.52
-     : [1] 2.73 2.15 1.36 1.41 7.99
-     :  [1]   NA 5.40   NA 5.29   NA 2.16   NA 6.97   NA 9.52
-
   6) Create a list ~mylist~ and store ~new.myvec~ as element ~aa~. Increase
      all elements of ~mymat~ by ~0.5~ and store them as element ~bb~.
      #+begin_src R
        list(aa = new.myvec, bb = mymat + 0.5)
      #+end_src
 
-     #+RESULTS:
-     #+begin_example
-     $aa
-      [1]   NA 5.40   NA 5.29   NA 2.16   NA 6.97   NA 9.52
-
-     $bb
-          [,1] [,2]
-     [1,]  2.5  0.5
-     [2,]  0.5  3.5
-     [3,]  1.5  0.5
-     [4,]  2.5  1.5
-     [5,]  3.5  1.5
-     #+end_example
   7) Print the ~length~ of the resulting list.
      #+begin_src R
        length(mylist)
      #+end_src
-
-     #+RESULTS:
-     : [1] 2
 
 * ~else~ statements
 
@@ -221,26 +185,29 @@ Solution:
        }
   #+end_example
 
- - Example: initialize values
-   #+begin_src R :results silent
-     a <- 3
-     mynumber <- 4
-   #+end_src
+  - Example: initialize values
+    #+begin_src R :results silent
+      a <- 3
+      mynumber <- 4
+    #+end_src
 
- - Run the extended statement twice:
-   #+begin_src R
-     if (a <= mynumber) {
-       cat("Condition was", a<=mynumber)
-       a <- a^2
-     } else {
-       cat("Condition was", a<=mynumber)
-       a <- a - 3.5
-     }
-     a
-   #+end_src
+  - Run the extended statement twice:
+    #+begin_src R
+      if (a <= mynumber) {
+        cat("Condition was", a <= mynumber)
+        a <- a^2
+      } else {
+        cat("Condition was", a <= mynumber)
+        a <- a - 3.5
+      }
+      a
+    #+end_src
 
 - After a few re-runs, the value of ~a~ will be smaller than ~mynumber~
   again, and the first part of the ~if~ statement will be accessed.
+
+- *Exercise:* turn the last code into a function and 1) print 2) plot
+  the resulting series of values for 10 iterations.
 
 * ~ifelse~ for element-wise checks
 
@@ -252,21 +219,14 @@ Solution:
     if (c(FALSE, TRUE, FALSE, TRUE, TRUE)) {}
   #+end_src
 
-  #+RESULTS:
-  : Error in if (c(FALSE, TRUE, FALSE, TRUE, TRUE)) { : 
-  :   the condition has length > 1
-
 - The function ~ifelse~ can perform vectorized checks.
 
-- Example: create objects ~x~ and ~y~  
+- Example: create objects ~x~ and ~y~
   #+begin_src R
     x <- 5
     y <- -5:5
     y
   #+end_src
-
-  #+RESULTS:
-  :  [1] -5 -4 -3 -2 -1  0  1  2  3  4  5
 
 - Suppose you want to compute ~x/y~ but every time the result is ~Inf~
   (division by zero) you want it to be replaced with ~NA~. Running
@@ -284,16 +244,18 @@ Solution:
     result
   #+end_src
 
-  #+RESULTS:
-  :  [1] -1.000000 -1.250000 -1.666667 -2.500000 -5.000000        NA  5.000000
-  :  [8]  2.500000  1.666667  1.250000  1.000000
+- *Exercise:* how are vectorized conditions implemented in Python? How
+  are if-else statements implemented in Python?
 
-* Exercises
+* Exercise
 #+attr_latex: :width 300px
 [[../img/exercise.jpg]]
 
-Download the raw exercise file [[https://github.com/birkenkrahe/ds2/tree/main/org][from GitHub]] and save it as
-~3_ifelse_exercise.org~.
+To test your Emacs mettle, you can open it on the CMD line with the
+command ~emacs -nw~ (no graphics - not needed for this exercise).
+
+Download the raw exercise file from [[http://tinyurl.com/R-ifelse-exercise-org][tinyurl.com/R-ifelse-exercise-org]]
+and save it as ~6_ifelse_exercise.org~.
 
 * Glossary
 

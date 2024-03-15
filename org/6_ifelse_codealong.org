@@ -1,5 +1,5 @@
-#+TITLE: CONDITIONS AND LOOPS - CONDITIONAL STATEMENTS - IF ELSE
-#+AUTHOR: Marcus Birkenkrahe
+#+TITLE: CONDITIONS AND LOOPS - CONDITIONAL STATEMENTS - IF ELSE - CODEALONG
+#+AUTHOR: [yourname] (pledged)
 #+SUBTITLE: DSC 205 - Advanced introduction to data science
 #+STARTUP: overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
@@ -12,9 +12,6 @@ statements. You will learn:
 - [ ] Standalone ~if~ statements
 - [ ] Using the R console on multiple lines
 - [ ] ~else~ statements and the ~ifelse~ function
-
-Download the *raw* practice file [[https://raw.githubusercontent.com/birkenkrahe/ds2/main/org/3_conditions_practice.org][from GitHub]] and save it as
-~3_conditions_practice.org~.
 
 To test your Emacs mettle, open it on the CMD line with the command
 ~emacs -nw~ (graphics are not needed for this exercise).
@@ -29,9 +26,9 @@ To test your Emacs mettle, open it on the CMD line with the command
 * TODO Stand-alone ~if~ statements
 
 - Simple example: 
-  1) store two values
-  2) compare the values (condition)
-  3) do something inside the conditional statement
+  1) store two values ~a~, ~b~ and assign values 3,4
+  2) compare the values (condition), and if ~a~ is smaller or equal ~b~, then
+  3) square ~a~
   #+begin_src R :results silent
 
   #+end_src
@@ -41,29 +38,31 @@ To test your Emacs mettle, open it on the CMD line with the command
 
   #+end_src
   
-- Run the code chunk again - what value will ~a~ have now?
+- Turn the code into a function and call it for the same pair of
+  values.
+  #+begin_src R
 
+  #+end_src
+  
 * TODO ~if~ statement in the R console
 
 1) Open the R console ~*R*~ (in Emacs: ~C-x b~ if last buffer opened)
-2) Clear the console ("flush output") with ~C-c C-o~
-3) Show the object listing
-4) Remove ~a~ and ~mynumber~ and check that they're gone
-5) Enter ~a <- 3~ and ~mynumber <- 4~
-6) Enter the ~if~ statement on three different lines
-7) Print ~a~
-8) Check the console continuation character ~continue~ in ~options~
-9) Change the console continuation character to ~">> "~
-10) Check the new character by running ~ls()~ over 2 lines
+2) Show the object listing
+3) Remove ~a~ and ~mynumber~ and check that they're gone
+4) Enter ~a <- 3~ and ~mynumber <- 4~
+5) Enter the ~if~ statement on three different lines
+6) Print ~a~
+7) Check the console continuation character ~continue~ in ~options~
+8) Change the console continuation character to ~">> "~
+9) Check the new character by running ~ls()~ over 2 lines
+10) Change the continuation character back to ~+~
       
 * TODO Extended ~if~ example
 
 - Print ~myvec~ and ~mymat~
   #+begin_src R
     myvec <- c(2.73, 5.40, 2.15, 5.29, 1.36, 2.16, 1.41, 6.97, 7.99, 9.52)
-    
     mymat <- matrix(c(2,0,1,2,3,0,3,0,1,1), 5, 2)
-    
   #+end_src
 
 - Run this statement:
