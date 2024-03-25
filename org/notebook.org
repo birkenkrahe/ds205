@@ -753,21 +753,27 @@ Write down what you think the answers are to these questions:
 
 - Next DataCamp lesson (=apply=) deadline now March 10
 
-
-* Week 9: if-else-switch-loops in R / 2nd sprint review
+* DONE Week 9: if-else-switch-loops in R / 2nd sprint review
 #+attr_html: :width 400px: 
 [[../img/week_9.png]]
 
 - Back to Python: two new DataCamp assignments (if-else and loops)
 - [[https://lyon.instructure.com/courses/2111/assignments/26166][2nd sprint review]] opened: literature review (all sources) - March 29
-- Function arguments
-- If-else conditional statements 
-- Switch function
-- Loops in R (explicit and with ~apply~ family functions)
 
-/With bonus assignments and online exercises to complete and upload./
 
-* Week 10: Natural language processing in Python
+* Week 10: Switch statement and Loops in R
+
+- Test 4 available later today - reviewing DataCamp (functions,
+  apply), scoping, arguments, if-else conditional statements
+
+- DataCamp deadlines changed and bonus lesson added
+
+** TODO If-else-Ifelse practice
+
+
+  
+** TODO Test preview and DataCamp review
+
 * Week 11: R: Importing and exporting data
 * Week 12: Python: Importing and exporting data
 * Week 13: Data science on the command line / 3rd sprint review
