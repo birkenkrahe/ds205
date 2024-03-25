@@ -785,7 +785,7 @@ Write down what you think the answers are to these questions:
   #+end_src
 
 
-** TODO if-else exercises: tinyurl.com/6-ifelse-practice-org
+** TODO if-else exercises: [[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
 
 ** TODO Test preview and DataCamp review
 
