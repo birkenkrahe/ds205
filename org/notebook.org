@@ -772,6 +772,9 @@ Write down what you think the answers are to these questions:
 
 - Any questions on the upcoming literature ([[https://lyon.instructure.com/courses/2111/assignments/26166][2nd sprint]]) review?
 
+- Quick question: do you need to reference software in your work? If
+  you do it, how would you do that? ([[https://libguides.ecu.edu/c.php?g=1145002&p=8359973][Example]])
+
 ** TODO Bonus: vectorized condition checks in Python
 
 - In R, you need the function =ifelse= to test a condition for a
@@ -785,17 +788,12 @@ Write down what you think the answers are to these questions:
   #+end_src
 
 
-** TODO if-else exercises: [[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
-
 ** TODO Test preview and DataCamp review
 
 1. What does the =sapply= function do? Can you think of an example?
    #+begin_src R
      sapply(X=1:4, FUN=sqrt)  # returns a vector
    #+end_src
-
-   #+RESULTS:
-   : [1] 1.000000 1.414214 1.732051 2.000000
 
 2. What are the alternatives to =sapply=?
    #+begin_src R
@@ -836,9 +834,6 @@ Write down what you think the answers are to these questions:
             FUN = function(x) x^2) # function without a name
    #+end_src
 
-   #+RESULTS:
-   :  [1]   1   4   9  16  25  36  49  64  81 100
-
 5. What does =vapply= do?
    #+begin_src R
      vapply(X = list(1,2,"3"),
@@ -847,16 +842,42 @@ Write down what you think the answers are to these questions:
             )
    #+end_src
 
-6. 
+6. How can you check which arguments are mandatory, e.g. for =barplot=?
+   #+begin_src R
+     args(barplot)
+   #+end_src
 
-7. 
+7. What do the functions =all= and =any= do?
+   #+begin_src R
+     foo <- c(1,0,1,1,1)
+     all(foo == 0)
+     any(foo == 0)
+   #+end_src
 
-8. 
+8. What happens when you pass a vector to the condition of an =if=
+   statement?
+   #+begin_src R
+     bar <- 5:10
+     if(bar<6) print("OK")
+   #+end_src
 
-9. 
+9. Can you use =ifelse= to replace =NA= values in a vector with =0= values?
+   #+begin_src R
+     x <- c(1,2,NA,4)
 
-10. 
+     ifelse(test = is.na(x),
+            yes  = 0,
+            no   = x)
+   #+end_src
 
+10. What are =&&= and =||= used for?
+    #+begin_src R
+      if (F || T) print("TRUE")
+      if (T && T) print("TRUE again")
+    #+end_src
+
+
+** TODO if-else exercises: [[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
 
 
 * Week 11: R: Importing and exporting data
