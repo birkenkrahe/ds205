@@ -346,6 +346,13 @@ Solution:
 - *Exercise:* how are vectorized conditions implemented in Python? How
   are if-else statements implemented in Python?
 
+* Exercises
+#+attr_latex: :width 300px
+[[../img/exercise.jpg]]
+
+Download the raw exercise file from tinyurl.com/6-ifelse-exercise-org
+and save it as ~3_ifelse_exercise.org~
+
 
 * Glossary
 
