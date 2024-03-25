@@ -775,17 +775,22 @@ Write down what you think the answers are to these questions:
 - Quick question: do you need to reference software in your work? If
   you do it, how would you do that? ([[https://libguides.ecu.edu/c.php?g=1145002&p=8359973][Example]])
 
-** TODO Bonus: vectorized condition checks in Python
+** Bonus: vectorized condition checks in Python
 
 - In R, you need the function =ifelse= to test a condition for a
   vector. In Python, you can use the =all= function:
   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
-    x = [1,2,3,4]
+    x = [1,2,3,4,5]  # vector definition
+
+    ## selection statement
     if all(i < 5 for i in x):
         print("All elements in the vector are less than 5")
     else:
         print("Some elements in the vector are not less than 5")
   #+end_src
+
+  #+RESULTS:
+  : Some elements in the vector are not less than 5
 
 
 ** TODO Test preview and DataCamp review
@@ -795,11 +800,21 @@ Write down what you think the answers are to these questions:
      sapply(X=1:4, FUN=sqrt)  # returns a vector
    #+end_src
 
+   #+RESULTS:
+   : [1] 1.000000 1.414214 1.732051 2.000000
+
 2. What are the alternatives to =sapply=?
    #+begin_src R
      for (x in 1:4) print(sqrt(x)) # for loop
      unlist(lapply(X=1:4, FUN=sqrt)) # lapply
    #+end_src
+
+   #+RESULTS:
+   : [1] 1
+   : [1] 1.414214
+   : [1] 1.732051
+   : [1] 2
+   : [1] 1.000000 1.414214 1.732051 2.000000
 
 3. Which of the following function calls will work for the function
    ~hello~ defined below, and what will the output be?
@@ -816,17 +831,20 @@ Write down what you think the answers are to these questions:
    #+end_src
 
    Function calls:
-   - ~hello("Marcus")~
-   - ~hello(y="Marcus")~
-   - ~hello(100,"Marcus")~          
-   - ~hello(FALSE)~
-   - ~hello(FALSE,"Marcus")~
-   - ~hello(T)~               
+   - ~hello("Marcus")~  - won't work (positional arg in wrong position)
+   - ~hello(y="Marcus")~ - works because arg is exact and 1st arg has default 
+   - ~hello(100,"Marcus")~  - x becomes 100 (TRUE) so it works
+   - ~hello(FALSE)~ - works because y (NA) is never used!
+   - ~hello(FALSE,"Marcus")~ - prints hello world (y never used)
+   - ~hello(T)~  - error because y is needed and missing
 
    #+begin_src R
      <<hello_function>>
-     hello("Marcus")
+     hello(T)
    #+end_src
+
+   #+RESULTS:
+   : Error in paste("Hello", y) : argument "y" is missing, with no default
 
 4. What is an anonymous function?
    #+begin_src R
@@ -834,25 +852,39 @@ Write down what you think the answers are to these questions:
             FUN = function(x) x^2) # function without a name
    #+end_src
 
+   #+RESULTS:
+   :  [1]   1   4   9  16  25  36  49  64  81 100
+
 5. What does =vapply= do?
    #+begin_src R
      vapply(X = list(1,2,"3"),
-            FUN = is.numeric,
+            FUN = is.numeric,   # tests if X is numeric or not
             FUN.VALUE = logical(1) # expected output type
             )
    #+end_src
 
+   #+RESULTS:
+   : [1]  TRUE  TRUE FALSE
+
 6. How can you check which arguments are mandatory, e.g. for =barplot=?
    #+begin_src R
-     args(barplot)
+     args(barplot)  # or call up the complete help with ?
    #+end_src
+
+   #+RESULTS:
+   : function (height, ...) 
+   : NULL
 
 7. What do the functions =all= and =any= do?
    #+begin_src R
      foo <- c(1,0,1,1,1)
-     all(foo == 0)
-     any(foo == 0)
+     all(foo == 1)   # are all elements of foo equal 1?
+     any(foo == 0)   # are any elements of foo equal 0?
    #+end_src
+
+   #+RESULTS:
+   : [1] FALSE
+   : [1] TRUE
 
 8. What happens when you pass a vector to the condition of an =if=
    statement?
@@ -861,20 +893,33 @@ Write down what you think the answers are to these questions:
      if(bar<6) print("OK")
    #+end_src
 
+   #+RESULTS:
+   : [1] "OK"
+   : Warning message:
+   : In if (bar < 6) print("OK") :
+   :   the condition has length > 1 and only the first element will be used
+
 9. Can you use =ifelse= to replace =NA= values in a vector with =0= values?
    #+begin_src R
      x <- c(1,2,NA,4)
 
-     ifelse(test = is.na(x),
+     ifelse(test = is.na(x),   # tests if x is missing (NA)
             yes  = 0,
             no   = x)
    #+end_src
 
+   #+RESULTS:
+   : [1] 1 2 0 4
+   
 10. What are =&&= and =||= used for?
     #+begin_src R
-      if (F || T) print("TRUE")
-      if (T && T) print("TRUE again")
+      if (F || T) print("TRUE") # will print because F OR T == TRUE
+      if (T && T) print("TRUE again") # will print because T AND T == TRUE
     #+end_src
+
+    #+RESULTS:
+    : [1] "TRUE"
+    : [1] "TRUE again"
 
 
 ** TODO if-else exercises: [[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
