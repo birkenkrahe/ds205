@@ -765,6 +765,8 @@ Write down what you think the answers are to these questions:
 #+attr_html: :width 400px:
 [[../img/week_10.png]]
 
+** Announcements
+
 - [[https://lyon.instructure.com/courses/2111/assignments/25562/edit?quiz_lti][Test 4]] available later this week - reviewing DataCamp (functions,
   apply), scoping, arguments, if-else conditional statements
 
@@ -774,6 +776,7 @@ Write down what you think the answers are to these questions:
 
 - Quick question: do you need to reference software in your work? If
   you do it, how would you do that? ([[https://libguides.ecu.edu/c.php?g=1145002&p=8359973][Example]])
+
 
 ** Bonus: vectorized condition checks in Python
 
@@ -922,8 +925,9 @@ Write down what you think the answers are to these questions:
     : [1] "TRUE again"
 
 
-** TODO if-else exercises: [[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
+** TODO if-else exercises
 
+[[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
 
 * Week 11: R: Importing and exporting data
 * Week 12: Python: Importing and exporting data

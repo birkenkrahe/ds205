@@ -353,7 +353,6 @@ Solution:
 Download the raw exercise file from tinyurl.com/6-ifelse-exercise-org
 and save it as ~3_ifelse_exercise.org~
 
-
 * Glossary
 
 | TERM    | MEANING                                   |

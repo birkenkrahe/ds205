@@ -16,7 +16,6 @@ statements. Upon completion, upload it to Canvas.
 2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
    by entering ~S-<right>~ ("Shift + right-arrow").
 
-
 * Create two vectors:
 #+begin_src R :results silent
   vec1 <- c(2,1,1,3,2,1,0)
@@ -66,5 +65,5 @@ but only conditional functions ~if~, ~else~, ~ifelse~).
 
 #+end_src
 
-Bonus: do you know how to do this with =for= or =apply=?
+Bonus: do you know how to do this without =for=?
 
