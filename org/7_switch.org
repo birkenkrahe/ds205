@@ -78,6 +78,12 @@ and save it as ~switch.org~.
     <<nested>>
   #+end_src
 
+  #+RESULTS:
+  : First condition was TRUE
+  : Second condition was TRUE
+  : [1] 9
+  : [1] 1.000000 3.666667 6.333333 9.000000
+
 - Reset ~a <- 6~ and ~mynumber <- 4~ and run the nested statements
   again. This time the first condition is not met but the second is,
   and ~b~ is computed with the new value of ~a~:
