@@ -166,6 +166,11 @@ Code with =for= loop:
   vec
 #+end_src
 
+#+RESULTS:
+: [1] "add"   "bar"   "foo"   "hello" "idx"   "vec1"  "vec2"  "x"
+: [1] TRUE
+: [1] 6 8 3 6 2 1 0
+
 #+begin_src R
   idx <- vec1 + vec2 > 3
   add <- vec1 + vec2; add

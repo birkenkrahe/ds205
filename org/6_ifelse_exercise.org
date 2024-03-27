@@ -51,6 +51,7 @@ are true.
   if(!is.na(vec2[3])){cat("Print me!\n")}
   #+end_example
 
+  
 * TODO Use =if= and =else= with vectors
 
 ** Task 5
