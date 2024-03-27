@@ -21,17 +21,17 @@ statements.
 - In pseudocode notation:
   #+begin_example
   IF a <= mynumber
-     a <- a^2
+     assign a^2 to a
      IF mynumber > 3
-        b <- seq(1,a,length=mynumber)
+        assign seq(1,a,length=mynumber) to b
      ELSE
-        b <- a * mynumber
+        assign a * mynumber to b
   ELSE
-     a <- a-3.5
+     assigne a-3.5 to a
      IF mynumber >= 4
-        b <- a^(3-mynumber)
+        assigne a^(3-mynumber) to b
      ELSE
-        b <- rep(a + mynumber, times=3)
+        assigne rep(a + mynumber, times=3) to b
   #+end_example
 
 - Nesting different statements for two variables ~a~ and ~mynumber~

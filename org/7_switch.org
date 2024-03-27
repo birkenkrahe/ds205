@@ -16,8 +16,8 @@ You will learn:
 - How to stack ~if~ statements with ~else if~
 - How to pick statements with ~switch~
 
-Download the *raw codealong file* from [[http://tinyurl/R-switch-codealong][tinyurl/R-switch-codealong]] and
-save it as ~switch.org~.
+Download the *raw codealong file* from [[http://tinyurl.com/R-switch-codealong][tinyurl.com/R-switch-codealong]]
+and save it as ~switch.org~.
 
 * Nesting and stacking
 
@@ -30,17 +30,17 @@ save it as ~switch.org~.
 - In pseudocode notation:
   #+begin_example
   IF a <= mynumber
-     a <- a^2
+     assign a^2 to a
      IF mynumber > 3
-        b <- seq(1,a,length=mynumber)
+        assign seq(1,a,length=mynumber) to b
      ELSE
-        b <- a * mynumber
+        assign a * mynumber to b
   ELSE
-     a <- a-3.5
+     assigne a-3.5 to a
      IF mynumber >= 4
-        b <- a^(3-mynumber)
+        assigne a^(3-mynumber) to b
      ELSE
-        b <- rep(a + mynumber, times=3)
+        assigne rep(a + mynumber, times=3) to b
   #+end_example
 
 - Nesting different statements for two variables ~a~ and ~mynumber~:
@@ -274,8 +274,8 @@ save it as ~switch.org~.
 #+attr_latex: :width 300px
 [[../img/exercise.jpg]]
 
-Download the raw exercise file [[https://github.com/birkenkrahe/ds2/tree/main/org][from GitHub]] and save it as
-~4_switch_exercise.org~.
+Download the raw exercise file from [[http://tinyurl.com/R-switch-practice][tinyurl.com/R-switch-practice]] and
+save it as: ~switch_practice.org~.
 * Glossary
 
 | TERM           | MEANING                                   |
@@ -292,4 +292,5 @@ Download the raw exercise file [[https://github.com/birkenkrahe/ds2/tree/main/or
 * Footnotes
 
 [fn:1] In the code block, ~<<nested>>~ inserts the named code block
-(~#+name: nested~) and runs it.
+(~#+name: nested~) and runs it. This is achieved with the =:noweb yes=
+flag in the =#+PROPERTY:= header of the Org-mode file.

@@ -53,6 +53,8 @@ are true.
 
 * TODO Use =if= and =else= with vectors
 
+** Task 5
+
 Using ~vec1~ and ~vec2~, write and execute a line of code that multiplies
 the corresponding elements of the two vectors together if their
 element-wise sum is greater than ~3~. Otherwise, the code should simply
@@ -65,5 +67,17 @@ but only conditional functions ~if~, ~else~, ~ifelse~).
 
 #+end_src
 
-Bonus: do you know how to do this without =for=?
+** Task 6
 
+Do this without =ifelse=. Write the solution as pseudocode first, then
+code it in R.
+
+Pseudocode:
+#+begin_example
+...
+#+end_example
+
+Code:
+#+begin_src R
+
+#+end_src
