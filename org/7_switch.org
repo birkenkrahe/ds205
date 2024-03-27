@@ -30,17 +30,17 @@ and save it as ~switch.org~.
 - In pseudocode notation:
   #+begin_example
   IF a <= mynumber
-     assign a^2 to a
+     assign `a^2` to a
      IF mynumber > 3
-        assign seq(1,a,length=mynumber) to b
+        assign `seq(1,a,length=mynumber)` to b
      ELSE
-        assign a * mynumber to b
+        assign `a * mynumber` to b
   ELSE
-     assigne a-3.5 to a
+     assign a-3.5 to a
      IF mynumber >= 4
-        assigne a^(3-mynumber) to b
+        assign `a^(3-mynumber)` to b
      ELSE
-        assigne rep(a + mynumber, times=3) to b
+        assign `rep(a + mynumber, times=3)` to b
   #+end_example
 
 - Nesting different statements for two variables ~a~ and ~mynumber~:
@@ -71,33 +71,21 @@ and save it as ~switch.org~.
     b
   #+end_src
 
-- Run this code with ~a <- 3~ and ~mynumber <- 4~:
+- Run this code with ~a <- 3~ and ~mynumber <- 4:~ [fn:1]
   #+begin_src R
     a <- 3
     mynumber <- 4
     <<nested>>
   #+end_src
 
-  #+RESULTS:
-  : First condition was TRUE
-  : Second condition was TRUE
-  : [1] 9
-  : [1] 1.000000 3.666667 6.333333 9.000000
-
 - Reset ~a <- 6~ and ~mynumber <- 4~ and run the nested statements
   again. This time the first condition is not met but the second is,
-  and ~b~ is computed with the new value of ~a~[fn:1].
+  and ~b~ is computed with the new value of ~a~:
   #+begin_src R
     a <- 6
     mynumber <- 4
     <<nested>>
   #+end_src
-
-  #+RESULTS:
-  : First condition was FALSE
-  : Second condition was TRUE
-  : [1] 2.5
-  : [1] 0.4
 
 * Example: stacking
 
@@ -107,17 +95,17 @@ and save it as ~switch.org~.
 - In pseudocode notation:
   #+begin_example
   IF a <= mynumber AND mynumber > 3
-     a <- a^2
-     b <- seq(1,a,length=mynumber)
+     assign `a^2` to a
+     assign `seq(1,a,length=mynumber)` to b
   ELSE IF a <= mynumber AND mynumber <= 3
-     a <- a^2
-     b <- a * mynumber
+     assign `a^2` to a
+     assign `a * mynumber` to b
   ELSE IF a > mynumber AND mynumber >= 4
-     a <- a-3.5
-     b <- a^(3-mynumber)
+     assign `a-3.5` to a
+     assign `a^(3-mynumber)` to b
   ELSE
-     a <- a-3.5
-     b <- rep(a + mynumber, times=3)
+     assign `a-3.5` to a
+     assign `rep(a + mynumber, times=3)` to b
   #+end_example
 
 - In R code:
@@ -154,14 +142,6 @@ and save it as ~switch.org~.
     <<stacked>>
   #+end_src
 
-  #+RESULTS:
-  : First condition TRUE and second TRUE
-  : [1] 9
-  : [1] 1.000000 3.666667 6.333333 9.000000
-  : First condition FALSE and second TRUE
-  : [1] 2.5
-  : [1] 0.4
-
 * The ~switch~ function for ~character~ strings
 
 - If you need to choose code based on the value of a single object,
@@ -170,7 +150,7 @@ and save it as ~switch.org~.
 - Example: assign a ~numeric~ value to ~foo~ where the number depends on
   the value of ~mystring~:
   #+name: simpsons
-  #+begin_src R
+  #+begin_src R :results silent
     if ( mystring == "Homer" ) {
       foo <- 12
     } else if ( mystring == "Marge" ) {
@@ -194,10 +174,6 @@ and save it as ~switch.org~.
     mystring <- "Peter"   # not in the list
     <<simpsons>>
   #+end_src
-
-  #+RESULTS:
-  : [1] 78
-  : [1] NA
 
 - The ~switch~ function behaves like a set of stacked ~if~
   statements. Take a look at ~help(switch)~ to see its definition.
@@ -224,10 +200,6 @@ and save it as ~switch.org~.
     <<switch>>
   #+end_src
 
-  #+RESULTS:
-  : [1] 78
-  : [1] NA
-
 - The first argument ~EXPR~ can be ~numeric~ or a ~character~ string
 
 - The remaining arguments provide the values or operations based on
@@ -243,17 +215,11 @@ and save it as ~switch.org~.
     foo
   #+end_src
 
-  #+RESULTS: iswitch
-  : NULL
-
 - In the code, every other value for ~mynum~ than 1,2,3,4 will set ~foo~
   to ~NULL~, the "null" object (value is undefined).
   #+begin_src R
     class(NULL)
   #+end_src
-
-  #+RESULTS:
-  : [1] "NULL"
 
 - Examples:
   #+begin_src R
@@ -264,11 +230,6 @@ and save it as ~switch.org~.
     mynum <- 100
     <<iswitch>>
   #+end_src
-
-  #+RESULTS:
-  : [1] 56
-  : NULL
-  : NULL
 
 * Exercises
 #+attr_latex: :width 300px
@@ -293,4 +254,5 @@ save it as: ~switch_practice.org~.
 
 [fn:1] In the code block, ~<<nested>>~ inserts the named code block
 (~#+name: nested~) and runs it. This is achieved with the =:noweb yes=
-flag in the =#+PROPERTY:= header of the Org-mode file.
+flag in the =#+PROPERTY:= header of the Org-mode file. Alternatively,
+you could define the =if= block as a function.
