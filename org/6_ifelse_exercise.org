@@ -16,7 +16,7 @@ statements. Upon completion, upload it to Canvas.
 2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
    by entering ~S-<right>~ ("Shift + right-arrow").
 
-* Create two vectors:
+* TODO Create two vectors:
 #+begin_src R :results silent
   vec1 <- c(2,1,1,3,2,1,0)
   vec2 <- c(3,8,2,2,0,0,0)
@@ -51,7 +51,6 @@ are true.
   if(!is.na(vec2[3])){cat("Print me!\n")}
   #+end_example
 
-  
 * TODO Use =if= and =else= with vectors
 
 ** Task 5

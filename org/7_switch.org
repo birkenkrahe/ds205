@@ -43,7 +43,9 @@ and save it as ~switch.org~.
         assign `rep(a + mynumber, times=3)` to b
   #+end_example
 
-- Nesting different statements for two variables ~a~ and ~mynumber~:
+- Nesting different statements for two variables ~a~ and ~mynumber~ (Note
+  that this code block on its own will not run because the variables
+  are unknown.)
   #+name: nested
   #+begin_src R :results silent
     if(a <= mynumber) {
@@ -92,6 +94,12 @@ and save it as ~switch.org~.
     mynumber <- 4
     <<nested>>
   #+end_src
+
+  #+RESULTS:
+  : First condition was FALSE
+  : Second condition was TRUE
+  : [1] 2.5
+  : [1] 0.4
 
 * Example: stacking
 
@@ -206,6 +214,10 @@ and save it as ~switch.org~.
     <<switch>>
   #+end_src
 
+  #+RESULTS:
+  : [1] 78
+  : [1] NA
+
 - The first argument ~EXPR~ can be ~numeric~ or a ~character~ string
 
 - The remaining arguments provide the values or operations based on
@@ -241,7 +253,7 @@ and save it as ~switch.org~.
 #+attr_latex: :width 300px
 [[../img/exercise.jpg]]
 
-Download the raw exercise file from [[http://tinyurl.com/R-switch-practice][tinyurl.com/R-switch-practice]] and
+Download the raw exercise file from [[http://tinyurl.com/R-switch-org][tinyurl.com/R-switch-org]] and
 save it as: ~switch_practice.org~.
 * Glossary
 

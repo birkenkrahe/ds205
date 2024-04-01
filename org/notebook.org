@@ -934,6 +934,106 @@ Write down what you think the answers are to these questions:
 
 /AI image prompt: programmers celebrating Easter./
 
+- Easter egg: deadlines stretched to their limits!
+
+** Review and preview: nested (or stacked) =if= and =else= statement
+
+*** Nested 
+Write a =function= called ~nested_if~ that takes 2 arguments and checks if
+one is smaller than the other and prints the findings. Call the
+function with the arguments 1,2 and 2,1.
+
+Solution:
+#+begin_src R
+  nested_if <- function(a,b)
+  {
+    if (a < b) {
+      print("first number is is smaller than second number")
+    } else {
+      print("first number is greater or equal than second number")
+    }
+  } 
+
+  nested_if(1,2)
+  nested_if(2,1)
+#+end_src
+
+*** Stacked
+What if you wanted to check if the two numbers were equal?
+#+begin_quote
+Answer: you could replace the =else= by an =else if= followed by an
+=else=. This is what is called "stacked" rather than "nested".
+
+Example:
+#+begin_example
+  if (condition) {
+     do something
+     } else if (condition) {
+         do something
+     } else {
+         do something
+     }
+#+end_example
+
+#+end_quote
+
+Implement this and add a call to the modified ~nested_if~ with 2,2.
+
+Solution:
+#+begin_src R
+  nested_if <- function(a,b)
+  {
+    if (a < b) {
+      print("first number is is smaller than second number")
+    } else if (a==b) {
+      print("first number is equal to second number")
+    } else {
+      print("first number is greater or equal than second number")
+    }
+  } 
+
+  nested_if(1,2)
+  nested_if(2,1)
+  nested_if(2,2)  
+#+end_src
+
+*** Switched
+
+Can you rewrite the last result as a =switch= statement?
+#+begin_quote
+Answer: you could couple it with =ifelse= to define the three outcomes
+"less", "equal", and "greater". 
+#+end_quote
+
+Solution:
+#+begin_src R
+  nested_switch <- function(a, b) {
+    ## Define the comparison result as a character string
+    comparison_result <- ifelse(a < b, "less", ifelse(a == b, "equal", "greater"))
+
+    ## Use switch to select the action based on comparison_result
+    message <- switch(comparison_result,
+                      "less" = "first number is smaller than second number\n",
+                      "equal" = "first number is equal to second number\n",
+                      "greater" = "first number is greater than second number\n",
+                      "Unexpected condition") # Default case, though it should not be reached
+
+    cat(message)
+
+  }
+  nested_switch(1,2)
+  nested_switch(2,1)
+  nested_switch(2,2)
+  nested_switch(Inf,Inf)
+#+end_src
+
+#+RESULTS:
+: first number is smaller than second number
+: first number is greater than second number
+: first number is equal to second number
+: first number is equal to second number
+
+
 * Week 12: Python: Importing and exporting data
 * Week 13: Data science on the command line / 3rd sprint review
 * Week 14: Integration of SQL with R and Python
