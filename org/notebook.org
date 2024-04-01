@@ -959,8 +959,6 @@ Solution:
 
 #+RESULTS:
 : [1] "first number is is smaller than second number"
-: [1] "first number is is smaller than second number"
-: [1] "first number is greater or equal than second number"
 : [1] "first number is greater or equal than second number"
 
 Another solution with =ifelse=
@@ -1006,6 +1004,11 @@ Solution:
   nested_if(2,1)
   nested_if(2,2)  
 #+end_src
+
+#+RESULTS:
+: [1] "first number is is smaller than second number"
+: [1] "first number is greater or equal than second number"
+: [1] "first number is equal to second number"
 
 *** Switched
 
