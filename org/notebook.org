@@ -760,8 +760,7 @@ Write down what you think the answers are to these questions:
 - Back to Python: two new DataCamp assignments (if-else and loops)
 - [[https://lyon.instructure.com/courses/2111/assignments/26166][2nd sprint review]] opened: literature review (all sources) - March 29
 
-
-* Week 10: Switch statement and Loops in R
+* DONE Week 10: apply functions, ifelse, if, else
 #+attr_html: :width 400px:
 [[../img/week_10.png]]
 
@@ -796,7 +795,7 @@ Write down what you think the answers are to these questions:
   : Some elements in the vector are not less than 5
 
 
-** TODO Test preview and DataCamp review
+** Test preview and DataCamp review
 
 1. What does the =sapply= function do? Can you think of an example?
    #+begin_src R
@@ -925,11 +924,14 @@ Write down what you think the answers are to these questions:
     : [1] "TRUE again"
 
 
-** TODO if-else exercises
+** if-else exercises
 
 [[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
 
-* Week 11: R: Importing and exporting data
+* Week 11: Switch and loops and R
+#+attr_html: :width 400px:
+[[../img/week_11.png]]
+
 * Week 12: Python: Importing and exporting data
 * Week 13: Data science on the command line / 3rd sprint review
 * Week 14: Integration of SQL with R and Python
