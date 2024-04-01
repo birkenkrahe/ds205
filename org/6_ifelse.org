@@ -71,7 +71,7 @@ Download the *raw* codealong file from
         a <- a^2
       }
       return (a)
-    } 
+    }
 
     ## function call
     square(3,4)
@@ -84,7 +84,7 @@ Download the *raw* codealong file from
   #+begin_src R
     square1 <- function(a,b) if (a <= b) return (a^2)
     square(3,4)
-  #+end_src  
+  #+end_src
 
   #+RESULTS:
   : [1] 9
@@ -136,7 +136,7 @@ Solution:
   #+end_src
 
   #+RESULTS:
-  : Condition satisfied -- 
+  : Condition satisfied --
   : [1] "-- a list with 2 members now exists."
 
 - You should have got this output:
@@ -177,7 +177,7 @@ Solution:
      #+begin_src R
        myvec    # numeric vector
        (myvec-1) > 9  # Boolean vector
-       any((myvec-1) > 9)  # Boolean 
+       any((myvec-1) > 9)  # Boolean
      #+end_src
 
      #+RESULTS:
@@ -285,13 +285,45 @@ Solution:
     #+end_src
 
     #+RESULTS:
-    : Condition was TRUE> [1] 4
+    : Condition was TRUE> [1] 9
 
 - After a few re-runs, the value of ~a~ will be smaller than ~mynumber~
   again, and the first part of the ~if~ statement will be accessed.
 
 - *Exercise:* turn the last code into a function and 1) print 2) plot
   the resulting series of values for 10 iterations.
+
+- *Solution*:
+  1) function definition and test call
+     #+begin_src R
+       f <- function(a,b) {
+         if (a <= b) {
+           #cat("Condition was", a <= b,"\n")
+           a <- a^2
+           return (a)
+         } else {
+           #cat("Condition was", a <= b,"\n")
+           a <- a - 3.5
+           return (a)
+         }
+       }
+
+       b = 4
+       array = 0;
+       for (a in 1:10) array <- append(array, f(a,b))
+       array
+     #+end_src
+
+     #+RESULTS:
+     :  [1]  0.0  1.0  4.0  9.0 16.0  1.5  2.5  3.5  4.5  5.5  6.5
+
+  2) plotting 
+     #+begin_src R :file ifelse.png :results output graphics file :exports both :comments both :tangle yes :noweb yes
+       plot(array,type="b")
+     #+end_src
+
+     #+RESULTS:
+     [[file:ifelse.png]]
 
 * ~ifelse~ for element-wise checks
 
