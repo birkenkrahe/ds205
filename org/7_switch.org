@@ -162,7 +162,7 @@ and save it as ~switch.org~.
   you can use a series of stacked ~if~ statements.
 
 - Example: assign a ~numeric~ value to ~foo~ where the number depends on
-  the value of ~mystring~:
+  the value of ~mystring~ (this block will NOT execute on its own):
   #+name: simpsons
   #+begin_src R :results silent
     if ( mystring == "Homer" ) {
@@ -188,6 +188,10 @@ and save it as ~switch.org~.
     mystring <- "Peter"   # not in the list
     <<simpsons>>
   #+end_src
+
+  #+RESULTS:
+  : [1] 78
+  : [1] NA
 
 - The ~switch~ function behaves like a set of stacked ~if~
   statements. Take a look at ~help(switch)~ to see its definition.
@@ -233,11 +237,18 @@ and save it as ~switch.org~.
     foo
   #+end_src
 
+  #+RESULTS: iswitch
+  : Error: object 'mynum' not found
+  : [1] NA
+
 - In the code, every other value for ~mynum~ than 1,2,3,4 will set ~foo~
   to ~NULL~, the "null" object (value is undefined).
   #+begin_src R
-    class(NULL)
+    class(NULL)  # NULL is in a class of its own
   #+end_src
+
+  #+RESULTS:
+  : [1] "NULL"
 
 - Examples:
   #+begin_src R
@@ -248,6 +259,11 @@ and save it as ~switch.org~.
     mynum <- 100
     <<iswitch>>
   #+end_src
+
+  #+RESULTS:
+  : [1] 56
+  : NULL
+  : NULL
 
 * Exercises
 #+attr_latex: :width 300px

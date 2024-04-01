@@ -1,5 +1,5 @@
 #+TITLE: CONDITIONS AND LOOPS - CONDITIONAL STATEMENTS - SWITCH - EXERCISES
-#+AUTHOR: Marcus Birkenkrahe
+#+AUTHOR: yourname (pledged)
 #+SUBTITLE: DSC 205 - Advanced introduction to data science
 #+STARTUP: overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
@@ -35,10 +35,10 @@ Solution:
 -----
 Test:
 #+begin_src R
-  mynum <- 3
+  mynum <- 3   # should return 56
   <<ifswitch>>
-  mynum <- 0
-  <<ifswitch>>
+  mynum <- 0   # should return NA
+  <<ifswitch>> 
 #+end_src
 
 ** TODO HOW TO NEST COMPLEX ~if~ STATEMENTS (30 min)
