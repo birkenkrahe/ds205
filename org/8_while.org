@@ -10,9 +10,8 @@
 #+caption: Photo by La-Rel Easter on Unsplash
 [[../img/5_loop.jpg]]
 
-- Download the *raw* practice file [[https://github.com/birkenkrahe/ds2/tree/main/org][from GitHub]] and save it as
-  ~6_loop_while_practice.org~.
-
+- Codealong file: [[https://tinyurl.com/R-while-org][tinyurl.com/R-while-org]]
+  
 - To test your Emacs mettle, open it on the CMD line with the command
   ~emacs -nw~ (no graphics - not needed for this exercise).
 
