@@ -364,6 +364,7 @@ Test:
 #+end_src
 
 #+RESULTS:
+: [1] "1 ! = 120"
 
 * TODO Glossary
 

@@ -1050,25 +1050,34 @@ Solution:
 ** TODO New bonus assignment "Complex while loop problem" (Canvas)
 ** TODO Review =switch=
 
-1) What does =switch= replace to make code cleaner looking and more
-   efficient?
+1) What does =switch= replace to make code cleaner looking?
    #+begin_quote
    A set of stacked =if= ... =else= statements.
    #+end_quote
 2) Which =switch= statements are there in R?
    #+begin_src R
-     ## There is no 'default' case unlike in C
-     print(switch (2,"foo","bar",NA))     # switch integer
-     print(switch("B","R"=1,"G"=2,"B"=3))  # switch character
+     print(switch (EXPR=2,"foo","bar",NA))     # switch integer
+     print(switch(EXPR="B","R"=1,"G"=2,"B"=3))  # switch character
    #+end_src
 
    #+RESULTS:
    : [1] "bar"
    : [1] 3
+
 3) When is the =default= case used in a =switch= statement?
    #+begin_quote
-   There is no 'default'.
+   There is no 'default'. When the expression does not evaluate to any
+   of the cases then the response is =NULL=.
    #+end_quote
+   #+begin_src R
+     ## There is no 'default' case unlike in C
+     print(switch (4,"foo","bar",NA))     # switch integer
+     print(switch("M","R"=1,"G"=2,"B"=3))  # switch character
+   #+end_src
+
+   #+RESULTS:
+   : NULL
+   : NULL
    
 ** TODO Loops with =while= in R - minilecture & practice
 
