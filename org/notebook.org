@@ -1046,8 +1046,8 @@ Solution:
 : first number is equal to second number
 
 
-** TODO New bonus assignment "nesting complex if statements" (Canvas)
-** TODO New bonus assignment "
+** TODO New bonus assignment "Nesting complex if statements" (Canvas)
+** TODO New bonus assignment "Complex while loop problem" (Canvas)
 ** TODO Review =switch=
 
 1) What does =switch= replace to make code cleaner looking and more
