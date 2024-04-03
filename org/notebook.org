@@ -937,7 +937,6 @@ Write down what you think the answers are to these questions:
 - Easter egg: deadlines stretched to their limits!
 
 ** Review and preview: nested (or stacked) =if= and =else= statement
-
 *** Nested 
 Write a =function= called ~nested_if~ that takes 2 arguments and checks if
 one is smaller than the other and prints the findings. Call the

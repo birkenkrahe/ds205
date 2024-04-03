@@ -1,51 +1,12 @@
-#+TITLE: CONDITIONS AND LOOPS - CONDITIONAL STATEMENTS - SWITCH - EXERCISES
+#+TITLE: Nesting complex =if= statements
 #+AUTHOR: yourname (pledged)
-#+SUBTITLE: DSC 205 - Advanced introduction to data science
-#+STARTUP: overview hideblocks indent
-#+OPTIONS: toc:nil num:nil ^:nil
-#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
-* README
-
-This exercise file accompanies the [[https://github.com/birkenkrahe/ds2/blob/main/org/3_conditions.org][lecture]] on conditional
-statements. Upon completion, upload it to Canvas. Source: Davies, Book
-of R, p. 192.
-
-* TODO IDENTIFY AND PLEDGE YOURSELF
-
-1) In Emacs, replace the placeholder ~[yourname]~ at the top of this
-   file by your own name and write ~(pledged)~ next to it
-2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
-   by entering ~S-<right>~ ("Shift + right-arrow").
-
-* EXERCISES
-** TODO HOW TO ~switch~ TO ~if~ (10 min)
-Write an explicit /stacked/ set of ~if~ statements that does the same
-thing as the ~integer~ version of this ~switch~ function. Test it with
-~mynum <- 3~ and ~mynum <- 0~ (see below).
-
-#+begin_example R
- foo <- switch(EXPR=mynum,12,34,56,78,NA)
-#+end_example
------
-Solution:
-#+name: ifswitch
-#+begin_src R
-  ...
-#+end_src
------
-Test:
-#+begin_src R
-  mynum <- 3   # should return 56
-  <<ifswitch>>
-  mynum <- 0   # should return NA
-  <<ifswitch>> 
-#+end_src
-
-** TODO HOW TO NEST COMPLEX ~if~ STATEMENTS (30 min) - BONUS
+#+startup: overview hideblocks indent entitiespretty:
+#+property: header-args:R :session *R* :results output :exports both :noweb yes :tangle yes: 
+* TODO HOW TO NEST COMPLEX ~if~ STATEMENTS (30 min) - BONUS
 
 Since the text of this exercise is quite long, you want to either open
 it [[https://github.com/birkenkrahe/ds2/blob/main/org/4_switch_exercise.org][in GitHub next to your editor]], or in a 2nd editor window (open it
-with ~C-x 5 2~). Also: please help each other!
+with ~C-x 5 2~). 
 
 Proceed like this: (1) read the *backstory*; (2) look at the variables
 in the *test suite* below; (3) look at the *tips*; (4) implement the *rules*
@@ -196,26 +157,4 @@ and overwrite them with ~0~. Run it to check.
 ...
 #+end_src
 
-** TODO HOW TO USE ~switch~ with ~ifelse~ (5 min)
-
-Assume the object ~mynum~ will only ever be a single integer between 0
-and 9. Use ~ifelse~ and ~switch~ to produce a command that takes in
-~mynum~ and returns a matching ~character~ string for all possible
-values 0,1,...,9:
-
-- Supplied with 3, for example, it should return ~"three"~.
-- Supplied with 0, it should return ~"zero"~.
-
-Solution:
-#+name: ifelse
-#+begin_src R
-...
-#+end_src
-
-Test the solution:
-#+begin_src R
-  mynum <- 3
-  <<ifelse>>
-  mynum <- 0
-  <<ifelse>>
-#+end_src
+* Upload completed file to Canvas
