@@ -936,7 +936,7 @@ Write down what you think the answers are to these questions:
 
 - Easter egg: deadlines stretched to their limits!
 
-** Review and preview: nested (or stacked) =if= and =else= statement
+** DONE Review and preview: nested (or stacked) =if= and =else= statement
 *** Nested 
 Write a =function= called ~nested_if~ that takes 2 arguments and checks if
 one is smaller than the other and prints the findings. Call the
@@ -1045,6 +1045,32 @@ Solution:
 : first number is equal to second number
 : first number is equal to second number
 
+
+** TODO New bonus assignment "nesting complex if statements" (Canvas)
+
+** TODO Review =switch=
+
+1) What does =switch= replace to make code cleaner looking and more
+   efficient?
+   #+begin_quote
+   A set of stacked =if= ... =else= statements.
+   #+end_quote
+2) Which =switch= statements are there in R?
+   #+begin_src R
+     ## There is no 'default' case unlike in C
+     print(switch (2,"foo","bar",NA))     # switch integer
+     print(switch("B","R"=1,"G"=2,"B"=3))  # switch character
+   #+end_src
+
+   #+RESULTS:
+   : [1] "bar"
+   : [1] 3
+3) When is the =default= case used in a =switch= statement?
+   #+begin_quote
+   There is no 'default'.
+   #+end_quote
+   
+** TODO Loops with =while= in R - minilecture & practice
 
 * Week 12: Python: Importing and exporting data
 * Week 13: Data science on the command line / 3rd sprint review

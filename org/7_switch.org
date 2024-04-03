@@ -238,8 +238,7 @@ and save it as ~switch.org~.
   #+end_src
 
   #+RESULTS: iswitch
-  : Error: object 'mynum' not found
-  : [1] NA
+  : NULL
 
 - In the code, every other value for ~mynum~ than 1,2,3,4 will set ~foo~
   to ~NULL~, the "null" object (value is undefined).
