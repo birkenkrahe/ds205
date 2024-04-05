@@ -1,0 +1,60 @@
+#+TITLE: Convert a for into a while loop
+#+AUTHOR: Marcus Birkenkrahe (pledged)
+#+SUBTITLE: DSC 205 - Introduction to advanced data science
+#+startup: overview hideblocks indent entitiespretty:
+#+options: toc:nil num:nil ^:nil:
+#+property: header-args:R :session *R* :results output :exports both :noweb yes :tangle yes:
+* Problem
+Can you turn this =while= loop discussed in class into a =for= loop? The
+problem was to calculate the average flow of the river =Nile= until
+the flow drops below a ~threshold~:
+#+begin_src R
+  ## Initialize variables
+  threshold <- 900
+  total_flow <- 0
+  year_count <- 0
+  i <- 1
+
+  ## Loop through dataset until a flow less than 800 is found
+  while (Nile[i] >= threshold) {
+    total_flow <- total_flow + Nile[i]
+    year_count <- year_count + 1
+    i <- i + 1
+  }
+
+  ## calculate average flow up to the found year
+  average_flow <- total_flow / year_count
+
+  ## print results
+  cat("Years until encountering a flow less than", threshold,":", year_count, "\n")
+  cat("Average flow up to that year:", average_flow, "\n")
+#+end_src
+
+* Solution 1: looping via vector index values
+
+#+begin_src R
+  ## Initialize variables
+  ...
+
+  ## Loop through dataset until a flow less than threshold is found
+  ...
+
+  ## calculate average flow up to the found year
+  ...
+
+  ## calculate and print results
+
+#+end_src
+
+* Solution 2:looping via loop index (vector values)
+
+#+begin_src R
+    ## Initialize variables
+
+    ## Loop through dataset until a flow less than threshold is found
+
+    ## calculate average flow up to the found year
+
+    ## calculate and print results
+
+  #+end_src

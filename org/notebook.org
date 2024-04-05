@@ -928,7 +928,7 @@ Write down what you think the answers are to these questions:
 
 [[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
 
-* Week 11: Switch and loops and R
+* DONE Week 11: Switch and loops and R
 #+attr_html: :width 400px:
 [[../img/week_11.png]]
 
@@ -1114,7 +1114,7 @@ Solution:
      data("Nile")
 
      ## Initialize variables
-     threshold <- 800
+     threshold <- 900
      total_flow <- 0 
      year_count <- 0
      i <- 1
@@ -1128,24 +1128,18 @@ Solution:
 
      ## calculate average flow up to the found year
      average_flow <- total_flow / year_count
-
+     print(total_flow/6)
      ## print results
      cat("Years until encountering a flow less than", threshold, ":", year_count, "\n")
      cat("Average flow up to that year:", average_flow, "\n")
    #+end_src 
 
    #+RESULTS:
-   : Years until encountering a flow less than 800 : 17
-   : Average flow up to that year: 1089.412
+   : [1] 1128.833
+   : Years until encountering a flow less than 900 : 6
+   : Average flow up to that year: 1128.833
 
-   #+begin_src R
-     time(Nile)[17]
-   #+end_src
-
-   #+RESULTS:
-   : [1] 1887
-
-** TODO Loops in R - minilecture & practice
+** Loops in R - minilecture & practice
 
 - [X] =while= loops
 - [ ] =for= loops
