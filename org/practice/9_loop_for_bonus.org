@@ -32,7 +32,7 @@
 
 - Write nested ~for~ loops that can search any possible ~mylist~ defined
   this way and *count how many matrices are present*. Remember the
-  extended example from the [[https://github.com/birkenkrahe/ds2/blob/main/org/5_loop_for.org][lecture on ~for~ loops]].
+  extended example from the [[https://github.com/birkenkrahe/ds205/blob/main/org/9_for_loop.org][lecture on ~for~ loops]] seen in class.
 
 - Hint: set up a counter before commencing the loops that is
   incremented each time a matrix is found, regardless of whether it is
