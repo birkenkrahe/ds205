@@ -1089,6 +1089,44 @@ Solution:
 - [ ] =for= loops
 - [ ] =apply= instead of loops
 
+** Review =while=
+
+1) Problem:
+   - Calculate the average flow of the =Nile= River until you encounter
+     a year where the flow is less than 900 (million cubic meters).
+   - The average flow is the total flow divided over the year count.
+   - Start from the year 1871.
+   - Print out the number of years it took to encounter such a year
+     and the average flow up to that year.
+   - Remember =Nile=:
+     #+begin_src R
+       Nile
+     #+end_src
+
+2) Solution in R:
+   #+begin_src R
+     ## load the dataset
+     data("Nile")
+
+                                             # Initialize variables
+     total_flow <- 0 
+     year_count <- 0
+     i <- 1
+
+     ## Loop through dataset until a flow less than 900 is found
+     while (Nile[i] >= 900) {
+       total_flow <- total_flow + Nile[i]
+       year_count <- year_count + 1
+       i <- i + 1
+     }
+
+     ## calculate average flow up to the found year
+     average_flow <- total_flow / year_count
+
+     ## print results
+     cat("Years until encountering a flow less than 900:", year_count, "\n")
+     cat("Average flow up to that year:", average_flow, "\n")
+   #+end_src 
 
 * Week 12: Python: Importing and exporting data
 * Week 13: Data science on the command line / 3rd sprint review

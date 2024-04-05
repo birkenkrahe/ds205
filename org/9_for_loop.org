@@ -11,7 +11,7 @@
 [[../img/5_loop.jpg]]
 
 Download the practice file and save it to code along:
-[[http://tinyurl.com/R_for_org][tinyurl.com/R_for_org]]
+[[http://tinyurl.com/R-for-loops][tinyurl.com/R-for-loops]]
 
 * Coding loops overview
 
@@ -41,159 +41,146 @@ Download the practice file and save it to code along:
   of vectors, matrices or arrays to apply a function to all elements:
   #+begin_example R
     apply( X = data
-           MARGIN = subset,
+           MARGIN = subset, # = 1 for rows, = 2 for columns
            FUN = function)
   #+end_example
 
+  Example:
+  #+begin_src R
+    apply(mtcars[1:4],2,mean) # mean for the first four columns of `mtcars`
+  #+end_src
+
+  #+RESULTS:
+  :       mpg       cyl      disp        hp
+  :  20.09062   6.18750 230.72188 146.68750
+
 * ~for~ loops
 
-  - A ~for~ loop repeats code while going through a vector until a
-    condition is no longer met:
-    #+begin_example R
-    for (loopindex in loopvector) {
-      do any code in here
+- A ~for~ loop repeats code while going through a vector until a
+  condition is no longer met:
+  #+begin_example R
+  for (loopindex in loopvector) {
+    do any code in here
+  }
+  #+end_example
+
+- Here, ~loopindex~ represents an element in ~loopvector~.
+
+- Simple example:
+  #+begin_src R
+    for (myitem in 5:7) {
+      cat("the current item is", myitem, "\n")
     }
-    #+end_example
+  #+end_src
 
-  - ~loopindex~ represents an element in ~loopvector~
-
-  - Simple example:
-    #+begin_src R
-      for (myitem in 5:7) {
-        cat("--BRACED AREA BEGINS--\n")
-        cat("the current item is", myitem, "\n")
-        cat("--BRACED AREA ENDS--\n")
-      }
-    #+end_src
-
-    #+RESULTS:
-    : --BRACED AREA BEGINS--
-    : the current item is 5 
-    : --BRACED AREA ENDS--
-    : --BRACED AREA BEGINS--
-    : the current item is 6 
-    : --BRACED AREA ENDS--
-    : --BRACED AREA BEGINS--
-    : the current item is 7 
-    : --BRACED AREA ENDS--
-
-  - You can manipulate objects outside the loop, i.e. the braced area
-    is not a local environment:
-    #+begin_src R
-      counter <- 0
-      for (myitem in 5:7) {
-        counter <- counter + 1
-        cat("The item in run",counter,"is",myitem,"\n")
-      }
-    #+end_src
-
-    #+RESULTS:
-    : The item in run 1 is 5 
-    : The item in run 2 is 6 
-    : The item in run 3 is 7
+- You can manipulate objects outside the loop, i.e. the braced area
+  is not a local environment:
+  #+begin_src R
+    counter <- 0
+    for (myitem in 5:7) {
+      counter <- counter + 1
+      cat("The item in run",counter,"is",myitem,"\n")
+    }
+  #+end_src
 
 * Looping via index or value
 
 - There is a difference using a /loopindex/ inside a ~for~ statement
-vs. representing /indices/ of a vector.
+  vs. representing /indices/ of a vector.
 
 - *Loop index:* The loop below uses the /loopindex/ ~i~ to directly
-represent the elements in ~myvec~:
-#+begin_src R
-  myvec <- c(0.4, 1.1, 0.34, 0.55)
-  for (i in myvec) {
-    print(2 * i)
-  }
-#+end_src  
-
-#+RESULTS:
-: [1] 0.8
-: [1] 2.2
-: [1] 0.68
-: [1] 1.1
+  represent the elements in ~myvec~:
+  #+begin_src R
+    myvec <- c(0.4, 1.1, 0.34, 0.55)
+    for (i in myvec) {
+      print(2 * i)
+    }
+  #+end_src
 
 - *Vector index:* The loop below uses ~i~ to represent ~integer~ values in
-the sequence ~1:length(myvec)~, which form all vector index positions
-of ~myvec~. The same indices are then used to extract elements from
-~myvec~.
-#+begin_src R
-  for (i in 1:length(myvec)) {
-    print(2 * myvec[i])
-  }
-#+end_src  
-
-#+RESULTS:
-: [1] 0.8
-: [1] 2.2
-: [1] 0.68
-: [1] 1.1
+  the sequence ~1:length(myvec)~, which form all vector index positions
+  of ~myvec~. The same indices are then used to extract elements from
+  ~myvec~.
+  #+begin_src R
+    for (i in 1:length(myvec)) {
+      print(2 * myvec[i])
+    }
+  #+end_src
 
 - Vector indices take a longer form but offer more flexibility for
 more complicated ~for~ loops.
 
 * Extended example: stepping through a ~list~
 
-  - You want to write code that will inspect any ~list~ object and gather
-    information about any ~matrix~ objects stored as ~list~ members.
+- You want to write code that will inspect any ~list~ object and gather
+  information about any ~matrix~ objects stored as ~list~ members.
 
-  - Sample data:
-    #+begin_src R
-      foo <- list(
-        aa=c(3,4,1),
-        bb=matrix(1:4,2,2),
-        cc=matrix(c(T,T,F,T,F,F),3,2),
-        dd="string here",
-        ee=matrix(c("red","green","blue","yellow")))
-      foo
-    #+end_src
+- Sample data:
+  #+begin_src R
+    foo <- list(
+      aa=c(3,4,1),
+      bb=matrix(1:4,2,2),
+      cc=matrix(c(T,T,F,T,F,F),3,2),
+      dd="string here",
+      ee=matrix(c("red","green","blue","yellow")))
+    foo
+  #+end_src
 
-  - Problem:
-    1) Go through every member of the list
-    2) Check whether the member is matrix
-    3) If it is a matrix, retrieve number of rows and columns and the
-       data type of the matrix.
+- Problem:
+  1) Go through every member of the list
+  2) Check whether the member is matrix
+  3) If it is a matrix, retrieve number of rows and columns and the
+     data type of the matrix.
 
-  - Solution: create vectors to store ~list~ member information:
-    1) ~name~ of the ~list~ member name
-    2) ~is.mat~ ("Yes" or "No") to indicate if it is a ~matrix~
-    3) ~nc~ and ~nr~ for numbers of rows and columns for each matrix
-    4) ~data.type~ to store the data type of each matrix
-    #+begin_src R
-      name <- names(foo); name
-      is.mat <- rep(NA,length(foo)); is.mat
-      nr <- is.mat
-      nc <- is.mat
-      data.type <- is.mat
-    #+end_src
+- Solution: create vectors to store ~list~ member information:
+  1) ~name~ of the ~list~ member name
+  2) ~is.mat~ ("Yes" or "No") to indicate if it is a ~matrix~
+  3) ~nc~ and ~nr~ for numbers of rows and columns for each matrix
+  4) ~data.type~ to store the data type of each matrix
+  #+begin_src R
+    name <- names(foo); name
+    is.mat <- rep(NA,length(foo)); is.mat
+    nr <- is.mat
+    nc <- is.mat
+    data.type <- is.mat
+  #+end_src
 
-  - All sought variables are initialized with "missing" values ~NA~ and
-    updated in the ~for~ loop. The results are put in a data frame ~bar~.
-    #+begin_src R
-      for (i in 1:length(foo)) {
-        member <- foo[[i]] # pick list element
-        if (is.matrix(member)) {
-          is.mat[i] <- "Yes"     # update matrix indicator
-          nr[i] <- nrow(member)  # update row counter
-          nc[i] <- ncol(member)  # update column counter
-          data.type[i] <- class(as.vector(member)) # conversion!
-        } else {
-          is.mat[i] <- "No"
-        }
+- All sought variables are initialized with "missing" values ~NA~ and
+  updated in the ~for~ loop. The results are put in a data frame ~bar~.
+  #+begin_src R
+
+    for (i in 1:length(foo)) {
+
+      ## pick list element
+      member <- foo[[i]] 
+
+      ## check if member is matrix then update the indicators
+      if (is.matrix(member)) {
+        is.mat[i] <- "Yes"     # update matrix indicator
+        nr[i] <- nrow(member)  # update row counter
+        nc[i] <- ncol(member)  # update column counter
+        data.type[i] <- class(as.vector(member)) # check data type 
+
+      } else {  
+        is.mat[i] <- "No"
       }
-      bar <- data.frame(name,
-                        is.mat,
-                        nr,
-                        nc,
-                        data.type)
-      bar
-    #+end_src
+    }
 
-  - Compare with the original list ~foo~ where the structure output
-    indirectly suggests ~matrix~ objects through the indexing:
-    #+begin_src R
+    ## put the indicators in a data frame
+    bar <- data.frame(name,
+                      is.mat,
+                      nr,
+                      nc,
+                      data.type)
+    bar
+  #+end_src
+
+- Compare with the original list ~foo~ where the structure output
+  indirectly suggests ~matrix~ objects through the indexing:
+  #+begin_src R
     str(foo)
   #+end_src
-  
+
 * Nesting ~for~ loops
 
 - ~for~ loops can be nested just like ~if~ statements.
@@ -209,7 +196,7 @@ more complicated ~for~ loops.
   1) Create a ~loopvec1~ as loopindex vector ~5 6 7~
   2) Create a ~loopvec2~ as loopindex vector ~9 8 7 6~
   3) Create a ~matrix~ ~foo~ of missing values whose row and column
-     numbers correspond to ~loopvec1~ and ~loopvec2~, respectively
+     numbers correspond to ~loopvec1~ and ~loopvec2~, respectively:
   #+begin_src R
     loopvec1 <- 5:7; loopvec1
     loopvec2 <- 9:6; loopvec2
@@ -232,12 +219,6 @@ more complicated ~for~ loops.
     foo
   #+end_src
 
-  #+RESULTS:
-  :      [,1] [,2] [,3] [,4]
-  : [1,]   45   40   35   30
-  : [2,]   54   48   42   36
-  : [3,]   63   56   49   42
-  
 - With this code, is the matrix traversed by row or by column?[fn:1]
 
 - Inner loopvectors can be defined to match the current value of the
@@ -267,12 +248,20 @@ more complicated ~for~ loops.
     }
   #+end_src
 
+  #+RESULTS:
+  :      [,1] [,2] [,3] [,4]
+  : [1,]   45   40   35   30
+  : [2,]   54   48   42   36
+  : [3,]   63   56   49   42
+  : Error in `[<-`(`*tmp*`, i, j, value = loopvec1[i] * loopvec2[j]) : 
+  :   subscript out of bounds
+
 * TODO Exercises
 #+attr_latex: :width 400px
 [[../img/exercise.jpg]]
 
-Download the *raw* exercise file [[https://github.com/birkenkrahe/ds2/tree/main/org][from GitHub]] and save it as
-~5_loop_for_exercise.org~. When done, upload the file to Canvas.
+Home assignment: download and complete the exercise file:
+tinyurl.com/R-for-exercise
 
 * Glossary
 
@@ -290,8 +279,9 @@ Download the *raw* exercise file [[https://github.com/birkenkrahe/ds2/tree/main/
 - Davies, T.D. (2016). The Book of R. NoStarch Press.
 
 * Footnotes
-[fn:2] Because the inner loopvector ~1:i~ will exceed the number of
-elements of ~loopvec2~ - "subscript out of bounds".
 
 [fn:1] By column - in the example, the sequence of matrix elements
 filled is: ~foo[1,1]~, ~foo[1,2]~, ~foo[1,3]~, ~foo[2,1]~ etc.
+
+[fn:2] Because the inner loopvector ~1:i~ will exceed the number of
+elements of ~loopvec2~ - "subscript out of bounds".
