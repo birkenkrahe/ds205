@@ -936,7 +936,7 @@ Write down what you think the answers are to these questions:
 
 - Easter egg: deadlines stretched to their limits!
 
-** DONE Review and preview: nested (or stacked) =if= and =else= statement
+** Review and preview: nested (or stacked) =if= and =else= statement
 *** Nested 
 Write a =function= called ~nested_if~ that takes 2 arguments and checks if
 one is smaller than the other and prints the findings. Call the
@@ -1045,9 +1045,9 @@ Solution:
 : first number is equal to second number
 : first number is equal to second number
 
-** DONE New bonus assignment "Nesting complex if statements" (Canvas)
-** DONE New bonus assignment "Complex while loop problem" (Canvas)
-** DONE Review =switch=
+** New bonus assignment "Nesting complex if statements" (Canvas)
+** New bonus assignment "Complex while loop problem" (Canvas)
+** Review =switch=
 
 1) What does =switch= replace to make code cleaner looking?
    #+begin_quote
@@ -1078,22 +1078,16 @@ Solution:
    : NULL
    : NULL
    
-** TODO Last two new DataCamp lessons: data processing on the command line
+** Last two new DataCamp lessons: data processing on the command line
 
 - downloading data on the commandline with =curl= and =wget=
 - using =csvkit= (Python library) to manipulate data on the command line
-
-** TODO Loops in R - minilecture & practice
-
-- [X] =while= loops
-- [ ] =for= loops
-- [ ] =apply= instead of loops
 
 ** Review =while=
 
 1) Problem:
    - Calculate the average flow of the =Nile= River until you encounter
-     a year where the flow is less than 900 (million cubic meters).
+     a year where the flow is less than 800 (million cubic meters).
    - The average flow is the total flow divided over the year count.
    - Start from the year 1871.
    - Print out the number of years it took to encounter such a year
@@ -1103,18 +1097,30 @@ Solution:
        Nile
      #+end_src
 
+     #+RESULTS:
+     : Time Series:
+     : Start = 1871 
+     : End = 1970 
+     : Frequency = 1 
+     :   [1] 1120 1160  963 1210 1160 1160  813 1230 1370 1140  995  935 1110  994 1020  960 1180  799  958 1140 1100 1210
+     :  [23] 1150 1250 1260 1220 1030 1100  774  840  874  694  940  833  701  916  692 1020 1050  969  831  726  456  824
+     :  [45]  702 1120 1100  832  764  821  768  845  864  862  698  845  744  796 1040  759  781  865  845  944  984  897
+     :  [67]  822 1010  771  676  649  846  812  742  801 1040  860  874  848  890  744  749  838 1050  918  986  797  923
+     :  [89]  975  815 1020  906  901 1170  912  746  919  718  714  740
+
 2) Solution in R:
    #+begin_src R
-     ## load the dataset
+     ## load the dataset (not really needed because `Nile` is built-in
      data("Nile")
 
-                                             # Initialize variables
+     ## Initialize variables
+     threshold <- 800
      total_flow <- 0 
      year_count <- 0
      i <- 1
 
-     ## Loop through dataset until a flow less than 900 is found
-     while (Nile[i] >= 900) {
+     ## Loop through dataset until a flow less than 800 is found
+     while (Nile[i] >= threshold) {
        total_flow <- total_flow + Nile[i]
        year_count <- year_count + 1
        i <- i + 1
@@ -1124,9 +1130,27 @@ Solution:
      average_flow <- total_flow / year_count
 
      ## print results
-     cat("Years until encountering a flow less than 900:", year_count, "\n")
+     cat("Years until encountering a flow less than", threshold, ":", year_count, "\n")
      cat("Average flow up to that year:", average_flow, "\n")
    #+end_src 
+
+   #+RESULTS:
+   : Years until encountering a flow less than 800 : 17
+   : Average flow up to that year: 1089.412
+
+   #+begin_src R
+     time(Nile)[17]
+   #+end_src
+
+   #+RESULTS:
+   : [1] 1887
+
+** TODO Loops in R - minilecture & practice
+
+- [X] =while= loops
+- [ ] =for= loops
+- [ ] =apply= instead of loops
+
 
 * Week 12: Python: Importing and exporting data
 * Week 13: Data science on the command line / 3rd sprint review
