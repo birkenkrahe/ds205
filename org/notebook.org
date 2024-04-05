@@ -1045,10 +1045,9 @@ Solution:
 : first number is equal to second number
 : first number is equal to second number
 
-
-** New bonus assignment "Nesting complex if statements" (Canvas)
-** New bonus assignment "Complex while loop problem" (Canvas)
-** Review =switch=
+** DONE New bonus assignment "Nesting complex if statements" (Canvas)
+** DONE New bonus assignment "Complex while loop problem" (Canvas)
+** DONE Review =switch=
 
 1) What does =switch= replace to make code cleaner looking?
    #+begin_quote
@@ -1079,11 +1078,17 @@ Solution:
    : NULL
    : NULL
    
+** TODO Last two new DataCamp lessons: data processing on the command line
+
+- downloading data on the commandline with =curl= and =wget=
+- using =csvkit= (Python library) to manipulate data on the command line
+
 ** TODO Loops in R - minilecture & practice
 
 - [X] =while= loops
 - [ ] =for= loops
 - [ ] =apply= instead of loops
+
 
 * Week 12: Python: Importing and exporting data
 * Week 13: Data science on the command line / 3rd sprint review

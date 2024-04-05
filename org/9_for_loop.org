@@ -10,11 +10,8 @@
 #+caption: Photo by La-Rel Easter on Unsplash
 [[../img/5_loop.jpg]]
 
-Download the *raw* practice file and save it to code along:
-tinyurl.com/R_for_org
-
-To test your Emacs mettle, open it on the CMD line with the command
-~emacs -nw~ (no graphics - not needed for this exercise).
+Download the practice file and save it to code along:
+[[http://tinyurl.com/R_for_org][tinyurl.com/R_for_org]]
 
 * Coding loops overview
 
