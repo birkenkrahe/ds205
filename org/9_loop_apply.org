@@ -50,8 +50,12 @@
     args(apply)
   #+end_src
 
+  #+RESULTS:
+  : function (X, MARGIN, FUN, ..., simplify = TRUE) 
+  : NULL
+
 * What's an array?
-#+attr_latex: :width 400px
+#+attr_latex: :width 600px
 #+caption: R data structures (source: Ceballos, 2013)
 [[../img/7_arrays.png]]
 
@@ -60,7 +64,7 @@
 - matrices: 2-dim arrays, e.g. ~matrix(1:9,3,3)~
 - arrays: n-dim, e.g. ~array(1:9,dim=c(3,3,2))~
   #+begin_src R
-    array(1:27,dim=c(3,3,3))
+    array(1:18,dim=c(3,3,2))  # 3 row, 3 columns, 3 layers
   #+end_src
 
   #+RESULTS:
@@ -78,13 +82,6 @@
   [1,]   10   13   16
   [2,]   11   14   17
   [3,]   12   15   18
-
-  , , 3
-
-       [,1] [,2] [,3]
-  [1,]   19   22   25
-  [2,]   20   23   26
-  [3,]   21   24   27
   #+end_example
 
 - The ~MARGIN~ index follows the positional order of the dimension for
@@ -101,15 +98,26 @@
 - Create a 4 x 3 matrix with the elements ~1:12~:
   #+name: define_foo
   #+begin_src R
-    foo <- matrix(1:12,4,3) # default byrow=FALSE 
+    foo <- matrix(1:12,nrow=4,3) # default byrow=FALSE 
     foo
   #+end_src
+
+  #+RESULTS: define_foo
+  :      [,1] [,2] [,3]
+  : [1,]    1    5    9
+  : [2,]    2    6   10
+  : [3,]    3    7   11
+  : [4,]    4    8   12
 
 - Find the sum of each row of ~foo~. What about ~sum(foo)~?
   #+begin_src R
     sum(foo)  # this sums up ALL elements
     sum(1:12)
   #+end_src
+
+  #+RESULTS:
+  : [1] 78
+  : [1] 78
 
 - Write a =for= loop over the rows of ~foo~:
   #+begin_src R
@@ -118,6 +126,32 @@
       print(sum(foo[i,]))
       }
   #+end_src
+
+  #+RESULTS:
+  :      [,1] [,2] [,3]
+  : [1,]    1    5    9
+  : [2,]    2    6   10
+  : [3,]    3    7   11
+  : [4,]    4    8   12
+  : [1] 15
+  : [1] 18
+  : [1] 21
+  : [1] 24
+
+- How to do this:
+  1. write a loop over the rows
+  2. index row values
+  3. sum it up
+  #+begin_src R
+    for (i in 1:nrow(foo))
+      print(foo[i,])
+  #+end_src
+
+  #+RESULTS:
+  : [1] 9
+  : [1] 10
+  : [1] 11
+  : [1] 12
 
 - A fancier solution if you want to store the row sums:  
   #+begin_src R
@@ -128,6 +162,9 @@
     row.totals
   #+end_src
 
+  #+RESULTS:
+  : [1] 15 18 21 24
+
 - Much shorter with ~apply~:
   #+begin_src R
     apply(
@@ -136,23 +173,41 @@
       FUN = sum)
   #+end_src
 
+  #+RESULTS:
+  : [1] 15 18 21 24
+
 - To ~sum~ over columns instead, change ~MARGIN~ to ~2~.
   #+begin_src R
-    apply(
-      X = foo,
-      MARGIN = 2,
-      FUN = sum)
+    apply(foo,2,sum)
   #+end_src
+
+  #+RESULTS:
+  : [1] 10 26 42
 
 - You can pass additional arguments to any ~apply~ function: e.g. you
   can use the function ~sort~ and specify it to be ~decreasing~:
   #+begin_src R
+    foo
     apply(
-      X = foo,
-      MARGIN = 1,
-      FUN = sort,
-      decreasing = TRUE)
+      X = foo,   # target structure = matrix
+      MARGIN = 2,  # subset = rows
+      FUN = sort,    # sort matrix by rows
+      decreasing = TRUE)  # sort in descending order
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+       [,1] [,2] [,3]
+  [1,]    1    5    9
+  [2,]    2    6   10
+  [3,]    3    7   11
+  [4,]    4    8   12
+       [,1] [,2] [,3]
+  [1,]    4    8   12
+  [2,]    3    7   11
+  [3,]    2    6   10
+  [4,]    1    5    9
+  #+end_example
 
 - Though, even shorter is =rowSums=:
   #+begin_src R
@@ -196,12 +251,23 @@
     str(ToothGrowth)
   #+end_src
 
+  #+RESULTS:
+  : 'data.frame':	60 obs. of  3 variables:
+  :  $ len : num  4.2 11.5 7.3 5.8 6.4 10 11.2 11.2 5.2 7 ...
+  :  $ supp: Factor w/ 2 levels "OJ","VC": 2 2 2 2 2 2 2 2 2 2 ...
+  :  $ dose: num  0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...
+
 - Now apply =tapply(X,INDEX,FUN)=:  
   #+begin_src R
-    tapply(X = ToothGrowth$len,   # length of guinea pig teeth
-           INDEX = ToothGrowth$supp,  # OJ or VC supply
+    tg <- ToothGrowth
+    tapply(X = tg$len,   # length of guinea pig teeth
+           INDEX = tg$supp,  # OJ or VC supply
            FUN = mean)   # arithmetic average
   #+end_src
+
+  #+RESULTS:
+  :       OJ       VC 
+  : 20.66333 16.96333
 
 - The result returns the average length for guinea pigs supplied with
   orange juice (~OJ~) and vitamin C (~VC~).
@@ -217,6 +283,29 @@
     head(diamonds)
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  'data.frame':	53943 obs. of  11 variables:
+   $ X      : int  1 2 3 4 5 6 7 8 9 10 ...
+   $ carat  : num  0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
+   $ cut    : Factor w/ 5 levels "Fair","Good",..: 3 4 2 4 2 5 5 5 1 5 ...
+   $ color  : Factor w/ 7 levels "D","E","F","G",..: 2 2 2 6 7 7 6 5 2 5 ...
+   $ clarity: Factor w/ 8 levels "I1","IF","SI1",..: 4 3 5 6 4 8 7 3 6 5 ...
+   $ depth  : num  61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...
+   $ table  : num  55 61 65 58 58 57 57 55 61 61 ...
+   $ price  : int  326 326 327 334 335 336 336 337 337 338 ...
+   $ x      : num  3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...
+   $ y      : num  3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...
+   $ z      : num  2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...
+    X carat       cut color clarity depth table price    x    y    z
+  1 1  0.23     Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
+  2 2  0.21   Premium     E     SI1  59.8    61   326 3.89 3.84 2.31
+  3 3  0.23      Good     E     VS1  56.9    65   327 4.05 4.07 2.31
+  4 4  0.29   Premium     I     VS2  62.4    58   334 4.20 4.23 2.63
+  5 5  0.31      Good     J     SI2  63.3    58   335 4.34 4.35 2.75
+  6 6  0.24 Very Good     J    VVS2  62.8    57   336 3.94 3.96 2.48
+  #+end_example
+
 - Using ~tapply~, you can add up the total value of the diamonds for the
   full data set but separated according to ~color~ (key coded):
   #+begin_src R
@@ -225,6 +314,10 @@
       INDEX = diamonds$color,
       FUN = sum)
   #+end_src
+
+  #+RESULTS:
+  :        D        E        F        G        H        I        J 
+  : 21476439 30148457 35545622 45158240 37257301 27608146 14949281
 
 * ~lapply~ - cycling through lists
 
