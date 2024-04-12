@@ -1,0 +1,178 @@
+#+TITLE: CODING LOOPS "break" "next" "repeat" - PRACTICE AND EXERCISES
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: DSC 205 - Advanced introduction to data science
+#+STARTUP: overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+This practice file accompanies the [[https://github.com/birkenkrahe/ds2/blob/main/org/7_loop_apply.org][lecture]] on implicit ~apply~ loops in
+~7_loop_apply.org~, with two exercises at the end.
+
+* TODO Identify and pledge yourself
+
+1) In Emacs, replace the placeholder ~[yourname]~ at the top of this
+   file by your own name and write ~(pledged)~ next to it
+2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
+   by entering ~S-<right>~ ("Shift + right-arrow").
+
+* Example: ~break~
+
+- Divide a number ~foo~ by each element in a ~numeric~ vector ~bar~:
+  #+name: foobar
+  #+begin_src R
+    foo <- 5
+    bar <- c(2,3,1.1,4,0,4.1,3)
+  #+end_src
+
+- Divide ~foo~ by ~bar~:
+  #+begin_src R
+
+  #+end_src
+
+- You want to halt execution if one of the results evaluates to ~Inf~:
+  1) initialize ~result~ as vector of length of ~bar~ with ~NA~
+  2) loop over the length of ~bar~
+     1. store ~foo/bar~ in ~temp~
+     2. if ~temp~ ~is.finite~
+        - store ~temp~ in ~result~
+        - otherwise ~break~
+  3) print ~result~          
+  #+name: loop1.result
+  #+begin_src R
+    <<foobar>>
+    ...
+  #+end_src
+
+* Example: ~next~
+
+- ~next~ avoids division by zero:
+  1) initialize 'result' - make vector of length of 'bar' with NA
+  2) loop over length of 'bar'
+     1. if 'bar' is 0, leave loop with 'next'
+     2. if 'bar' is not 0, divide 'foo' by 'bar' and save to 'result'
+  3) print 'result'
+  #+begin_src R
+    <<foobar>>
+    ...
+  #+end_src
+     
+* ~break~ and ~next~ in nested loops
+
+- Fill a matrix with multiples of two vectors and use ~next~ in the
+  inner loop to skip certain values:
+  #+name: init_baz
+  #+begin_src R
+    loopvec1 <- 5:7
+    loopvec2 <- 9:6
+    baz <- matrix(NA,
+                  length(loopvec1),
+                  length(loopvec2))
+  #+end_src
+
+- Algorithm:
+  1) loop over ~loopvec1~
+     1. loop over ~loopvec2~
+        - store product in ~temp~
+        - if ~temp~ is greater or equal than ~54~ leave inner loop
+        - otherwise store temp in ~baz~
+  2) when the loops are done, print ~baz~
+  #+begin_src R
+    <<init_baz>>
+    ...
+  #+end_src
+
+* Example: ~repeat~
+
+- The Fibonacci series is an infinite series of integers beginning
+  with 1,1,2,3,5,8,13,...formally: the n-th Fibonacci number $F_{nx}$ is
+  $F_{n} = F_{n-2} + F_{n-1 }$, $n=2,3,4,5$ and $F_{1} = F_{2} = 1$.
+
+- You can use ~repeat~, and ~break~ out of the loop:
+  1) initialize first two terms ~fib.a~ and ~fib.b~ with ~1~
+  2) repeat
+     1. store next term ~fib.a + fib.b~ in ~temp~
+     2. overwrite ~fib.a~ with ~fib.b~ (this is now the head)
+     3. overwrite ~fib.b~ with ~temp~ (this is the new term)
+     4. print ~fib.b~ with ~cat~
+     5. if ~fib.b~ greater than ~150~
+        - write "Break now..." with ~cat~
+        - leave with ~break~
+  #+begin_src R
+    ...
+  #+end_src
+
+* TODO Exercises
+** ~while~ without ~break~ or ~next~
+In the text, we divided ~foo~ by ~bar~, where:
+#+begin_src R
+  <<foobar>>
+  foo
+  bar
+#+end_src
+
+#+RESULTS:
+: [1] 5
+: [1] 2.0 3.0 1.1 4.0 0.0 4.1 3.0
+
+1) Write a ~while~ loop - without using ~break~ or ~next~ that will produce
+   the same vector as ~loop1.result~ ([[https://github.com/birkenkrahe/ds2/blob/main/org/8_loop_break.org#example-break][see GitHub]]): compute ~foo/bar~ and
+   make sure you break off as soon as ~Inf~ is produced.
+   #+begin_src R
+     <<loop1.result>>
+   #+end_src
+
+   #+RESULTS:
+   : [1] NA NA NA NA NA NA NA
+   : [1] 2.500000 1.666667 4.545455 1.250000       NA       NA       NA
+
+   #+begin_src R
+
+   #+end_src
+
+2) Obtain the same result as ~loop2.result~ using an ~ifelse~ function
+   instead of a loop.
+   #+begin_src R
+     <<loop2.result>>
+   #+end_src
+
+   #+RESULTS:
+   : [1] NA NA NA NA NA NA NA
+   : [1] 2.500000 1.666667 4.545455 1.250000       NA 1.219512 1.666667
+
+   #+begin_src R
+
+   #+end_src
+
+** ~for~ and ~repeat~ instead of ~while~
+
+To demonstrate ~while~ loops, you used ~mynumbers~ to progressively fill
+~mylist~ with identity matrices whose dimensions matched the values in
+~mynumbers~. The loop was instructed to stop when it reached the end of
+the ~numeric~ vector or a number greater than 5:
+#+name: initialize
+#+begin_src R :results silent
+  mylist <- list()  # create an empty list to store all matrices
+  counter <- 1      # set loop index counter variable to 1
+  mynumbers <- c(4,5,1,2,6,2,4,6,6,2) # matrix dimensions
+  mycondition <- mynumbers[counter] <= 5 # while loop condition
+#+end_src
+#+name: build_list
+#+begin_src R
+  while (mycondition) {
+    mylist[[counter]] <- diag(mynumbers[counter]) # add matrix to list
+    counter <- counter + 1   # increase counter (stepping through mynumbers)
+    ## update loop condition
+    if (counter <= length(mynumbers)) {
+      mycondition <- mynumbers[counter] <= 5  # counter in bounds
+    } else {
+      mycondition <- FALSE   # counter out of bounds (end of mynumbers)
+    }
+  }
+  mylist
+#+end_src
+
+1) Write a ~for~ loop using a ~break~ declaration that does the same thing.
+
+2) Write a ~repeat~ statement that does the same thing.
+
