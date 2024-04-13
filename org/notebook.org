@@ -1157,7 +1157,7 @@ Solution:
 #+attr_html: :width 400px:
 [[../img/week_13.png]]
 
-** Practical Use case for =repeat=: continuous user input
+** TODO Practical Use case for =repeat=: continuous user input
 
 - =repeat= can be used to continuously ask for user input until an
   acceptable response is received, making it useful for interactive
@@ -1183,6 +1183,10 @@ Solution:
   ~source("./repeat.R")~ on the R console:
   #+attr_html: :width 350px: 
   [[../img/repeat.png]]
+
+
+** TODO DataCamp review: intermediate Python
+
 
 * Week 14: Integration of SQL with R and Python
 * Week 15: Integration of C++ with R
