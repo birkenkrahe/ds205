@@ -1185,7 +1185,19 @@ Solution:
   [[../img/repeat.png]]
 
 
-** TODO DataCamp review: intermediate Python
+** TODO DataCamp review: intermediate Python - loops
+
+1) 
+2) 
+3) 
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+
 
 
 * Week 14: Integration of SQL with R and Python
