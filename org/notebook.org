@@ -1184,9 +1184,9 @@ Solution:
   #+attr_html: :width 350px:
   [[../img/repeat.png]]
 
-
 ** TODO Test 5 (R loops) is available until next Sunday
 
+<<<<<<< HEAD
 
 
 ** TODO Data science from scratch with Python I-III
@@ -1196,6 +1196,15 @@ Create a new Orgmode file and put Python header-args into it:
 #+PROPERTY: header-args:python :session *Python* :results output
 #+startup: overview hideblocks indent
 #+end_example
+=======
+
+- Create a new Orgmode file
+- At the top, put this code:
+  #+begin_example
+  #+property: header-args:python :session *Python* :results output
+  #+startup: overview indent hideblocks
+   #+end_example
+>>>>>>> 410023d (Update from dell)
 
 * Week 14: Integration of SQL with R and Python
 * Week 15: Integration of C++ with R
