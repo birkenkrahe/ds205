@@ -1153,7 +1153,7 @@ Solution:
   #+attr_html: :width 400px:
   [[../img/test_4.png]]
 
-* Week 13: Passing through: Python 
+* Week 13: Passing through: Python
 #+attr_html: :width 400px:
 [[../img/week_13.png]]
 
@@ -1181,26 +1181,21 @@ Solution:
 
 - This code block must be tangled. Execute the script ~repeat.R~ with
   ~source("./repeat.R")~ on the R console:
-  #+attr_html: :width 350px: 
+  #+attr_html: :width 350px:
   [[../img/repeat.png]]
 
 
 ** TODO Test 5 (R loops) is available until next Sunday
 
-** TODO DataCamp review: intermediate Python - loops
-
-1) 
-2) 
-3) 
-4) 
-5) 
-6) 
-7) 
-8) 
-9) 
-10) 
 
 
+** TODO Data science from scratch with Python I-III
+
+Create a new Orgmode file and put Python header-args into it:
+#+begin_example org
+#+PROPERTY: header-args:python :session *Python* :results output
+#+startup: overview hideblocks indent
+#+end_example
 
 * Week 14: Integration of SQL with R and Python
 * Week 15: Integration of C++ with R
