@@ -125,6 +125,10 @@
     result
   #+end_src
 
+  #+RESULTS:
+  : [1] 2.0 3.0 1.1 4.0 0.0 4.1 3.0
+  : [1] 2.500000 1.666667 4.545455 1.250000       NA 1.219512 1.666667
+
 * ~break~ and ~next~ in nested loops
 
 - If you use either ~break~ or ~next~ in a nested loop, the command will
@@ -141,6 +145,8 @@
                   length(loopvec2))
   #+end_src
 
+  #+RESULTS: init_baz
+
 - Loop over both vectors, exclude loops where their element-wise
   product is greater or equal than 54 but keep going otherwise.
 
@@ -151,22 +157,6 @@
         - if ~temp~ is greater or equal than ~54~ leave inner loop
         - otherwise store temp in ~baz~
   2) when the loops are done, print ~loopvec1~, ~loopvec2~, and ~baz~.
-
-  #+begin_src R
-    <<init_baz>>
-    for (i in 1:length(loopvec1)) {
-      for (j in 1:length(loopvec2)) {
-        loopvec1[i] * loopvec2[j] -> temp
-        if (temp >= 54) {
-          next
-        } else {
-          temp -> baz[i,j] # overwrite matrix element with temp
-        }
-      }
-      loopvec1
-      loopvec2
-      baz
-  #+end_src
      
        #+begin_src R
     <<init_baz>>
@@ -193,15 +183,23 @@
   : [2,]   NA   48   42   36
   : [3,]   NA   NA   49   42
 
+  #+RESULTS:
+  : [1] 5 6 7
+  : [1] 9 8 7 6
+  :      [,1] [,2] [,3] [,4]
+  : [1,]   45   40   35   30
+  : [2,]   NA   48   42   36
+  : [3,]   NA   NA   49   42
+
 * Repeating operations with ~repeat~
 
 - The template for ~repeat~ is simple - it repeats whatever stands
   between the curly braces:
-  #+begin_src R
+  #+begin_example R
     repeat {
       do any code in here
     }
-  #+end_src
+  #+end_example
 
 - Repetition with ~repeat~ does not include a /loopindex/ or
   /loopcondition/. To stop repeating the code, you need ~break~.

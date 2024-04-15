@@ -1185,6 +1185,8 @@ Solution:
   [[../img/repeat.png]]
 
 
+** TODO Test 5 (R loops) is available until next Sunday
+
 ** TODO DataCamp review: intermediate Python - loops
 
 1) 
