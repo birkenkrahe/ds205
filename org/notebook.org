@@ -1153,11 +1153,12 @@ Solution:
   #+attr_html: :width 400px:
   [[../img/test_4.png]]
 
+
 * Week 13: Passing through: Python
 #+attr_html: :width 400px:
 [[../img/week_13.png]]
 
-** TODO Practical Use case for =repeat=: continuous user input
+** DONE Practical Use case for =repeat=: continuous user input
 
 - =repeat= can be used to continuously ask for user input until an
   acceptable response is received, making it useful for interactive
@@ -1184,27 +1185,79 @@ Solution:
   #+attr_html: :width 350px:
   [[../img/repeat.png]]
 
-** TODO Test 5 (R loops) is available until next Sunday
+** DONE Test 5 (R loops) is available until next Sunday
 
 <<<<<<< HEAD
 
 
 ** TODO Data science from scratch with Python I-III
 
-Create a new Orgmode file and put Python header-args into it:
-#+begin_example org
-#+PROPERTY: header-args:python :session *Python* :results output
-#+startup: overview hideblocks indent
-#+end_example
-=======
+
+*** Setup
+
+- Create a new Orgmode file and put Python header-args into it:
+  #+begin_example org
+  #+PROPERTY: header-args:python :session *Python* :results output
+  #+startup: overview hideblocks indent
+  #+end_example
 
 - Create a new Orgmode file
+
 - At the top, put this code:
   #+begin_example
   #+property: header-args:python :session *Python* :results output
   #+startup: overview indent hideblocks
    #+end_example
->>>>>>> 410023d (Update from dell)
+
+
+*** Python coding review
+
+1) Put this in a =list= named ~names~:
+   - a dictionary with the keys "fname" and "lname" and the
+     corresponding values, your first and last name
+   - a tuple with your first and last name as values
+   - =print= the =list=
+2) =print= the =list= as a comprehension (with integrated =for= loop).
+3) =print= only the dictionary of the =list=
+4) =print= only the =tuple= of the =list=
+5) =print= only the last name of the dictionary and the first name of
+   the tuple.
+6) Use =append= to add the tuple ~('Albert','Einstein')~ to the =list=
+   ~names~, then =print= the list as a comprehension again.
+
+#+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+  # list definition
+  names = [
+      {"fname":"Marcus","lname":"Birkenkrahe"},
+      ("Marcus","Birkenkrahe")
+  ]
+
+  # print the list
+  print(names)
+
+  # print the list as a comprehension
+  [print(_) for _ in names]
+
+  # print only the dictionary
+  print(names[0])
+
+  # print only the tuple
+  print(names[1])
+
+  # last name of the dictioxnary list item (
+  print(names[0]['lname'])
+
+  # first name of the tuple list item
+  print(names[1][0])
+
+  # append pair and print again
+  names.append(('Albert','Einstein'))
+  [print(_) for _ in names]
+#+end_src
+
+
+To continue the coding from where you left off: ~M-x org-babel-execute-buffer~
+
 
 * Week 14: Integration of SQL with R and Python
 * Week 15: Integration of C++ with R
