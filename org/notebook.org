@@ -1217,15 +1217,96 @@ Solution:
      corresponding values, your first and last name
    - a tuple with your first and last name as values
    - =print= the =list=
+
+   #+begin_src python :session *Python* :python python3 :results output :exports both :noweb yes
+     names = [
+         {"fname":"Marcus", "lname":"Birkenkrahe"},
+         ("Marcus","Birkenkrahe")
+     ]
+     print(names)
+   #+end_src
+
+#+RESULTS:
+: [{'fname': 'Marcus', 'lname': 'Birkenkrahe'}, ('Marcus', 'Birkenkrahe')]
+
 2) =print= the =list= as a comprehension (with integrated =for= loop).
+
+   #+begin_src python
+     [print(_) for _ in names]
+   #+end_src
+
+#+RESULTS:
+: {'fname': 'Marcus', 'lname': 'Birkenkrahe'}
+: ('Marcus', 'Birkenkrahe')
+
 3) =print= only the dictionary of the =list=
+
+   #+begin_src python
+     print(names[0])
+   #+end_src
+
+   #+RESULTS:
+   : {'fname': 'Marcus', 'lname': 'Birkenkrahe'}
+
 4) =print= only the =tuple= of the =list=
+
+   #+begin_src python
+     print(names[1])
+   #+end_src
+
+   #+RESULTS:
+   : ('Marcus', 'Birkenkrahe')
+   
 5) =print= only the last name of the dictionary and the first name of
    the tuple.
+
+   #+begin_src python
+     print(names[0]['lname'])
+     print(names[1][0])     
+
+     print(names[0]['lname'], names[1][0]     )
+     print(names[0]['lname'] + " " + names[1][0]     )
+   #+end_src
+
+   #+RESULTS:
+   : Birkenkrahe
+   : Marcus
+   : Birkenkrahe Marcus
+   : Birkenkrahe Marcus
+   
 6) Use =append= to add the tuple ~('Albert','Einstein')~ to the =list=
    ~names~, then =print= the list as a comprehension again.
 
-#+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+   #+begin_src python
+     names.append("another list item")
+     [print(_) for _ in names]
+   #+end_src
+
+   #+RESULTS:
+   : {'fname': 'Marcus', 'lname': 'Birkenkrahe'}
+   : ('Marcus', 'Birkenkrahe')
+   : ('Albert', 'Einstein')
+   : ('Albert', 'Einstein')
+   : another list item
+
+   #+begin_src python
+     list.append(names,"will this work?")
+     [print(_) for _ in names]
+   #+end_src
+
+   #+RESULTS:
+   : {'fname': 'Marcus', 'lname': 'Birkenkrahe'}
+   : ('Marcus', 'Birkenkrahe')
+   : ('Albert', 'Einstein')
+   : ('Albert', 'Einstein')
+   : another list item
+   : will this work?
+   : will this work?
+   : will this work?
+   : will this work?
+
+Solutions:
+   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
   # list definition
   names = [
       {"fname":"Marcus","lname":"Birkenkrahe"},
