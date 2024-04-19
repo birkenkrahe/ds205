@@ -8,7 +8,7 @@
 * Random scatterplot
 
 Plot 100 random points.
-#+begin_src R :results output graphics file :file rplot.png
+#+begin_src R :results output graphics file :file rplot.png :exports both
   plot(rnorm(100))
 #+end_src
 
@@ -16,7 +16,7 @@ Plot 100 random points.
 [[file:rplot.png]]
 
 Same thing in Python. Must import =matplotlib.pyplot= and =random=.
-#+begin_src python :results output graphics file :file pyplot.png
+#+begin_src python :results output graphics file :file pyplot.png :exports both
   import matplotlib.pyplot as plt
   import numpy as np
 
