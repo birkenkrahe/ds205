@@ -1339,6 +1339,11 @@ To continue the coding from where you left off: ~M-x org-babel-execute-buffer~
 
 ** How are your final projects going? A snapshot.
 
+- Timothy (7): Webscraping in Python
+- Fowler (5): PyGame with examples
+- Lucia (6): Visualizing grades with Matplotlib
+- Thomas (4): Webscraping baseball packages in Python and R
+
 ** Python from Scratch - recap and next step
 
 1) We received social network data in the form of a list of user
