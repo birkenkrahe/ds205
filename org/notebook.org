@@ -1153,12 +1153,11 @@ Solution:
   #+attr_html: :width 400px:
   [[../img/test_4.png]]
 
-
-* Week 13: Passing through: Python
+* DONE Week 13: Passing through: Python I
 #+attr_html: :width 400px:
 [[../img/week_13.png]]
 
-** DONE Practical Use case for =repeat=: continuous user input
+** Practical Use case for =repeat=: continuous user input
 
 - =repeat= can be used to continuously ask for user input until an
   acceptable response is received, making it useful for interactive
@@ -1185,13 +1184,8 @@ Solution:
   #+attr_html: :width 350px:
   [[../img/repeat.png]]
 
-** DONE Test 5 (R loops) is available until next Sunday
-
-<<<<<<< HEAD
-
-
-** TODO Data science from scratch with Python I-III
-
+** Test 5 (R loops) is available until next +Sunday+ Monday
+** Data science from scratch with Python I-III
 
 *** Setup
 
@@ -1208,7 +1202,6 @@ Solution:
   #+property: header-args:python :session *Python* :results output
   #+startup: overview indent hideblocks
    #+end_example
-
 
 *** Python coding review
 
@@ -1256,13 +1249,13 @@ Solution:
 
    #+RESULTS:
    : ('Marcus', 'Birkenkrahe')
-   
+
 5) =print= only the last name of the dictionary and the first name of
    the tuple.
 
    #+begin_src python
      print(names[0]['lname'])
-     print(names[1][0])     
+     print(names[1][0])
 
      print(names[0]['lname'], names[1][0]     )
      print(names[0]['lname'] + " " + names[1][0]     )
@@ -1273,7 +1266,7 @@ Solution:
    : Marcus
    : Birkenkrahe Marcus
    : Birkenkrahe Marcus
-   
+
 6) Use =append= to add the tuple ~('Albert','Einstein')~ to the =list=
    ~names~, then =print= the list as a comprehension again.
 
@@ -1306,7 +1299,7 @@ Solution:
    : will this work?
 
 Solutions:
-   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+#+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
   # list definition
   names = [
       {"fname":"Marcus","lname":"Birkenkrahe"},
@@ -1340,6 +1333,36 @@ Solutions:
 To continue the coding from where you left off: ~M-x org-babel-execute-buffer~
 
 
-* Week 14: Integration of SQL with R and Python
-* Week 15: Integration of C++ with R
+* Week 14: Passing through Python II & Data processing in Shell
+#+attr_html: :width 400px:
+[[../img/week_14.png]]
+
+** How are your final projects going? A snapshot.
+
+** Python from Scratch - recap and next step
+
+1) We received social network data in the form of a list of user
+   dictionaries + friendship pairs (tuples).
+
+2) We created a new dictionary for the friendship relationships: each
+   user key has friends as values.
+   #+begin_example
+   0 [1, 2]
+   1 [0, 2, 3]
+   2 [0, 1, 3]
+   3 [1, 2, 4]
+   4 [3, 5]
+   5 [4, 6, 7]
+   6 [5, 8]
+   7 [5, 8]
+   8 [6, 7, 9]
+   9 [8]
+   #+end_example
+
+3) Next, we're going to use the new dictionary for some queries, like:
+   - What is the average number of connections of a user?
+   - Who is most (and least) connected?
+   
+
+* Week 15: Integration of C++ and SQL with R and Python
 * Week 16: Project presentations / 4th sprint review
