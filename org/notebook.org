@@ -1367,7 +1367,17 @@ To continue the coding from where you left off: ~M-x org-babel-execute-buffer~
 3) Next, we're going to use the new dictionary for some queries, like:
    - What is the average number of connections of a user?
    - Who is most (and least) connected?
+
+Get the file with the latest progress from: tinyurl.com/python-from-scratch     
    
+** Magic of Git
+
+(Thanks @ThomasLingren for trying some of this)
+
+
+
+
+
 
 * Week 15: Integration of C++ and SQL with R and Python
 * Week 16: Project presentations / 4th sprint review
