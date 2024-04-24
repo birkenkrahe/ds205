@@ -1367,7 +1367,7 @@ To continue the coding from where you left off: ~M-x org-babel-execute-buffer~
    - What is the average number of connections of a user?
    - Who is most (and least) connected?
 
-Get the file with the latest progress from: tinyurl.com/python-from-scratch     
+Get the file with the latest progress from: tinyurl.com/scratch-that-python-itch
    
 ** Magic of Git!
 
