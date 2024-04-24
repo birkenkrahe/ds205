@@ -136,4 +136,7 @@ The story so far: finding key connectors in a network of friends:
 
   #+end_src
 
-  
+- Check for Hero (0):
+  #+begin_src python
+    print(most_common_interests_with(users[0]))
+  #+end_src  
