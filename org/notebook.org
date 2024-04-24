@@ -1369,25 +1369,26 @@ To continue the coding from where you left off: ~M-x org-babel-execute-buffer~
 
 Get the file with the latest progress from: tinyurl.com/python-from-scratch     
    
-** Magic of Git
+** Magic of Git!
 
 (Thanks @ThomasLingren for trying some of this)
 
 For this to work with a =git= command on your PC, Git must be installed
 (requires admin rights) - so I'll be doing that before class.
 
-1. Register with GitHub
-2. Create a repo ('main'/'origin')
-3. Clone repo to local computer ('remote')
-4. Add, commit and push remote (local) changes to main (origin)
+Before attempting this, please complete the [[https://docs.github.com/en/get-started/start-your-journey/hello-world][GitHub "hello world"]]
+tutorial if you haven't done it yet.
+
+1. [ ] Register with GitHub (5 min)
+2. [ ] Complete [[https://docs.github.com/en/get-started/start-your-journey/hello-world][GitHub Hello World Tutorial]] (30 min)
+3. [ ] Create a repo ('main'/'origin') (5 min)
+4. [ ] Clone repo to local computer ('remote') (5 min)
+5. [ ] Add, commit and push remote (local) changes to main (origin) (5 min)
 
 There are three scripts that I use and that I will share with you:
 1) stat (to check for changes)
 2) upd (to update changes between remote and origin repo)
 3) fetch (to fetch and pull changes from the origin to the remote)
-
-Before attempting this, please complete the GitHub "hello world"
-tutorial if you haven't done it yet: 
 
 * Week 15: Integration of C++ and SQL with R and Python
 * Week 16: Project presentations / 4th sprint review

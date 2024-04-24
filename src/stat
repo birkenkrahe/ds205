@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Define an array with the directory names
+directories=("admin" "cpp" "db24" "ds205" "org" "os24" "research")
+
+# Save the current directory
+start_dir=$(pwd)
+
+# Loop through the directories and check `git status`
+for dir in "${directories[@]}"; do
+    if [ -d "$dir" ]; then
+	echo "Entering $dir..." &> /dev/null
+	cd "$dir"
+	# Check if there are changes
+	if [ -n "$(git status --porcelain)" ]; then
+	    echo $dir
+	    echo "Needs update" &> /dev/null
+	else
+	    echo "Up to date" &> /dev/null
+	fi
+	# Return to the starting directory
+	cd "$start_dir"
+    else
+	echo "Directory $dir does not exist."
+    fi
+done
+
+echo "Done." &> /dev/null

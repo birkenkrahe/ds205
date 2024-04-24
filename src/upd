@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Your GitHub username and PAT
+USERNAME="..."  
+PAT="..." # get your own PAT
+
+# Loop to keep asking for repository names
+while true; do
+    # Ask for the repository name (leave empty to finish):
+    echo "Enter the repository name (leave empty to finish):"
+    read REPO_NAME
+
+    # Check if the repository name was entered
+    if [[ -z "$REPO_NAME" ]]; then
+        echo "No repository entered. Exiting..."
+        break # Exit the loop
+    fi
+
+    # Navigate to the repository directory
+    cd "./${REPO_NAME}"
+
+    # Verify if the directory change was successful
+    if [ $? -eq 0 ]; then
+
+        # Add, commit, and push changes
+        git add .
+        git commit -m "Update from vostro"
+        git push
+    else
+        echo "Failed to change directory. Make sure the repository name is correct."
+    fi
+
+    # Navigate back to the original or base directory if needed
+    # This is important if your script runs in a specific working directory
+     cd "../"
+
+    # Clear the repository name variable to allow for a new input
+    unset REPO_NAME
+done
