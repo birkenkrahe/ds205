@@ -5,7 +5,7 @@
 #+OPTIONS: toc:nil num:nil ^:nil
 #+property: header-args:python :results output :noweb yes :session *Python* :exports both
 #+property: header-args:R :results output :noweb yes :session *R* :exports both
-* DONE Week 1: Comparing R and Python
+* Week 1: Comparing R and Python
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/cover.png]]
 
@@ -111,7 +111,7 @@ Python test results:
 7. Put your name and "(pledged)" next to it at the top after ~#+author:~
 8. Submit the completed practice file to [[https://lyon.instructure.com/courses/2111/assignments/23788][Canvas]].
 
-* DONE Week 2: Conditionals and work flow in R & work environment
+* Week 2: Conditionals and work flow in R & work environment
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/datascientist.png]]
 
@@ -263,7 +263,7 @@ And also: how can you check/change your working directory in Python?
   print("Current Working Directory: ", os.getcwd())
 #+end_src
 
-* DONE Week 3: Python's Matplotlib & R factors & Python Categories
+* Week 3: Python's Matplotlib & R factors & Python Categories
 #+ATTR_HTML: :WIDTH 600px:
 [[../img/matplotlib.png]]
 
@@ -283,7 +283,7 @@ And also: how can you check/change your working directory in Python?
 - Use mindmaps or other graphical representations
 - Approach the same set of topics from different angles
 
-* DONE Week 4: A really short review of R and Python
+* Week 4: A really short review of R and Python
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/midnightoil.webp]]
 
@@ -390,7 +390,7 @@ the deadline for these bonus points because we're going to discuss the
 solution on Monday.
 #+end_quote
 
-* DONE Week 5: +Writing functions in R+ Transforming pandas DataFrame in Python
+* Week 5: +Writing functions in R+ Transforming pandas DataFrame in Python
 #+attr_html: :width 400px
 [[../img/overworked.png]]
 
@@ -420,7 +420,7 @@ If you're working with code blocks, you want to Amake your life easier:
 - We'll use function definitions from R and Python for that.
 - There will be small bonus exercises - double points for R and Python
 
-* DONE Week 6: Transforming dataframes in R and getting summary statistics
+* Week 6: Transforming dataframes in R and getting summary statistics
 #+attr_html: :width 400px:
 [[../img/week6.png]]
 
@@ -483,7 +483,7 @@ Now, load the code along file and code along for the remainder of this
 session on transforming data frames - with R:
 [[http://tinyurl.com/transform-org][tinyurl.com/transform-org]].
 
-* DONE Week 7: R plots, +utilities, and =apply= family of functions+
+* Week 7: R plots, +utilities, and =apply= family of functions+
 #+attr_html: :width 400px:
 [[../img/conflict.png]]
 
@@ -737,7 +737,7 @@ Write down what you think the answers are to these questions:
 #+RESULTS:
 [[file:matrixbar1.png]]
 
-* DONE Week 8: Scope and calling functions in R and Python
+* Week 8: Scope and calling functions in R and Python
 #+attr_html: :width 400px:
 [[../img/scope.webp]]
 
@@ -753,14 +753,14 @@ Write down what you think the answers are to these questions:
 
 - Next DataCamp lesson (=apply=) deadline now March 10
 
-* DONE Week 9: if-else-switch-loops in R / 2nd sprint review
+* Week 9: if-else-switch-loops in R / 2nd sprint review
 #+attr_html: :width 400px:
 [[../img/week_9.png]]
 
 - Back to Python: two new DataCamp assignments (if-else and loops)
 - [[https://lyon.instructure.com/courses/2111/assignments/26166][2nd sprint review]] opened: literature review (all sources) - March 29
 
-* DONE Week 10: apply functions, ifelse, if, else
+* Week 10: apply functions, ifelse, if, else
 #+attr_html: :width 400px:
 [[../img/week_10.png]]
 
@@ -928,7 +928,7 @@ Write down what you think the answers are to these questions:
 
 [[http://tinyurl.com/6-ifelse-practice-org][tinyurl.com/6-ifelse-practice-org]]
 
-* DONE Week 11: =switch= and =while= loops
+* Week 11: =switch= and =while= loops
 #+attr_html: :width 400px:
 [[../img/week_11.png]]
 
@@ -1145,7 +1145,7 @@ Solution:
 - [ ] =for= loops
 - [ ] =apply= instead of loops
 
-* DONE Week 12: =for= loops, =break=, =next=, and =repeat=
+* Week 12: =for= loops, =break=, =next=, and =repeat=
 #+attr_html: :width 300px:
 [[../img/week_12.png]]
 
@@ -1153,7 +1153,7 @@ Solution:
   #+attr_html: :width 400px:
   [[../img/test_4.png]]
 
-* DONE Week 13: Passing through: Python I
+* Week 13: Passing through: Python I
 #+attr_html: :width 400px:
 [[../img/week_13.png]]
 
