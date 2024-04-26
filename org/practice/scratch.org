@@ -63,57 +63,84 @@ The story so far: finding key connectors in a network of friends:
 : [(0, 2), (1, 3), (2, 3), (3, 3), (4, 2), (5, 3), (6, 2), (7, 2), (8, 3), (9, 1)]
 : [(1, 3), (2, 3), (3, 3), (5, 3), (8, 3), (0, 2), (4, 2), (6, 2), (7, 2), (9, 1)]
 
-* Finding friends of friends
+* Finding Shared Interests
 
-- Return the friends of a user's friend (~foaf~):
+- What if you wanted to encourage more connections among the network
+  members? You decide to build a "other users you may know" suggester
+  for the VP of Fraternization (?).
+
+- Users might know the friends of their friends. The following
+  function iterates over our ~friendships~ dictionary and returns the
+  friends of a user's friends (~foaf~):
+  #+begin_src python :results silent
+    def foaf(user):  # takes user id as argument
+        """foaf is short for 'friend of a friend' """
+        return [foaf_id
+                for friend_id in friendships[user["id"]] # iterate over users
+                for foaf_id in friendships[friend_id]] # find their friends
+  #+end_src
+
+- Call this for example on ~users[0]~ (~'Hero'~):
   #+begin_src python
-
+    print(users[0])
+    print(foaf(users[0]))
   #+end_src
 
   #+RESULTS:
+  : {'id': 0, 'name': 'Hero'}
+  : [0, 2, 3, 0, 1, 3]
 
-- Call ~foaf~ on ~users[0]~ (Hero):
+- The result of ~foaf~ includes user 0 twice because Hero is friends
+  with both of his friends, and it includes users 1 and 2, although
+  they are already friends of Hero already, and it includes 3 twice,
+  since Chi (3) can be reached through two different friends.
   #+begin_src python
-
+    print(friendships[0]) # [1,2]
+    print(friendships[1]) # [0,2,3]
+    print(friendships[2]) # [0,1,3]
   #+end_src
 
   #+RESULTS:
+  : [1, 2]
+  : [0, 2, 3]
+  : [0, 1, 3]
 
-- Check the result by printing ~friendships~ items:
+- So people are "friends of friends" in multiple ways. Perhaps it is
+  better to produce a /count/ of mutual friends and exclude people
+  already known to the user. Let's rewrite the function:
+  #+begin_src python :results silent
+    from collections import Counter  # standard but not loaded by default
+
+    def friends_of_friends(user):
+
+        user_id = user["id"] # store user
+
+        return Counter(  # count items in the following temporary container
+            foaf_id   # iterate over friendships
+            for friend_id in friendships[user_id] # for each of my friends
+            for foaf_id in friendships[friend_id] # find their friends
+            # who aren't me and are not my friends already:
+            if foaf_id != user_id and foaf_id not in friendships[user_id]
+        )
+  #+end_src
+
+- Here, =collections.Counter= is a method in =collections=, which offers a
+  few 'container' datatypes: alternatives to =dict=, =list=, =set= and =tuple=
+  ([[https://docs.python.org/3/library/collections.html][doc]]).
+
+- Test this for Hero and Chi:
   #+begin_src python
-    [print(key,value) for key,value in friendships.items()]
+    print(friends_of_friends(users[0])) # 2 mutual friends with Chi (3)
+    print(friends_of_friends(users[3])) # 2 friends with Hero (0), 1 with Clive (5)
   #+end_src
 
   #+RESULTS:
-  #+begin_example
-  0 [1, 2]
-  1 [0, 2, 3]
-  2 [0, 1, 3]
-  3 [1, 2, 4]
-  4 [3, 5]
-  5 [4, 6, 7]
-  6 [5, 8]
-  7 [5, 8]
-  8 [6, 7, 9]
-  9 [8]
-  #+end_example
+  : Counter({3: 2})
+  : Counter({0: 2, 5: 1})
 
-- Produce a count of mutual friends and exclude people already known
-  to the user with the function ~friends_of_friends~:
-  #+begin_src python
-
-  #+end_src
-
-  #+RESULTS:
-  
-- Test ~friends_of_friends~ for the users Hero (0) and Chi (3):
-  #+begin_src python
-
-  #+end_src
-
-  #+RESULTS:
-
-- These data document similar interests among the users, coded as a list of pairs:
+- You might also enjoy meeting users with similar interests. You
+  manage to get your hands on this data as a list of pairs ~(user_id,
+  interest)~:
   #+begin_src python
     interests = [
         (0, "Hadoop"), (0, "Big Data"), (0, "HBase"), (0, "Java"),
@@ -132,46 +159,284 @@ The story so far: finding key connectors in a network of friends:
         (9, "Java"), (9, "MapReduce"), (9, "Big Data")
     ]
     # print the list
-    
+    [print(_) for _ in interests]
   #+end_src
 
   #+RESULTS:
+  #+begin_example
+  (0, 'Hadoop')
+  (0, 'Big Data')
+  (0, 'HBase')
+  (0, 'Java')
+  (0, 'Spark')
+  (0, 'Storm')
+  (0, 'Cassandra')
+  (1, 'NoSQL')
+  (1, 'MongoDB')
+  (1, 'Cassandra')
+  (1, 'HBase')
+  (1, 'Postgres')
+  (2, 'Python')
+  (2, 'scikit-learn')
+  (2, 'scipy')
+  (2, 'numpy')
+  (2, 'statsmodels')
+  (2, 'pandas')
+  (3, 'R')
+  (3, 'Python')
+  (3, 'statistics')
+  (3, 'regression')
+  (3, 'probability')
+  (4, 'machine learning')
+  (4, 'regression')
+  (4, 'decision trees')
+  (4, 'libsvm')
+  (5, 'Python')
+  (5, 'R')
+  (5, 'Java')
+  (5, 'C++')
+  (5, 'Haskell')
+  (5, 'programming languages')
+  (6, 'statistics')
+  (6, 'probability')
+  (6, 'mathematics')
+  (6, 'theory')
+  (7, 'machine learning')
+  (7, 'scikit-learn')
+  (7, 'Mahout')
+  (7, 'neural networks')
+  (8, 'neural networks')
+  (8, 'deep learning')
+  (8, 'Big Data')
+  (8, 'artificial intelligence')
+  (9, 'Hadoop')
+  (9, 'Java')
+  (9, 'MapReduce')
+  (9, 'Big Data')
+  #+end_example
+
+- For example, Hero (0) has no friends in common with Klein (9) but
+  they share interests in Java and Big Data.
 
 - We build a function that finds users with a certain interest:
+  #+begin_src python :results silent
+    def users_who_like(target_interest):
+        """Find the ids of all users who like the target interest."""
+        return [user_id
+                for user_id, user_interest in interests  # loop over key, value
+                if user_interest == target_interest]
+  #+end_src
+
+- Again, to avoid having to search the whole list for every search, we
+  build an index from interests to users in the form of a =dict=, and
+  another one from users to interests.
+
+- Index for users by interest:
   #+begin_src python
-    
+    from collections import defaultdict
+
+    # keys are interests, values are lists of user_ids with that interest
+    user_ids_by_interest = defaultdict(list)
+
+    for user_id, interest in interests:
+        user_ids_by_interest[interest].append(user_id)
+
+    [print(key, value) for key, value in user_ids_by_interest.items()]
   #+end_src
 
   #+RESULTS:
+  #+begin_example
+  Hadoop [0, 9]
+  Big Data [0, 8, 9]
+  HBase [0, 1]
+  Java [0, 5, 9]
+  Spark [0]
+  Storm [0]
+  Cassandra [0, 1]
+  NoSQL [1]
+  MongoDB [1]
+  Postgres [1]
+  Python [2, 3, 5]
+  scikit-learn [2, 7]
+  scipy [2]
+  numpy [2]
+  statsmodels [2]
+  pandas [2]
+  R [3, 5]
+  statistics [3, 6]
+  regression [3, 4]
+  probability [3, 6]
+  machine learning [4, 7]
+  decision trees [4]
+  libsvm [4]
+  C++ [5]
+  Haskell [5]
+  programming languages [5]
+  mathematics [6]
+  theory [6]
+  Mahout [7]
+  neural networks [7, 8]
+  deep learning [8]
+  artificial intelligence [8]
+  MapReduce [9]
+  #+end_example
 
-- Build an index (=dict=) from interests to users:
+- Index for interests by user:
   #+begin_src python
+    # keys are user_ids, values are lists of interests for that user_id
+    interests_by_user_id = defaultdict(list)
 
+    for user_id, interest in interests:
+        interests_by_user_id[user_id].append(interest)
+
+    [print(key, value) for key, value in interests_by_user_id.items()]
   #+end_src
 
   #+RESULTS:
-
-- Build an index (=dict=) from users to interests:
-  #+begin_src python
-
-  #+end_src
-
-  #+RESULTS:
+  #+begin_example
+  0 ['Hadoop', 'Big Data', 'HBase', 'Java', 'Spark', 'Storm', 'Cassandra']
+  1 ['NoSQL', 'MongoDB', 'Cassandra', 'HBase', 'Postgres']
+  2 ['Python', 'scikit-learn', 'scipy', 'numpy', 'statsmodels', 'pandas']
+  3 ['R', 'Python', 'statistics', 'regression', 'probability']
+  4 ['machine learning', 'regression', 'decision trees', 'libsvm']
+  5 ['Python', 'R', 'Java', 'C++', 'Haskell', 'programming languages']
+  6 ['statistics', 'probability', 'mathematics', 'theory']
+  7 ['machine learning', 'scikit-learn', 'Mahout', 'neural networks']
+  8 ['neural networks', 'deep learning', 'Big Data', 'artificial intelligence']
+  9 ['Hadoop', 'Java', 'MapReduce', 'Big Data']
+  #+end_example
 
 - Find out who has the most interests in common with a given user:
   1. Iterate over the user's interests.
   2. For each interest, iterate over the other users with that interest.
   3. Keep count of how many times we see each other user.
-  #+begin_src python
 
+- In code:
+  #+begin_src python :results silent
+    def most_common_interests_with(user):
+        return Counter(
+            interested_user_id
+            for interest in interests_by_user_id[user["id"]] # iterate over interests
+            for interested_user_id in user_ids_by_interest[interest] # check other users
+            if interested_user_id != user["id"]
+        )
   #+end_src
-
-  #+RESULTS:
 
 - Check for Hero (0):
   #+begin_src python
     print(most_common_interests_with(users[0]))
-  #+end_src  
+  #+end_src
 
   #+RESULTS:
   : Counter({9: 3, 1: 2, 8: 1, 5: 1})
+
+* Exploring Salary Data
+
+- Run the code blocks above and check the environment with the Python
+  equivalent of R's ~ls~, the =globals()= function: =print= its value as a
+  list comprehension:
+  #+begin_src python
+
+  #+end_src
+
+- You are asked by the VP of Public Relations (PR) to provide facts
+  about the earnings of the users in the network.
+
+- You're given an anonymized dataset containing each user's ~salary~ (in
+  US$) and ~tenure~ in the company (in years):
+  #+begin_src python
+    salaries_and_tenures = [(83000, 8.7), (88000, 8.1),
+                            (48000, 0.7), (76000, 6),
+                            (69000, 6.5), (76000, 7.5),
+                            (60000, 2.5), (83000, 10),
+                            (48000, 1.9), (63000, 4.2)]
+    # copy into x and print the data
+    
+  #+end_src
+
+- What type of data structure is this?
+  #+begin_src python
+
+  #+end_src
+
+- Let's plot the data. What would be a good type of plot?
+  #+begin_quote
+
+  #+end_quote
+
+- All plots are contained in ~matplotlib.pyplot~, and we need to install
+  and/or load this module:
+  #+begin_src python :results silent
+
+  #+end_src
+
+- In Python, you can "unpack" a list of tuples with the =zip= function
+  and the =*= operator:
+  #+begin_src python
+
+  #+end_src
+
+- That's all we need for the Scatterplot of salaries vs. tenures:
+  #+begin_src python :file scatterplt.png :python python3 :session *Python* :results output graphics file :exports both
+    # clean graphics output
+    # width and height of figure in inches
+    # plot
+
+    # customize
+
+    # save
+
+  #+end_src
+
+- You can get it more cheaply especially for small datasets like this
+  one, with a =for= loop, plotting one point at a time:
+  #+begin_src python :file scatterplt2.png :python python3 :session *Python* :results output graphics file :exports both
+    plt.clf() # clean graphics output
+    plt.figure(figsize=(8,4)) # width and height of figure in inches
+
+
+    plt.title('Salary vs. Experience')
+    plt.xlabel('Years of Experience')
+    plt.ylabel('Salary in USD')
+    plt.grid(True)
+    plt.savefig("scatterplt2.png")
+  #+end_src
+
+- For the histogram that shows the distribution of salaries from the
+  list of tuples, extract the salaries using a list comprehension:
+  #+begin_src python
+
+  #+end_src
+
+- Plot with =plt.hist=:
+  #+begin_src python :file histplt.png :python python3 :session *Python* :results output graphics file :exports both
+
+  #+end_src
+
+- For the barplot that shows the salaries and/or experiences sorted in
+  increasing order, you can use a =lambda= function inside =sorted=:
+  #+begin_src python
+
+  #+end_src
+
+- Now you can =zip= the ~sorted_salaries~ to extract the sorted ~salaries~:
+  #+begin_src python
+
+  #+end_src
+
+- Create the bar graph:
+  #+begin_src python :file barplt.png :python python3 :session *Python* :results output graphics file :exports both
+
+  #+end_src
+
+- Let's do the same thing with the experiences:
+  #+begin_src python
+
+  #+end_src
+
+- Plot the bar graph:
+  #+begin_src python :file barplt2.png :python python3 :session *Python* :results output graphics file :exports both
+
+  #+end_src
+
+
