@@ -70,26 +70,48 @@ The story so far: finding key connectors in a network of friends:
 
   #+end_src
 
+  #+RESULTS:
+
 - Call ~foaf~ on ~users[0]~ (Hero):
   #+begin_src python
 
   #+end_src
+
+  #+RESULTS:
 
 - Check the result by printing ~friendships~ items:
   #+begin_src python
     [print(key,value) for key,value in friendships.items()]
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  0 [1, 2]
+  1 [0, 2, 3]
+  2 [0, 1, 3]
+  3 [1, 2, 4]
+  4 [3, 5]
+  5 [4, 6, 7]
+  6 [5, 8]
+  7 [5, 8]
+  8 [6, 7, 9]
+  9 [8]
+  #+end_example
+
 - Produce a count of mutual friends and exclude people already known
   to the user with the function ~friends_of_friends~:
   #+begin_src python
 
   #+end_src
+
+  #+RESULTS:
   
 - Test ~friends_of_friends~ for the users Hero (0) and Chi (3):
   #+begin_src python
 
   #+end_src
+
+  #+RESULTS:
 
 - These data document similar interests among the users, coded as a list of pairs:
   #+begin_src python
@@ -113,20 +135,28 @@ The story so far: finding key connectors in a network of friends:
     
   #+end_src
 
+  #+RESULTS:
+
 - We build a function that finds users with a certain interest:
   #+begin_src python
     
   #+end_src
+
+  #+RESULTS:
 
 - Build an index (=dict=) from interests to users:
   #+begin_src python
 
   #+end_src
 
+  #+RESULTS:
+
 - Build an index (=dict=) from users to interests:
   #+begin_src python
 
   #+end_src
+
+  #+RESULTS:
 
 - Find out who has the most interests in common with a given user:
   1. Iterate over the user's interests.
@@ -136,7 +166,12 @@ The story so far: finding key connectors in a network of friends:
 
   #+end_src
 
+  #+RESULTS:
+
 - Check for Hero (0):
   #+begin_src python
     print(most_common_interests_with(users[0]))
   #+end_src  
+
+  #+RESULTS:
+  : Counter({9: 3, 1: 2, 8: 1, 5: 1})
