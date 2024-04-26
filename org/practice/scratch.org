@@ -1,5 +1,5 @@
 #+startup: overview hideblocks indent entitiespretty:
-#+property: header-args:python :python python3 :session *Python* :results output :exports both :noweb yes :tangle yes:
+#+property: header-args:python :session *Python* :results output :exports both :noweb yes :tangle yes:
 * Finding connectors
 
 The story so far: finding key connectors in a network of friends:
@@ -336,8 +336,45 @@ The story so far: finding key connectors in a network of friends:
   equivalent of R's ~ls~, the =globals()= function: =print= its value as a
   list comprehension:
   #+begin_src python
-
+    [print(_) for _ in globals()]
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  __name__
+  __doc__
+  __package__
+  __loader__
+  __spec__
+  __annotations__
+  __builtins__
+  __PYTHON_EL_eval
+  __PYTHON_EL_eval_file
+  __PYTHON_EL_native_completion_setup
+  __org_babel_python_tmpfile
+  users
+  friendships
+  friendship_pairs
+  i
+  j
+  number_of_friends
+  total_connections
+  num_users
+  avg_connections
+  num_friends_by_id
+  foaf
+  Counter
+  friends_of_friends
+  interests
+  users_who_like
+  defaultdict
+  user_ids_by_interest
+  user_id
+  interest
+  interests_by_user_id
+  most_common_interests_with
+  salaries_and_tenures
+  #+end_example
 
 - You are asked by the VP of Public Relations (PR) to provide facts
   about the earnings of the users in the network.
@@ -351,23 +388,45 @@ The story so far: finding key connectors in a network of friends:
                             (60000, 2.5), (83000, 10),
                             (48000, 1.9), (63000, 4.2)]
     # copy into x and print the data
-    
+    x = salaries_and_tenures
+    [print(_) for _ in x]
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  (83000, 8.7)
+  (88000, 8.1)
+  (48000, 0.7)
+  (76000, 6)
+  (69000, 6.5)
+  (76000, 7.5)
+  (60000, 2.5)
+  (83000, 10)
+  (48000, 1.9)
+  (63000, 4.2)
+  #+end_example
 
 - What type of data structure is this?
   #+begin_src python
-
+    print(type(x))
+    print(type(x[0]))
   #+end_src
+
+  #+RESULTS:
+  : <class 'list'>
+  : <class 'tuple'>
 
 - Let's plot the data. What would be a good type of plot?
   #+begin_quote
-
+  1) Scatterplot of salary (in USD) vs. experience (in years)
+  2) Histogram: Frequency distribution of salaries
+  3) Bar graph: salary or experience increase by user
   #+end_quote
 
 - All plots are contained in ~matplotlib.pyplot~, and we need to install
   and/or load this module:
   #+begin_src python :results silent
-
+    import matplotlib.pyplot as plt
   #+end_src
 
 - In Python, you can "unpack" a list of tuples with the =zip= function
