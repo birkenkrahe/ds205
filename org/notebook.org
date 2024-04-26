@@ -1391,4 +1391,11 @@ There are three scripts that I use and that I will share with you:
 3) fetch (to fetch and pull changes from the origin to the remote)
 
 * Week 15: Integration of C++ and SQL with R and Python
+#+attr_html: :width 400px:
+[[../img/week_15.png]]
+
 * Week 16: Project presentations / 4th sprint review
+#+attr_html: :width 400px:
+[[../img/week_16.png]]
+
+
