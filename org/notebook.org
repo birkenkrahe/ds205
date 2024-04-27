@@ -1332,7 +1332,7 @@ Solutions:
 
 To continue the coding from where you left off: ~M-x org-babel-execute-buffer~
 
-* Week 14: Passing through Python II & Data processing in Shell
+* Week 14: Passing through Python II
 #+attr_html: :width 400px:
 [[../img/week_14.png]]
 
@@ -1408,9 +1408,19 @@ Wednesday, May 8:
 Please have some if not all materials in place by the weekend so that
 I take a look at them and prepare for the impact of your research.
 
-* Week 15: Integration of C++ and SQL with R and Python
+* Week 15: Passing through Python III & data processing in shell
 #+attr_html: :width 400px:
 [[../img/week_15.png]]
+
+** Take 5 minutes to fill in the course evaluation!
+#+attr_html: :width 400px:
+[[../img/evaluation.png]]
+
+- Register your email to get bonus points!
+- It's still anonymous but I will be told that you filled it in!
+- Don't hold back - let me have it - I can (probably) take it!
+
+
 
 * Week 16: Project presentations / 4th sprint review
 #+attr_html: :width 400px:
