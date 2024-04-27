@@ -1,15 +1,14 @@
 #+startup: overview hideblocks indent entitiespretty:
 #+property: header-args:python :session *Python* :results output :exports both :noweb yes :tangle yes:
-* Ch 1: Introduction to data science from scratch
-
-- [[https://github.com/joelgrus/data-science-from-scratch/blob/master/scratch/introduction.py][Source code (GitHub)]]
+* Data science from scratch
 
 My motivation: give you an overview of a complete case study using
 Python instead of R. This is the kind of stuff that we're going to do
 in the "Data visualization" course using R.
 
 This is taken from the introductory chapter of "Data science from
-Scratch" (2e) by Joel Grus, O'Reilly (2019), pp. 2-14.
+Scratch" (2e) by Joel Grus, O'Reilly (2019), pp. 2-14. You can find
+the [[https://github.com/joelgrus/data-science-from-scratch/blob/master/scratch/introduction.py][raw source code on GitHub]].
 
 Scenario:
 #+begin_quote
@@ -653,7 +652,7 @@ and "friendship" data in the form of a list of pairs of IDs.
   #+RESULTS:
   : Counter({9: 3, 1: 2, 8: 1, 5: 1})
 
-** Exploring Salary Data
+** IN PROGRESS Exploring Salary Data
 
 - Run the code blocks above and check the environment with the Python
   equivalent of R's ~ls~, the =globals()= function: =print= its value as a
@@ -661,49 +660,6 @@ and "friendship" data in the form of a list of pairs of IDs.
   #+begin_src python
     [print(_) for _ in globals()]
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  __name__
-  __doc__
-  __package__
-  __loader__
-  __spec__
-  __annotations__
-  __builtins__
-  __PYTHON_EL_eval
-  __PYTHON_EL_eval_file
-  __PYTHON_EL_native_completion_setup
-  __org_babel_python_tmpfile
-  salaries_and_tenures
-  plt
-  os
-  users
-  friendship_pairs
-  first_value
-  second_value
-  friendships
-  key
-  value
-  i
-  j
-  number_of_friends
-  total_connections
-  num_users
-  avg_connections
-  num_friends_by_id
-  foaf
-  Counter
-  friends_of_friends
-  interests
-  users_who_like
-  defaultdict
-  user_ids_by_interest
-  user_id
-  interest
-  interests_by_user_id
-  most_common_interests_with
-  #+end_example
 
 - You are asked by the VP of Public Relations (PR) to provide facts
   about the earnings of the users in the network.
@@ -719,29 +675,11 @@ and "friendship" data in the form of a list of pairs of IDs.
     [print(_) for _ in salaries_and_tenures]
   #+end_src
 
-  #+RESULTS:
-  #+begin_example
-  (83000, 8.7)
-  (88000, 8.1)
-  (48000, 0.7)
-  (76000, 6)
-  (69000, 6.5)
-  (76000, 7.5)
-  (60000, 2.5)
-  (83000, 10)
-  (48000, 1.9)
-  (63000, 4.2)
-  #+end_example
-
 - What type of data structure is this?
   #+begin_src python
     print(type(salaries_and_tenures)) # list
     print(type(salaries_and_tenures[0]))  # tuple
   #+end_src
-
-  #+RESULTS:
-  : <class 'list'>
-  : <class 'tuple'>
 
 - Let's plot the data. What would be a good type of plot?
   #+begin_quote
@@ -762,168 +700,68 @@ and "friendship" data in the form of a list of pairs of IDs.
   you could add that as a plugin to Emacs), so better make a copy of
   the list:
   #+begin_src python
-    x = salaries_and_tenures
-    print(x)
-  #+end_src
 
-  #+RESULTS:
-  : [(83000, 8.7), (88000, 8.1), (48000, 0.7), (76000, 6), (69000, 6.5), (76000, 7.5), (60000, 2.5), (83000, 10), (48000, 1.9), (63000, 4.2)]
+  #+end_src
 
 - Remember how to extract the tuple's elements - that's all you'd need for R:
   #+begin_src python
-    print(x[0]) # first user's salary and years of experience
-    print(x[0][0]) # first user's salary
-    print(x[0][1]) # first user's years of experience
-  #+end_src
 
-  #+RESULTS:
-  : (83000, 8.7)
-  : 83000
-  : 8.7
+  #+end_src
 
 - However, in Python, you can "unpack" a list of tuples with the =zip=
   function and the =*= operator:
   #+begin_src python
-    salaries, experiences = zip(*x)
-    print(salaries)
-    print(experiences)
-  #+end_src
 
-  #+RESULTS:
-  : (83000, 88000, 48000, 76000, 69000, 76000, 60000, 83000, 48000, 63000)
-  : (8.7, 8.1, 0.7, 6, 6.5, 7.5, 2.5, 10, 1.9, 4.2)
+  #+end_src
 
 - That's all we need for the Scatterplot of salaries vs. tenures:
   #+begin_src python :file scatterplt.png :python python3 :session *Python* :results output graphics file :exports both
-    plt.clf() # clean graphics output
-    plt.figure(figsize=(8,4)) # width and height of figure in inches
-    plt.scatter(x=experiences,
-                y=salaries,
-                color='blue')
-    plt.title('Salary vs. Experience')
-    plt.xlabel('Years of Experience')
-    plt.ylabel('Salary in USD')
-    plt.grid(True)
-    plt.savefig("scatterplt.png")
-  #+end_src
 
-  #+RESULTS:
-  [[file:scatterplt.png]]
+  #+end_src
 
 - You can get it more cheaply especially for small datasets like this
   one, with a =for= loop, plotting one point at a time:
   #+begin_src python :file scatterplt2.png :python python3 :session *Python* :results output graphics file :exports both
-    plt.clf() # clean graphics output
-    plt.figure(figsize=(8,4)) # width and height of figure in inches
-    for salary,experience in x:
-        plt.scatter(x=experience, y=salary, color='red')
-        plt.title('Salary vs. Experience')
-        plt.xlabel('Years of Experience')
-        plt.ylabel('Salary in USD')
-        plt.grid(True)
-        plt.savefig("scatterplt2.png")
-  #+end_src
 
-  #+RESULTS:
-  [[file:scatterplt2.png]]
+  #+end_src
 
 - For the histogram that shows the distribution of salaries from the
   list of tuples, extract the salaries using a list comprehension:
   #+begin_src python
-    salaries = [salary for salary,_ in x] # we treat the second element as a dummy
-    print(salaries)
-  #+end_src
 
-  #+RESULTS:
-  : [83000, 88000, 48000, 76000, 69000, 76000, 60000, 83000, 48000, 63000]
+  #+end_src
 
 - Plot with =plt.hist=:
   #+begin_src python :file histplt.png :python python3 :session *Python* :results output graphics file :exports both
-    plt.clf() # clean graphics output
-    plt.figure(figsize=(8,4)) # width and height of figure in inches
-    plt.hist(x=salaries,
-             bins='auto',
-             color='green',
-             edgecolor='black')
-    plt.title('Distribution of Salaries')
-    plt.xlabel('Salary in USD')
-    plt.ylabel('Number of Users')
-    plt.grid(True)
-    plt.savefig("histplt.png")
-  #+end_src
 
-  #+RESULTS:
-  [[file:histplt.png]]
+  #+end_src
 
 - For the barplot that shows the salaries and/or experiences sorted in
   increasing order, you can use a =lambda= function inside =sorted=:
   #+begin_src python
-    sorted_salaries = sorted(x, key=lambda item: item[0])
-    print(sorted_salaries)
-  #+end_src
 
-  #+RESULTS:
-  : [(48000, 0.7), (48000, 1.9), (60000, 2.5), (63000, 4.2), (69000, 6.5), (76000, 6), (76000, 7.5), (83000, 8.7), (83000, 10), (88000, 8.1)]
+  #+end_src
 
 - Now you can =zip= the ~sorted_salaries~ to extract the sorted ~salaries~:
   #+begin_src python
-    salaries, experiences = zip(*sorted_salaries)
-    print(salaries)
-    print(experiences)
-  #+end_src
 
-  #+RESULTS:
-  : (48000, 48000, 60000, 63000, 69000, 76000, 76000, 83000, 83000, 88000)
-  : (0.7, 1.9, 2.5, 4.2, 6.5, 6, 7.5, 8.7, 10, 8.1)
+  #+end_src
 
 - Create the bar graph:
   #+begin_src python :file barplt.png :python python3 :session *Python* :results output graphics file :exports both
-    plt.clf() # clean graphics output
-    plt.figure(figsize=(8,4)) # width and height of figure in inches
-    plt.bar(x=range(len(salaries)),
-            height=salaries,
-            color='orange',
-            edgecolor='black')
-    plt.title('Salary sorted from lowest to highest')
-    plt.xlabel('User index (sorted)')
-    plt.ylabel('Salary in USD')
-    plt.grid(True)
-    plt.savefig("barplt.png")
-  #+end_src
 
-  #+RESULTS:
-  [[file:barplt.png]]
+  #+end_src
 
 - Let's do the same thing with the experiences:
   #+begin_src python
-    sorted_experiences = sorted(x, key=lambda item: item[1])
-    salaries,experiences = zip(*sorted_experiences)
-    print(experiences)
-  #+end_src
 
-  #+RESULTS:
-  : (0.7, 1.9, 2.5, 4.2, 6, 6.5, 7.5, 8.1, 8.7, 10)
+  #+end_src
 
 - Plot the bar graph:
   #+begin_src python :file barplt2.png :python python3 :session *Python* :results output graphics file :exports both
-    plt.clf() # clean graphics output
-    plt.figure(figsize=(8,4)) # width and height of figure in inches
-    plt.bar(x=range(len(experiences)),
-            height=experiences,
-            color='grey',
-            edgecolor='black')
-    plt.title('Experience sorted from lowest to highest')
-    plt.xlabel('User index (sorted)')
-    plt.ylabel('Years of experience')
-    plt.grid(True)
-    plt.savefig("barplt2.png")
+
   #+end_src
 
-  #+RESULTS:
-  [[file:barplt2.png]]
-
-
 ** TODO Checking paid accounts
-
 ** TODO Finding topics of interest
 
