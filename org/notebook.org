@@ -1428,14 +1428,18 @@ I take a look at them and prepare for the impact of your research.
   hours).
 - Who intends to take the (optional) final exam?
 
-** TODO Complete the extended Python example
+** TODO Complete the extended Python example (salaries and experience)
+#+attr_html: :width 400px:
+[[../img/end_of_python.png]]
 
-1. Plots for salary vs. experiences
-2. Paid accounts
-3. Topics of interest 
+Practice file: [[https://tinyurl.com/scratch-that-python-itch][tinyurl.com/scratch-that-python-itch]]
+
+1. Scatterplot
+2. Histogram and barplots
+3. Boxplots
+4. Back to =pandas=
 
 ** NEXT Data science on the command line (DataCamp + cvskit)
-
 
 * Week 16: Project presentations / 4th sprint review
 #+attr_html: :width 400px:

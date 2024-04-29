@@ -654,6 +654,7 @@ and "friendship" data in the form of a list of pairs of IDs.
 
 ** IN PROGRESS Exploring Salary Data
 
+*** Data
 - Run the code blocks above and check the environment with the Python
   equivalent of R's ~ls~, the =globals()= function: =print= its value as a
   list comprehension:
@@ -681,6 +682,8 @@ and "friendship" data in the form of a list of pairs of IDs.
     print(type(salaries_and_tenures[0]))  # tuple
   #+end_src
 
+*** Plot types
+  
 - Let's plot the data. What would be a good type of plot?
   #+begin_quote
   The data contain Salary by years of experience for different
@@ -714,6 +717,13 @@ and "friendship" data in the form of a list of pairs of IDs.
 
   #+end_src
 
+- Tip: If you cannot see the plot in the Org-mode file even though the
+  ~*Python*~ console shows no errors, the console working directory and
+  the file might be in different working directories. To check, use
+  ~os.getcwd()~, and to change working directory, use ~ox.chdir('/PATH').~
+
+*** Scatterplot  
+
 - That's all we need for the Scatterplot of salaries vs. tenures:
   #+begin_src python :file scatterplt.png :python python3 :session *Python* :results output graphics file :exports both
 
@@ -725,6 +735,8 @@ and "friendship" data in the form of a list of pairs of IDs.
 
   #+end_src
 
+*** Histogram
+
 - For the histogram that shows the distribution of salaries from the
   list of tuples, extract the salaries using a list comprehension:
   #+begin_src python
@@ -735,6 +747,8 @@ and "friendship" data in the form of a list of pairs of IDs.
   #+begin_src python :file histplt.png :python python3 :session *Python* :results output graphics file :exports both
 
   #+end_src
+
+*** Barplot
 
 - For the barplot that shows the salaries and/or experiences sorted in
   increasing order, you can use a =lambda= function inside =sorted=:
@@ -762,9 +776,55 @@ and "friendship" data in the form of a list of pairs of IDs.
 
   #+end_src
 
-** TODO Checking paid accounts
+*** Boxplot
+
+- For the boxplot, we are interested in the spread of each variable.
+
+- To deal with each variable independently, we split the data in two
+  lists using a list comprehension.
+  #+begin_src python 
+
+  #+end_src
+
+- To display both plots on one panel, we use =subplot=.  
+  #+begin_src python :file boxplt.png :session *Python* :results output graphics file :exports both
+    plt.clf()
+    # figure size in inches
+    plt.figure(figsize=(8,4))
+
+    # boxplot for salaries
+
+    # boxplot for experience
+
+    plt.savefig("boxplt.png")
+  #+end_src
+
+- By the way, the documentation for ~help(plt.boxplot)~ is quite useful
+  since it gives the necessary information to understand this plot!
+
+*** Statistical summary with =pandas=
+
+- To get statistical summary information, it is useful to rewrite the
+  data as a =pandas= DataFrame, which gives us the =describe= function:
+  #+begin_src python
+    # import pandas
 
 
+    # create DataFrame
 
-** TODO Finding topics of interest
+    # get DataFrame information: data, types, stats
+
+  #+end_src
+
+- Note, however, that when using =pandas= we're no longer doing things
+  "from scratch", which was our predicament for this extended example.
+
+- Lesson: it is useful to know more than one way to get to the
+  goal. In modern languages, there is usually more than one way - one
+  includes higher abstraction (e.g. 'DataFrame'), the other one
+  includes more coding (e.g. using comprehensions).
+
+- The lowest level of abstraction is memory management, which you
+  don't get with languages like R or Python, but only with C or
+  Assembler (it's useful to know both types of languages).
 
