@@ -1422,6 +1422,15 @@ I take a look at them and prepare for the impact of your research.
 
 
 
+** Complete the extended Python example
+
+1. Plots for salary vs. experiences
+2. Paid accounts
+3. Topics of interest
+
+** Data science on the command line (DataCamp + cvskit)
+
+
 * Week 16: Project presentations / 4th sprint review
 #+attr_html: :width 400px:
 [[../img/week_16.png]]
