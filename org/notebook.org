@@ -1420,15 +1420,21 @@ I take a look at them and prepare for the impact of your research.
 - It's still anonymous but I will be told that you filled it in!
 - Don't hold back - let me have it - I can (probably) take it!
 
+** TODO Final exam - No more tests
 
+- Test 1-6 covered 135 multiple choice questions, which is enough for
+  a challenging final exam
+- All questions will be sourced from test 1-6 - 40 questions in 2
+  hours).
+- Who intends to take the (optional) final exam?
 
-** Complete the extended Python example
+** TODO Complete the extended Python example
 
 1. Plots for salary vs. experiences
 2. Paid accounts
-3. Topics of interest
+3. Topics of interest 
 
-** Data science on the command line (DataCamp + cvskit)
+** NEXT Data science on the command line (DataCamp + cvskit)
 
 
 * Week 16: Project presentations / 4th sprint review
