@@ -818,6 +818,9 @@ and "friendship" data in the form of a list of pairs of IDs.
     plt.savefig("scatterplt2.png")
   #+end_src
 
+  #+RESULTS:
+  [[file:scatterplt2.png]]
+
 *** Histogram
 
 - For the histogram that shows the distribution of salaries from the
