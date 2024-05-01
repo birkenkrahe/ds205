@@ -1336,7 +1336,7 @@ To continue the coding from where you left off: ~M-x org-babel-execute-buffer~
 #+attr_html: :width 400px:
 [[../img/week_14.png]]
 
-** DONE How are your final projects going? A snapshot.
+** How are your final projects going? A snapshot.
 
 - Timothy (7): Webscraping in Python
 - Fowler (5): PyGame with examples
@@ -1412,7 +1412,7 @@ I take a look at them and prepare for the impact of your research.
 #+attr_html: :width 400px:
 [[../img/week_15.png]]
 
-** Take 5 minutes to fill in the course evaluation!
+** DONE Take 5 minutes to fill in the course evaluation!
 #+attr_html: :width 400px:
 [[../img/evaluation.png]]
 
@@ -1420,7 +1420,7 @@ I take a look at them and prepare for the impact of your research.
 - It's still anonymous but I will be told that you filled it in!
 - Don't hold back - let me have it - I can (probably) take it!
 
-** Final exam [Sunday 12-May 6-8 pm - online] - No more tests
+** DONE Final exam [Sunday 12-May 6-8 pm - online] - No more tests
 
 - Test 1-6 covered 135 multiple choice questions, which is enough for
   a challenging final exam
@@ -1432,7 +1432,7 @@ I take a look at them and prepare for the impact of your research.
 - The exam will be online & open book as the tests
 - All tests are repeateable before but will be closed before the exam.
 
-** Complete the extended Python example (salaries and experience)
+** DONE Complete the extended Python example (salaries and experience)
 #+attr_html: :width 400px:
 #+caption: Prompt: "create action figure diorama "The End of Python" - steampunk style"
 [[../img/end_of_python.png]]
@@ -1446,6 +1446,8 @@ Practice file: [[https://tinyurl.com/scratch-that-python-itch][tinyurl.com/scrat
 
 
 ** NEXT Data science on the command line (DataCamp + cvskit)
+
+
 
 * Week 16: Project presentations / 4th sprint review
 #+attr_html: :width 400px:
