@@ -1450,8 +1450,6 @@ Practice file: [[https://tinyurl.com/scratch-that-python-itch][tinyurl.com/scrat
 - Convert, preview, filter and manipulate files with =csvkit=
 - Operating databases from the commandline with =sql2csv=
 
-
-
 * Week 16: Project presentations / 4th sprint review
 #+attr_html: :width 400px:
 [[../img/week_16.png]]
