@@ -6,7 +6,7 @@
 #+PROPERTY: header-args:bash :exports both :results output
 #+PROPERTY: header-args:sh :exports both :results output
 * README
-#+attr_latex: :width 400px
+#+attr_latex: :width 600px
 #+caption: Photo: Super Hornet. Source: Flickr.com flic.kr/p/2nDe28b
 [[../img/11_hornet.jpg]]
 
@@ -23,6 +23,10 @@ Short introduction to doing data science on the command line:
 
 Open a fresh .org file to code along now.
 
+Or open DataCamp workspace or Google Colab:
+- download tinyurl.com/csvkit-ipynb
+- upload csvkit.ipynb to a workbook
+
 * Workflow: expectation vs. reality
 #+attr_html: :width 500px
 #+caption: Data science pipeline (Janssen, 2021)
@@ -33,15 +37,25 @@ This is essentially our well-known data science pipeline:
   data + code + stats = story
 #+end_example
 Command line example[fn:1]: what is data, code, stats and story?
-#+attr_html: :width 500px
+#+attr_html: :width 800px
 #+caption: Screenshot: Ubuntu (Windows WSL2) ps -ax --forest command
 [[../img/11_psaxforest.png]]
 #+begin_quote
 - Data: ~PID~, ~TTY~, ~TIME~, ~COMMAND~
-- Code: ~ps -ax --forest~
+- Code: ~ps -a --forest~ 
 - Stats: snapshot of currently active CPU processes
 - Story: tell me what you're busy with including dependencies!
 #+end_quote
+#+begin_src bash :results output
+  ps -x --forest | grep cinnamon  # Linux Mint 'cinnamon' is my OSx
+#+end_src
+
+#+RESULTS:
+:    1372 ?        Ssl    0:00 cinnamon-session --session cinnamon
+:    1900 ?        Sl     0:00  \_ cinnamon-launcher
+:    1904 ?        Sl     4:50  |   \_ cinnamon --replace
+:    1972 ?        Sl     0:00  \_ cinnamon-killer-daemon
+:   13298 ?        S      0:00  |               \_ grep cinnamon
 
 * What is the command line?
 
@@ -58,16 +72,18 @@ Command line example[fn:1]: what is data, code, stats and story?
   + Terminal
   + tty
   #+begin_quote
-  | TERM      | MEANING                      |
-  |-----------+------------------------------|
-  | Shell     | Program interface to the OS  |
-  | ~bash~ etc. | Shell scripting languages    |
-  | eshell    | Emacs bash emulator          |
-  | CMD line  | Windows term for the shell   |
-  | Terminal  | MacOS term for the shell     |
-  | tty       | Tele-type/session management |
+  | TERM      | MEANING                      | ALIAS                        |
+  |-----------+------------------------------+------------------------------|
+  | Shell     | Program interface to the OS  | Command Line Interface (CLI) |
+  | ~bash~ etc. | Shell scripting languages    |                              |
+  | eshell    | Emacs bash emulator          | With some Unix commands      |
+  | CMD line  | Windows term for the shell   |                              |
+  | Terminal  | MacOS term for the shell     |                              |
+  | tty       | Tele-type/session management | Tele-TYpe terminal           |
   #+end_quote
-
+#+attr_html: :width 600px:
+[[../img/teletype.png]]
+  
 * Things to do on the command line
 #+attr_html: :width 500px
 #+caption: Things to do on the command line (Source: Janssens, 2021)
@@ -81,11 +97,20 @@ Command line example[fn:1]: what is data, code, stats and story?
 - The command line is bigger than the shell:
   | CMD LINE TOOL      | EXAMPLE         |
   |--------------------+-----------------|
-  | Binary executable  | ~bash --help~     |
-  | Shell builtin      | ~cd .~            |
+  | Binary executable  | ~man bash~        |
+  | Shell builtin      | ~cd --help~       |
   | Interpreted script | ~hello.sh~        |
-  | Shell function     | ~pwd~, ~date~, ~echo~   |
+  | Shell function     | ~pwd~, ~date~, ~echo~ |
   | Alias              | ~alias~           |
+
+#+begin_src bash
+  # bash --help
+  # type -a cd
+  # cd --help
+  # echo $(date)
+  # date
+  # alias (CLI only)
+#+end_src
 
 * Why use the command line for data science
 #+attr_html: :width 500px
@@ -120,7 +145,7 @@ Command line example[fn:1]: what is data, code, stats and story?
 All of these are especially valuable in an exploratory environment
 with highly distributed, unstructured, or "dirty" data sources.
 
-* How to get a commandline for data science
+* VERIFY How to get a commandline for data science
 #+attr_html: :width 500px
 [[../img/11_workspace.png]]
 
@@ -151,7 +176,10 @@ shell.
    - ~bash~ terminal (~echo $SHELL~) which is where we will work!
 9. Once created, the workspace is available any time with the link
 
-* Your turn! Create your own commandline workspace
+* VERIFY Your turn! Create your own commandline workspace
+
+- Update: no more Jupyter Lab as of 2024 on DataCamp.
+- You can download Jupyter Lab yourself from jupyter.org
 
 *How to do it:*
 1) Go to ~workspace.datacamp.com~
@@ -176,41 +204,31 @@ shell.
 
 More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Started-with-DataCamp-Workspace][Getting Started with DataCamp Workspace]] (DataCamp 2023)
 
-* Workspace picture gallery
+* VERIFY Workspace picture gallery
 
 - Create new empty workspace
-  #+attr_latex: :width 400px
+  #+attr_latex: :width 600px
   #+caption: workspace creation
   [[../img/workspace1.png]]
 - Run R command in Jupyter notebook cell
-  #+attr_latex: :width 400px
+  #+attr_latex: :width 600px
   #+caption: Running an R command in a Jupyter Notebook cell
   [[../img/workspace2.png]]
 - Run shell built-in function in the shell (REPL)
-  #+attr_latex: :width 400px
+  #+attr_latex: :width 600px
   #+caption: Running a shell built-in function in the shell (REPL)
   [[../img/workspace3.png]]
 - Running R code in the R console
-  #+attr_latex: :width 400px
+  #+attr_latex: :width 600px
   #+caption: Running R code in the R console
   [[../img/workspace4.png]]
 - Running R code as a batch job
-  #+attr_latex: :width 400px
+  #+attr_latex: :width 600px
   #+caption: Output from running R code as a batch job
   [[../img/workspace5.png]]
 
 * Alternative command line installations
 
-*Victor says...*
-- That you (with your student accounts) can just install the Windows
-  Subsystem for Linux (WSL) from the Microsoft Store without admin
-  rights.
-- Please try it! Now!
-- We're still going to use DataCamp workspaces (because it's a
-  development environment rather than just a shel) but it's good to
-  know that Linux is in reach!
-
-*Alternatives:*
 - Install a Docker container as described [[https://github.com/birkenkrahe/org/blob/master/FAQ.org#how-to-set-up-a-docker-container-for-command-line-work][in this FAQ]] - there is also
   a short explanation what a "docker container" is [[https://github.com/birkenkrahe/org/blob/master/FAQ.org#what-is-a-docker-container][in the FAQ]].
 - Install the Ubuntu app using Windows Subsystem Linux (WSL) as
@@ -245,11 +263,12 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
 - The utilities attain full power only when used as part of a command
   pipeline, e.g. in the following codeblock:
   1) list files in ~$PWD~ in long format, time-ordered with ~ls~
-  2) in the list, search for the pattern 'text' with ~grep~
+  2) in the list, search for a pattern, e.g. 'png' with ~grep~
   3) save the result of the search to a file ~files.txt~ with ~tee~
   4) count the characters of the search result with ~wc~
   #+begin_src sh
-    ls -lt $PWD | grep text | tee files.txt | wc -c 
+    echo $PWD
+        ls -lt $PWD | grep png | tee files.txt | wc -l
     cat 'files.txt'
   #+end_src
 
@@ -331,7 +350,7 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
 
 - Information on any shell utility is on its [[https://man7.org/linux/man-pages/man1/curl.1.html][manual page]] - on Linux,
   you can find these inside Emacs, too (~M-x man~).
-  #+attr_latex: :width 400px
+  #+attr_latex: :width 600px
   #+caption: curl(7) man page
   [[../img/11_man_curl.png]]
 
@@ -396,7 +415,7 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
   e.g. I can put Emacs in the background (~C-z~) then check that the
   process is running (~ps -ax~) and bring it back into the foreground
   with ~fg~ - the image show this on a Linux shell:
-  #+attr_latex: :width 400px
+  #+attr_latex: :width 600px
   #+caption: Emacs in the background
   [[../img/11_background.png]]
 
@@ -441,7 +460,7 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
   10) show what you did with ~history~ and redo ~l~ with ~![id]~
 
 - Whole exercise input with ~history~:   
-  #+attr_latex: :width 400px
+  #+attr_latex: :width 600px
   [[../img/11_exercise.png]]
 
 * ~curl~ vs ~wget~
@@ -453,7 +472,7 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
 | easy to install across OS | handles multiple file formats |
 
 * Summary
-#+attr_latex: :width 400px
+#+attr_latex: :width 600px
 [[../img/certificate.png]]
 
 - The command line (aka 'shell') is a programming and file management
@@ -495,21 +514,23 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
 
 - Ballesteros (2006). Introduction to Operating Systems Abstractions:
   Using Plan 9 from Bell Labs (PDF). URL: [[http://doc.cat-v.org/plan_9/9.intro.pdf][doc.cat-v.org]].
+
 - Gallant (2021). xsv. URL: [[https://github.com/BurntSushi/xsv][github.com]].
+
 - Janssens (2021). Data science at the command line (2e). O'Reilly.
 
 * Footnotes
-
-[fn:3]If these commands work on the shell in Emacs or in ~sh~ code
-blocks depends on the availability of the utilities on your PC and on
-your ~PATH~ environment variable settings. Alternatively you can install
-Ubuntu Linux as a Windows Linux Subsystem from the Microsoft store.
-
-[fn:2]replit.com is a platform with multiple languages set up as
-REPLs. Python (~M-x run-python~), R (~M-x R~) and SQLite (~M-x sql-sqlite~)
-can be run interactively.
 
 [fn:1]Here, ~plan9~ is the weirdest kid on the block: Plan 9 is file
 server also known as the 9P protocol file server. It allows Windows to
 access the files contained within WSL2. The name comes from a
 distributed OS called Plan 9 (see Ballesteros, 2006).
+
+[fn:2]replit.com is a platform with multiple languages set up as
+REPLs. Python (~M-x run-python~), R (~M-x R~) and SQLite (~M-x sql-sqlite~)
+can be run interactively.
+
+[fn:3]If these commands work on the shell in Emacs or in ~sh~ code
+blocks depends on the availability of the utilities on your PC and on
+your ~PATH~ environment variable settings. Alternatively you can install
+Ubuntu Linux as a Windows Linux Subsystem from the Microsoft store.

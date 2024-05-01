@@ -15,6 +15,10 @@
 - Based on ~csvkit~ tutorial (different dataset)
 - See also: Data Science at the Command Line ([[https://jeroenjanssens.com/dsatcl/][Janssens, 2021]]).
 
+This file is also available as a Jupyter notebook (csvkit.ipynb):
+- download it from GitHub here: tinyurl.com/csvkit-ipynb
+- upload it to your Jupyter workspace (DataLab, or Google Colab)
+
 * ~csvkit~ (Python)
 
 - This demo is only interactive if you have access to a Linux
