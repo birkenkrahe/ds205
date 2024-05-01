@@ -251,6 +251,9 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
 - The following sections on ~curl~ and ~wget~ is based on the first
   chapter of the DataCamp course "Data processing in shell".
 
+- To run these without access to a Linux box, open
+  datacamp.com/datalab, and then open a terminal in the =Run= tab.
+
 - Both commands obey the same Unix-type format:
   #+begin_example sh
     [command] [options/flags] [targets]
@@ -268,7 +271,7 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
   4) count the characters of the search result with ~wc~
   #+begin_src sh
     echo $PWD
-        ls -lt $PWD | grep png | tee files.txt | wc -l
+    ls -lt $PWD | grep png | tee files.txt | wc -l
     cat 'files.txt'
   #+end_src
 
@@ -297,6 +300,7 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
   #+begin_example sh
     which curl
   #+end_example
+  On Windows:
   #+begin_example sh
     c:/Windows/system32/curl.exe
   #+end_example
@@ -415,7 +419,7 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
   e.g. I can put Emacs in the background (~C-z~) then check that the
   process is running (~ps -ax~) and bring it back into the foreground
   with ~fg~ - the image show this on a Linux shell:
-  #+attr_latex: :width 600px
+  #+attr_latex: :width 300px
   #+caption: Emacs in the background
   [[../img/11_background.png]]
 
