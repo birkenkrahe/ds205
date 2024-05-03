@@ -50,10 +50,31 @@ This file is also available as a Jupyter notebook (csvkit.ipynb):
     ls -l /usr/bin/*csv*
   #+end_src
 
+  #+RESULTS:
+  : -rwxr-xr-x 1 root root 39896 Jan 10  2022 /usr/bin/xls2csv
+
 - In DataCamp, your installs are stored in ~$HOME/.local/bin/~:
-  #+begin_example sh
-    l -t $HOME/.local/bin/*csv*
-  #+end_example  
+  #+begin_src bash
+    ls -t $HOME/.local/bin/*csv*
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  /home/marcus/.local/bin/csvclean
+  /home/marcus/.local/bin/csvcut
+  /home/marcus/.local/bin/csvformat
+  /home/marcus/.local/bin/csvgrep
+  /home/marcus/.local/bin/csvjoin
+  /home/marcus/.local/bin/csvjson
+  /home/marcus/.local/bin/csvlook
+  /home/marcus/.local/bin/csvpy
+  /home/marcus/.local/bin/csvsort
+  /home/marcus/.local/bin/csvsql
+  /home/marcus/.local/bin/csvstack
+  /home/marcus/.local/bin/csvstat
+  /home/marcus/.local/bin/in2csv
+  /home/marcus/.local/bin/sql2csv
+  #+end_example
   
 - If ~pip~ is missing, you can install it (shown for Debian-Linux):
   #+begin_example sh
@@ -126,28 +147,48 @@ This file is also available as a Jupyter notebook (csvkit.ipynb):
 2) Change into it with ~cd~ 
 
 3) Check where you are with ~pwd~
-   #+begin_example sh
+   #+begin_src sh :results output
      mkdir -v csvkit
      cd csvkit
      pwd
-   #+end_example
+   #+end_src
+
+   #+RESULTS:
+   : mkdir: created directory 'csvkit'
+   : /home/marcus/GitHub/ds205/org/csvkit
 
 4) To save you from having to type long file names, I have put all
    URLs in a shell script that you can download with ~curl~: I will post
    the URL in the Zoom chat!
-   #+begin_example sh
+   #+begin_src sh
      curl -o url.sh "https://gist.githubusercontent.com/birkenkrahe/586db7e2ac26b09daa86769cca87002f/raw/54561f4c06f11157fed798d544901870e2137035/url.sh"
-   #+end_example
+   #+end_src
+
+   #+RESULTS:
 
 5) Do the following on your own:
-   1) view the downloaded file with ~cat~
-   2) source the file with ~.~
-   3) check that the URLs are available with ~echo~
-   #+begin_example sh
+   1) /view/ the downloaded file with ~cat~
+   2) /source/ the file with ~.~
+   3) /check/ that the URLs are available with ~echo~
+   #+begin_src sh :results output
      cat url.sh
+   #+end_src
+
+   #+RESULTS:
+   : #!/usr/bin/bash
+   : spotifyzip='https://assets.datacamp.com/production/repositories/4180/datasets/eb1d6a36fa3039e4e00064797e1a1600d267b135/201812SpotifyData.zip'
+   : coffee='https://github.com/birkenkrahe/ds2/blob/main/data/coffee.xlsx'
+   : spotify='https://github.com/birkenkrahe/ds2/blob/main/data/Spotify_data.xlsx?raw=true'
+
+   Sourcing and checking:
+   #+begin_src bash :results output
      . ./url.sh
-     echo $spotify && echo $coffee
-   #+end_example
+     echo $spotify && echo $coffee     
+   #+end_src
+
+   #+RESULTS:
+   : https://github.com/birkenkrahe/ds2/blob/main/data/Spotify_data.xlsx?raw=true
+   : https://github.com/birkenkrahe/ds2/blob/main/data/coffee.xlsx
 
 6) Now download the corresponding files with ~curl~:
    #+begin_example sh
