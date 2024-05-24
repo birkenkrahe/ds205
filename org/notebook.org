@@ -1454,4 +1454,17 @@ Practice file: [[https://tinyurl.com/scratch-that-python-itch][tinyurl.com/scrat
 #+attr_html: :width 400px:
 [[../img/week_16.png]]
 
+* Post-mortem (May 23)
 
+In the evaluations (thank you!) someone said "[The professor] hates
+Windows". That's not true. I just hate having to use it (ever), and in
+my mind, it's linked to Dante's Inferno - you can see it at the center
+of [[https://en.wikipedia.org/wiki/Divine_Comedy_Illustrated_by_Botticelli#/media/File:Illustration_for_Dante's_Inferno_by_Sandro_Botticelli_1481.jpg][this image by Baldini after Botticelli]], ca. 1481 (public
+domain). It's ugly, it's pathetic, it stinks - but I don't hate
+it. Also: with the new"Total Recall" feature of the new Windows, I
+think a few more people are going to wake up to the truth. Will they
+change their ways? Probably not but hope dies last :-) But let's focus
+on the positive: summer! Hence here is another image - a Norwegian
+Fjord painting to cool down (by Adelsteen Normann, 1870).
+#+attr_html: :width 400px:
+[[../img/fjord.png]]
